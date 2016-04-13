@@ -1,0 +1,54 @@
+.main-content{
+    margin-top: 15%;
+}
+
+.login-form-wrapper {
+    background: snow;
+    opacity: 0.90;
+    padding: 3rem 3rem 3rem 3rem;
+    border-radius: 1rem;
+}
+
+body {
+    background :url(http://g-ec2.images-amazon.com/images/G/01/omaha/images/WelcomePage/af_welcomebackground._V288790855_.jpg);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#nav
+{
+    color: #fff;
+    height: 45px;
+    min-width: 1015px;
+    margin: 0px;
+    padding: 0px;
+    background-image: url(https://images-na.ssl-images-amazon.com/images/G/01/omaha/images/ui/taskbar-bg.png);
+    border: 0px solid #ccc;
+    border-bottom-width: 0px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 100;
+}
+#logo {
+    list-style-type: none;
+    margin-top: 1px;
+    margin-left: 10px;
+}
+
+.sign-in-button-wrapper{
+    width: 100%;
+    text-align: center;
+}
+
+.sign-in-button {
+    width: 95%;
+    margin-top: 1rem;
+}
+
+.sign-up-prompt-span {
+    font-weight: normal;!important;
+    font-size: small;
+}
