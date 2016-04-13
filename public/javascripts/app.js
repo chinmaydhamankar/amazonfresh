@@ -7,10 +7,9 @@ define(['angularAMD', 'angular-route'], function (angularAMD) {
 	app.config(function ($routeProvider) {
 		$routeProvider
 			.when("/index", angularAMD.route({
-				templateUrl: '/partials/login.html', controller: 'MainControl', controllerUrl: './controllers/MainControl'
+				templateUrl: '/partials/login.html', controller: 'AuthController', controllerUrl: './controllers/AuthController'
 			}))
 			.otherwise({redirectTo: "/index"});
 	});
-
 	return angularAMD.bootstrap(app);
 });
