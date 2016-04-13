@@ -3,9 +3,13 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script data-main="/javascripts/main.js" src="/javascripts/vendor/require-2.2.0.js"></script>
   </head>
-  <body>
+  <body ng-app="amazonfresh">
+  <div ng-view>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+      <p>{{message}}</p>
+  </div>
   </body>
 </html>
