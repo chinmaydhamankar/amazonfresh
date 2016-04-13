@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-.idea/
-=======
 .idea
->>>>>>> a4e73cd3544bf46671c9fd8037cd9c66c809ab89
 
 .idea/jsLibraryMappings.xml
 
@@ -11,3 +7,11 @@
 .idea/jsLibraryMappings.xml
 
 .idea/runConfigurations/bin_www.xml
+
+.idea/encodings.xml
+
+.idea/jsLibraryMappings.xml
+
+.idea/runConfigurations/bin_www.xml
+
+.idea/workspace.xml
