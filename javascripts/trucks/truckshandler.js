@@ -76,7 +76,8 @@ _sanitizeInfo = function (info) {
 _validateInfo = function (info) {
 	var deferred = Q.defer();
 	var promise = Utilities.validateEmail(info.email);
-	promise.done(function () {
+	var promise1 = Utilities.validateSSN(info.ssn);
+	Q.all(promise, promise1).done(function () {
 		if( Utilities.isEmpty(info.ssn)		 	||
 			Utilities.isEmpty(info.firstName) 	||
 			Utilities.isEmpty(info.lastName) 	||
@@ -90,7 +91,14 @@ _validateInfo = function (info) {
 		{
 			deferred.reject("All values must be provided! ");
 		} else {
-			deferred.resolve();
+			if(!Utilities.validateState(info.state)) {
+				deferred.reject("Invalid state!");
+			} else
+			if(!Utilities.validateZipCode(info.zipCode)) {
+				deferred.reject("Invalid zip code!");
+			} else {
+				deferred.resolve();
+			}
 		}
 	}, function (error) {
 		deferred.reject(error);

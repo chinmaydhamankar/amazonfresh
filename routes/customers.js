@@ -1,11 +1,11 @@
 /**
  * Created by Chinmay on 13-04-2016.
  */
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
-router.get('/homepage', function(req, res) {
-    res.render('home', { title: 'Welcome | AmazonFresh' });
+router.get("/home", function(req, res) {
+    res.render("home", { title: "Welcome | AmazonFresh" });
 });
 
 module.exports = router;
