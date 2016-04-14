@@ -4,12 +4,13 @@
 define(['angularAMD', 'angular-route'], function (angularAMD) {
 	var app = angular.module("amazonfresh", ['ngRoute']);
 
-	app.config(function ($routeProvider) {
+	app.config(function ($routeProvider, $locationProvider) {
 		$routeProvider
 			.when("/index", angularAMD.route({
 				templateUrl: '/partials/login.html', controller: 'AuthController', controllerUrl: './controllers/AuthController'
 			}))
 			.otherwise({redirectTo: "/index"});
+		$locationProvider.html5Mode(true);
 	});
 	return angularAMD.bootstrap(app);
 });
