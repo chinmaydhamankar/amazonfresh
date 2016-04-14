@@ -3,7 +3,7 @@ var PasswordManager = require("./passwordmanager");
 var Q = require("q");
 
 /**
- * let's the user log in into the system.
+ * lets the user log in into the system.
  * @param emailID
  * @param password
  */
