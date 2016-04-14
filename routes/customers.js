@@ -4,7 +4,7 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/homepage', function(req, res, next) {
+router.get('/homepage', function(req, res) {
     res.render('home', { title: 'Welcome | AmazonFresh' });
 });
 
