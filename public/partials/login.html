@@ -4,14 +4,14 @@
             <form>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Email" required>
+                    <input type="email" ng-model="email" class="form-control" id="email" placeholder="Email" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Password" required>
+                    <input type="password" ng-model="password" class="form-control" id="password" placeholder="Password" required>
                 </div>
                 <div class="form-group sign-in-button-wrapper">
-                    <button type="submit" class="btn btn-success sign-in-button">Sign In</button>
+                    <button type="submit" ng-click="login()" class="btn btn-success sign-in-button">Sign In</button>
                 </div>
             </form>
             <span class="sign-up-prompt-span">

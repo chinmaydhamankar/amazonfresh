@@ -2,15 +2,24 @@
 <html>
   <head>
     <title><%= title %></title>
-        <script data-main="/javascripts/main.js" src="/javascripts/vendor/require-2.2.0.js"></script>
-        <link rel='stylesheet' href='/stylesheets/style.css' />
-        <link rel="shortcut icon" href="https://cdn1.iconfinder.com/data/icons/smallicons-logotypes/32/amazon-16.png" />
-        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2016.1.412/styles/kendo.common.min.css"/>
-        <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2016.1.412/styles/kendo.rtl.min.css"/>
-        <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2016.1.412/styles/kendo.silver.min.css"/>
-        <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2016.1.412/styles/kendo.mobile.all.min.css"/>
-        <script src="http://kendo.cdn.telerik.com/2016.1.412/js/kendo.all.min.js"></script>
+        <!--Scripts-->
+        <script src="/javascripts/vendor/angular-1.5.3.js"></script>
+        <script src="/javascripts/vendor/angular-route.js"></script>
+        <script src="/javascripts/app.js"></script>
+        <script src="/javascripts/services/AuthService.js"></script>
+        <script src="/javascripts/controllers/AuthController.js"></script>
+        <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+        <!--<script data-main="/javascripts/main.js" src="/javascripts/vendor/require-2.2.0.js"></script>-->
+
+      <!-- Stylesheets -->
+      <link rel='stylesheet' href='/stylesheets/style.css' />
+      <link rel="shortcut icon" href="https://cdn1.iconfinder.com/data/icons/smallicons-logotypes/32/amazon-16.png" />
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"/>
+      <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2016.1.412/styles/kendo.common.min.css"/>
+      <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2016.1.412/styles/kendo.rtl.min.css"/>
+      <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2016.1.412/styles/kendo.silver.min.css"/>
+      <link rel="stylesheet" href="http://kendo.cdn.telerik.com/2016.1.412/styles/kendo.mobile.all.min.css"/>
+      <script src="http://kendo.cdn.telerik.com/2016.1.412/js/kendo.all.min.js"></script>
       <base href="/">
   </head>
   <body ng-app="amazonfresh">

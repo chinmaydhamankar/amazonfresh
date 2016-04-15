@@ -1,5 +1,5 @@
 /**
- * Created by pratiksanglikar on 12/04/16.
+ * Created by pratiksanglikar on 14/04/16.
  */
 require.config({
 	baseUrl: "javascripts",

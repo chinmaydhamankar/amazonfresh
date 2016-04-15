@@ -16,7 +16,6 @@ exports.signup = function (info) {
 	var deferred = Q.defer();
 	var promise = _validateInfo(info);
 	promise.done(function () {
-		console.log(info.password);
 		info = _sanitizeInfo(info);
 		var cursor = MongoDB.collection("users").insert(info);
 		cursor.then(function (user) {
