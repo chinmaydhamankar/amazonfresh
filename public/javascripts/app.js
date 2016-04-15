@@ -10,8 +10,10 @@ app.config(function ($routeProvider, $locationProvider) {
 		controller: "AuthController"
 	}).when("/customers/signup", {
 		templateUrl: "partials/customers/signup.html",
-		controller: "CustomerController"
-	}).otherwise({redirectTo: "/index"});
+		controller: "CustomersController"
+	}).otherwise({
+		redirectTo: "/index"
+	});
 
 	$locationProvider.html5Mode(true);
 });
