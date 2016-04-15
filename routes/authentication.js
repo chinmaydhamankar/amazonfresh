@@ -1,52 +1,29 @@
 /**
  * Created by pratiksanglikar on 13/04/16.
  */
-/**
- * Created by pratiksanglikar on 06/03/16.
- */
+
 var express = require('express');
 var router = express.Router();
-
+var Auth = require("../javascripts/authentication/authentication");
 /**
  * returns the login page
  */
-router.get('/login', function(req, res, next) {
-	res.render('./authentication/login', { title : "Login" });
+router.get('/login', function(req, res) {
+	res.render('./index', { title : "Login" });
 });
 
 /**
  * Authenticates the user with given username and password
  */
 router.post('/login', function(req, res) {
-	/*var twitterHandle = req.body.twitterHandle.trim().replace('@','');
-	var payload = {
-		"type": "login",
-		"twitterHandle" : twitterHandle,
-		"password" : req.body.password
-	};
-
-	var userPromise = rabbitMQClient.request('auth_queue', payload);
-	userPromise.done( function( response ) {
-		if(response.statusCode === 200) {
-			req.session.user = response.response;
-			req.user = response.response;
-			res.send({
-				"success": true,
-				"response" : response.response
-			});
-		} else {
-			res.send({
-				"success": false,
-				"error" : response.response
-			});
-		}
-	}, function( error ) {
-		var finalError = error || "User not found";
-		res.send({
-			"success": false,
-			"error" : finalError
-		});
-	});*/
+	var email = req.body.email;
+	var password = req.body.password;
+	var promise = Auth.login(email, password);
+	promise.done(function (result) {
+		res.send(result);
+	}, function (errorObject) {
+		res.status(errorObject.statusCode).send(errorObject.error);
+	});
 });
 
 /**
@@ -65,11 +42,13 @@ router.get('/logout', function(req, res) {
  * @param next
  */
 router.requireLogin  = function(req, res, next) {
-	if (!req.user) {
+	//TODO temporarily commenting till login functionality is implemented.
+	/*if (!req.user) {
 		res.redirect('/auth/login');
 	} else {
 		next();
-	}
+	}*/
+	next();
 };
 
 module.exports = router;

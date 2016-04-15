@@ -3,5 +3,8 @@
  */
 define(['app'], function (app) {
 	app.controller('AuthController', function ($scope) {
+		$scope.login = function () {
+			
+		}
 	});
 });

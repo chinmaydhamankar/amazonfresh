@@ -1,12 +1,56 @@
 /**
  * Created by pratiksanglikar on 12/04/16.
  */
-var express = require('express');
+var express = require("express");
+var Auth = require("./authentication");
 var router = express.Router();
+var TruckHandler = require("../javascripts/trucks/truckshandler");
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-	res.render('trucks', { title: 'Trucks' });
+/**
+ * function that shows the home page for the truck driver.
+ */
+router.get("/home", Auth.requireLogin, function(req, res) {
+	res.render("trucks", { title: "Trucks" });
+});
+
+/**
+ * function to register a truck driver into the system.
+ */
+router.post("/", Auth.requireLogin, function (req, res) {
+	var promise = TruckHandler.signup(req.body.info);
+	promise.done(function () {
+		res.send({
+			success: true,
+			error: null,
+			data: "Truck registered successfully!"
+		});
+	}, function (error) {
+		res.status(500)
+		.send({
+			success: false,
+			error: error,
+			data: null
+		});
+	});
+});
+
+/**
+ * function to delete a truck driver from the system.
+ */
+router.delete("/:ssn", function (req, res) {
+	var ssn = req.params.ssn;
+	var promise = TruckHandler.delete(ssn);
+	promise.done(function () {
+		res.status(204)
+		.send();
+	}, function (error) {
+		res.status(500)
+		.send({
+			success: false,
+			error: error,
+			data: null
+		});
+	});
 });
 
 module.exports = router;
