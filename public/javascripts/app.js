@@ -2,7 +2,7 @@
  * Created by pratiksanglikar on 12/04/16.
  */
 
-var app = angular.module("amazonfresh", ["ngRoute"]);
+var app = angular.module("amazonfresh", ["ngRoute","kendo.directives"]);
 
 app.config(function ($routeProvider, $locationProvider) {
 	$routeProvider.when("/index", {
@@ -10,8 +10,11 @@ app.config(function ($routeProvider, $locationProvider) {
 		controller: "AuthController"
 	}).when("/customers/signup", {
 		templateUrl: "partials/customers/signup.html",
-		controller: "CustomerController"
+		controller: "CustomersController"
 	}).otherwise({redirectTo: "/index"});
 
 	$locationProvider.html5Mode(true);
+});
+
+app.controller("MyCtrl", function($scope){
 });

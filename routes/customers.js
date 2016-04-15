@@ -8,8 +8,8 @@ router.get("/home", function(req, res) {
     res.render("home", { title: "Welcome | AmazonFresh" });
 });
 
-router.get("signup", function(req, res) {
-    res.render("signup", { title: "Welcome | AmazonFresh" });
+router.get("/signup", function(req, res) {
+    res.render("customers/signup", { title: "Create an Account | AmazonFresh" });
 });
 
 

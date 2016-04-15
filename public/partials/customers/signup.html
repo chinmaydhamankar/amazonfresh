@@ -1,7 +1,97 @@
-<div id = "content" class = "container">
+<div id = "content" class = "container" ng-controller="CustomersController">
     <div id = "registration" class = "area">
         <h1 style="font-size: 2.5rem">Create New Account</h1>
-        <form>
+        <div class="demo-section k-content">
+            <div ng-controller="MyCtrl">
+                <form>
+                    <div kendo-tab-strip k-content-urls="[ null, null]">
+                        <ul>
+                            <li class="k-state-active">Personal Information</li>
+                            <li>Genreal Information</li>
+                            <li>Credit Card Information</li>
+                        </ul>
+                        <div>
+                            <span class="form-group">
+                                <input type="text" name="firstName" k-ng-model="firstName" class="form-control" placeholder="First Name"
+                            title="First Name" /><br><br>
+                            </span>
+                            <span class="form-group">
+                                <input type="text" name="lastName" k-ng-model="lastName" class="form-control" placeholder="Last Name"
+                                       title="Last Name" /><br><br>
+                            </span>
+                            <span class="form-group">
+                                 <input type="email" name="email" k-ng-model="email" class="form-control" placeholder="E-mail Address"
+                                  title="E-mail Address" /><br><br>
+                            </span>
+                              <span class="form-group">
+                                 <input type="password" name="password" id = "password" k-ng-model="password" placeholder="Password"
+                                  class="form-control" title="Password" required />
+                                <span id="password-strength-text"></span>
+                                <meter max="4" id="password-strength-meter"></meter><br><br>
+                              </span>
+                            <span class="form-group">
+                             <input type="password" name="verifyPassword" id = "verifyPassword" k-ng-model="verifyPassword" placeholder="Verify Password"
+                                 class="form-control" title="Verify Password" onchange="checkPasswordMatch();" />
+                             <span id = "marker"></span><br><br>
+                            </span>
+                         </div>
+
+                        <div>
+                           <span class="form-group">
+                                 <textarea name="address" k-ng-model="address" class="form-control" placeholder="Enter Address"
+                                        title="Enter Address" ></textarea><br><br>
+                            </span>
+                            <span class="form-group">
+                                <select kendo-drop-down-list  style="width: 28rem;"  placeholder='State'>
+                                    <option>Azerbaijan</option>
+                                    <option>Belarus</option>
+                                </select>
+                            </span>
+                            <br><br>
+                            <span class="form-group">
+                                 <input type="text" name="city" k-ng-model="city" class="form-control" placeholder="City"
+                                        title="Enter City" />
+                            </span><br><br>
+                            <span class="form-group">
+                                 <input type="text" name="zipcode" k-ng-model="zipcode" class="form-control" placeholder="ZipCode"
+                                        title="Enter zipcode" />
+                            </span><br><br>
+                            <span class="form-group">
+                                 <input type="number" name="phone" k-ng-model="phone" class="form-control" placeholder="Phone Number"
+                                        title="Enter Phone Number" />
+                            </span><br><br>
+                             <span class="form-group">
+                                     <input type="text" name="ssn" k-ng-model="ssn" class="form-control" placeholder="Social Security Number"
+                                        title="Enter Social Security Number" />
+                            </span><br><br>
+                        </div>
+
+                        <div>
+                            <span class="form-group">
+                                 <input type="text" name="cardName" k-ng-model="cardName" class="form-control"
+                                        placeholder="Credit Card Name" title="Enter Phone Number" />
+                            </span><br><br>
+                            <span class="form-group">
+                                 <input id="cardNumber" type="text" name="cardNumber" k-ng-model="cardNumber"
+                                        class="form-control"  placeholder="Credit Card Number" title="Enter Card Number" />
+                            </span><br><br>
+                             <span class="form-group">
+                                 <input id="expiry" type="text" name="expiry" k-ng-model="expiry"
+                                        class="form-control"  placeholder="MM/YY" title="Enter Expiry Details"/>
+                            </span><br><br>
+                            <span class="form-group">
+                                 <input id="cvc" type="text" name="cvc" k-ng-model="cvc"
+                                        class="form-control"  placeholder="CVC" title="Enter CVC Details"/>
+                            </span><br><br>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+       <!-- <form>
             <span class="form-group">
                  <input type="text" name="userName" ng-model="name" class="form-control" placeholder="Your Name"
                         title="Your Name" /><br><br>
@@ -31,6 +121,6 @@
                 <button type="submit"  class="button btn btn-primary">Continue</button>
             </span>
 
-        </form>
+        </form>-->
     </div>
 </div>
