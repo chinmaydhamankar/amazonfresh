@@ -52,3 +52,91 @@ body {
     font-weight: normal;!important;
     font-size: small;
 }
+h1{
+    font-size: 24px !important;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
+    font-weight: normal !important;
+    margin-top: -1rem !important;
+}
+
+.button{
+    background-color: #b7b7b7 !important;
+    border-radius: 1rem;
+    -moz-border-radius: 5px;
+    border-style: none;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    padding: 4px 25px 5px !important;
+    text-align: center !important;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
+    height: 3rem !important;
+    width: 114.047px;
+}
+.area{
+    background-image: url(https://images-na.ssl-images-amazon.com/images/G/01/omaha/images/categorypages/gradcx/seamless-white-line-unit-2._V383736962_.png);
+    border-radius: 1rem;
+    -moz-border-radius: 5rem;
+    box-shadow: 0px 1px 5px rgba(50, 50, 50, 0.5);
+    -webkit-box-shadow: 0px 1px 100px rgba(50, 50, 50, 0.5);
+    -moz-box-shadow: 0px 1px 5px rgba(50, 50, 50, 0.5);
+    display: inline-block;
+    margin-left: -2rem;
+    margin-right: auto;
+    margin-bottom: 1rem !important;
+    padding: 5rem;
+    padding-bottom: 50rem;
+    text-align: left;
+    width: 80rem;
+    margin-top:-10rem;
+    height: 1rem !important;
+    padding-bottom: 45rem;
+}
+.form-control{
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    -webkit-appearance: textfield;
+    background-color: white;
+    -webkit-rtl-ordering: logical;
+    -webkit-user-select: text;
+    cursor: auto;
+    text-rendering: auto;
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    margin: 0em 0em 0em 0em;
+    font: 13.3333px Arial;
+    padding: 8px;
+    width: 31rem !important;
+    font-size: 14px;
+    height: 4rem !important;
+}
+input[type = email], input[type=password],input[type=text],.button{
+    margin-bottom: -1rem;
+}
+meter {
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    margin: 1rem auto 1em;
+    width: 31rem;
+    height: 0.5em;
+
+    background: none;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+meter::-webkit-meter-bar {
+    background: none;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+meter[value="1"]::-webkit-meter-optimum-value { background: red; }
+meter[value="2"]::-webkit-meter-optimum-value { background: orange; }
+meter[value="3"]::-webkit-meter-optimum-value { background: green; }
+meter[value="4"]::-webkit-meter-optimum-value { background: #2B7BB9 ; }
