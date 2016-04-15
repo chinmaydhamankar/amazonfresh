@@ -76,7 +76,7 @@ _validateInfo = function (info) {
 	var deferred = Q.defer();
 	var promise = Utilities.validateEmail(info.email);
 	var promise1 = Utilities.validateSSN(info.ssn);
-	Q.all(promise, promise1).done(function () {
+	Q.all([promise, promise1]).done(function () {
 		if( Utilities.isEmpty(info.ssn)		 	||
 			Utilities.isEmpty(info.firstName) 	||
 			Utilities.isEmpty(info.lastName) 	||
