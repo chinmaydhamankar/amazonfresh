@@ -24,10 +24,9 @@
                                   title="E-mail Address" /><br><br>
                             </span>
                               <span class="form-group">
-                                 <input type="password" name="password" id = "password" k-ng-model="password" placeholder="Password"
-                                  class="form-control" title="Password" required />
-                                <span id="password-strength-text"></span>
-                                <meter max="4" id="password-strength-meter"></meter><br><br>
+                                  <input type="password" name="password" id="password" ng-model="credentials.password" k-ng-model="password" ng-model-options="{allowInvalid: true}" pattern-validator="((?=.*\d)(?=.*[A-Z])(?=.*\W).{8,8})" class="form-control" placeholder="Password" />
+                                  <password-strength ng-model="credentials.password"></password-strength>
+                                <br><br>
                               </span>
                             <span class="form-group">
                              <input type="password" name="verifyPassword" id = "verifyPassword" k-ng-model="verifyPassword" placeholder="Verify Password"
