@@ -84,7 +84,28 @@ exports.validateSSN = function (ssn) {
 	});
 	return promise.promise;
 }
+/**
+ * Verify the password.
+ */
+exports.verifyPassword = function(password1,password2)
+{
+	if(exports.isEmpty(password1) || exports.isEmpty(password2))
+	{
+		return false;
+	}
+	else
+	{
+		if(password1 == password2)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 
+}
 /**
  * validates the provided zip code.
  * - checks if the zip code is empty
@@ -127,3 +148,4 @@ exports.validateState = function (state) {
 	}
 	return false;
 }
+
