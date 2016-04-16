@@ -115,31 +115,20 @@ h1{
     font-size: 14px !important;
     height: 2rem !important;
 }
+/**
+ * //TODO, chinmay, remove this generic selector and add for your specific class.
+ */
 input[type = email], input[type=password],input[type=text],input[type=number],.button,textarea{
-    margin-bottom: 1rem !important;
+    /*margin-bottom: 1rem !important;*/
 }
-meter {
 
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-
-    margin: 1rem auto -1.9rem;
-    width: 27.4rem;
-    height: 0.5em;
-    margin-left: -28.2rem;
-    background: none;
-    background-color: rgba(0, 0, 0, 0.1);
-}
-meter::-webkit-meter-bar {
-    background: none;
-    background-color: rgba(0, 0, 0, 0.1);
-}
 #box1,#box2,#box3,#box4{
     width: 10rem !important;
 }
 
-meter[value="1"]::-webkit-meter-optimum-value { background: red; }
-meter[value="2"]::-webkit-meter-optimum-value { background: orange; }
-meter[value="3"]::-webkit-meter-optimum-value { background: #2B7BB9; }
-meter[value="4"]::-webkit-meter-optimum-value { background:  green; }
+.password-progress-bar {
+    width: 41%;
+    height: 0.5rem !important;
+    margin: 0;
+    margin-top: 0.5rem;
+}
