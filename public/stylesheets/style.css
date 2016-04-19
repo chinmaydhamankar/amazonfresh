@@ -92,8 +92,14 @@ h1{
     height: 1rem !important;
     padding-bottom: 45rem;
 }
+
+/*
+    TODO
+    this type of generic classes should not be overridden at application level.
+    If you want to override these classes, add your own class and chain the classes through css.
+*/
 .form-control{
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
+    /*font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
     -webkit-appearance: textfield !important;
     background-color: white !important;
     -webkit-rtl-ordering: logical !important;
@@ -113,7 +119,7 @@ h1{
     padding: 8px !important;
     width: 26rem !important;
     font-size: 14px !important;
-    height: 2rem !important;
+    height: 2rem !important;*/
 }
 /**
  * //TODO, chinmay, remove this generic selector and add for your specific class.

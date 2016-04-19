@@ -3,9 +3,14 @@
  */
 var app = angular.module("amazonfresh");
 
-app.controller('AuthController', ["$scope", function ($scope) {
+app.controller('AuthController', ["$scope","AuthService", function ($scope, AuthService) {
 	$scope.login = function () {
-		alert("hi");
+		var promise = AuthService.login($scope.email, $scope.password);
+		promise.then(function () {
+			alert("successful!");
+		}, function () {
+			alert("Invalid!");
+		});
 	};
 }]);
 
