@@ -4,5 +4,12 @@
 
 var app = angular.module("amazonfresh");
 app.controller('CustomersController', function ($scope) {
-	
+
+    function init(){
+        new Card({
+            form: document.querySelector('form'),
+            container: '.card-wrapper'
+        });
+    }
+    init();
 });

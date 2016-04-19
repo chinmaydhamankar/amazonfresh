@@ -118,17 +118,37 @@ h1{
 /**
  * //TODO, chinmay, remove this generic selector and add for your specific class.
  */
-input[type = email], input[type=password],input[type=text],input[type=number],.button,textarea{
-    /*margin-bottom: 1rem !important;*/
+#customer-firstName,#customer-lastName,#customer-city,#customer-zipcode,#customer-email,#customer-address,#customer-phone,#customer-ssn{
+    margin-bottom: 1rem !important;
 }
-
-#box1,#box2,#box3,#box4{
-    width: 10rem !important;
+#customer-cardName,#customer-expiry,#customer-cardNumber,#customer-cvc,#password,#verifyPassword,#customer-state{
+    margin-bottom: 1rem !important;
 }
-
+#customer-cardName{
+    margin-top: 20px !important;
+}
 .password-progress-bar {
     width: 41%;
     height: 0.5rem !important;
     margin: 0;
-    margin-top: 0.5rem;
+    margin-top:-0.5rem;
+}
+.jp-card-front,.jp-card-back{
+    background-image: url("http://www.ambrosiasw.com/assets/images/graphics_products/ipadwallpaper/wallpaper/Felt-Green.jpg") !important;
+}
+.k-tabstrip>.k-tabstrip-items>.k-item {
+    border-radius: 0;
+    background-color: #1DA237;
+}
+.k-tabstrip .k-tabstrip-items {
+    padding: 0;
+    background-color: #1DA237;
+}
+.k-panelbar .k-tabstrip-items .k-state-active, .k-tabstrip-items .k-state-active {
+    background-color: #009900;
+    background-image: none;
+    border-color: #1DA237 !important;
+}
+.k-state-hover{
+    background-color: #009933!important;
 }
