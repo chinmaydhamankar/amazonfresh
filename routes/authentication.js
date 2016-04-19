@@ -20,9 +20,17 @@ router.post('/login', function(req, res) {
 	var password = req.body.password;
 	var promise = Auth.login(email, password);
 	promise.done(function (result) {
-		res.send(result);
+		res.send({
+			success: true,
+			error: null,
+			data: result
+		});
 	}, function (errorObject) {
-		res.status(errorObject.statusCode).send(errorObject.error);
+		res.status(errorObject.statusCode).send({
+			success: false,
+			error: errorObject.error,
+			data: null
+		});
 	});
 });
 

@@ -1,5 +1,5 @@
-var signup = {
-  "ssn": "123-1234-1233",
+signup : {
+  "ssn": "123-12-1233",
   "firstName": "Driver -",
   "lastName" : "Driver 1",
   "address":"101 E San Fernando St.",
@@ -13,7 +13,7 @@ var signup = {
   "truckModel":"Mustang"
 }
 
-var login = {
+login : {
   "email":"password@temp.in",
   "password":"password"
 }

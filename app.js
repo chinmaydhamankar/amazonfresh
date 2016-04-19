@@ -12,6 +12,7 @@ var routes = require('./routes/index');
 var trucksRoute = require("./routes/trucks");
 var customersRoute = require("./routes/customers");
 var Auth = require("./routes/authentication");
+var TripsRoute = require("./routes/trips");
 var app = express();
 
 // view engine setup
@@ -28,6 +29,7 @@ app.use('/', routes);
 app.use('/trucks', trucksRoute);
 app.use('/customers', customersRoute);
 app.use("/auth", Auth);
+app.use("/trips", TripsRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

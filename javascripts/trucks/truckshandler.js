@@ -12,11 +12,11 @@ var UserTypes = require("../commons/constants").usertypes;
  * @param info
  * @returns {*|promise}
  */
-exports.signup = function (info) {
+exports.signuptruck = function (info) {
 	var deferred = Q.defer();
-	var promise = _validateInfo(info);
+	var promise = _validateTrucksInfo(info);
 	promise.done(function () {
-		info = _sanitizeInfo(info);
+		info = _sanitizeTrucksInfo(info);
 		var cursor = MongoDB.collection("users").insert(info);
 		cursor.then(function (user) {
 			deferred.resolve(user);
@@ -57,7 +57,7 @@ exports.delete = function (ssn) {
  * @param info
  * @private
  */
-_sanitizeInfo = function (info) {
+_sanitizeTrucksInfo = function (info) {
 	info.password = PasswordManager.encryptPassword(info.password);
 	info.usertype = UserTypes.DRIVER;
 	return info;
@@ -72,7 +72,7 @@ _sanitizeInfo = function (info) {
  * @returns {*|promise}
  * @private
  */
-_validateInfo = function (info) {
+_validateTrucksInfo = function (info) {
 	var deferred = Q.defer();
 	var promise = Utilities.validateEmail(info.email);
 	var promise1 = Utilities.validateSSN(info.ssn);
@@ -88,7 +88,7 @@ _validateInfo = function (info) {
 			Utilities.isEmpty(info.password) 	||
 			Utilities.isEmpty(info.email))
 		{
-			deferred.reject("All values must be provided! ");
+			deferred.reject("All Values must be provided! ");
 		} else {
 			if(!Utilities.validateState(info.state)) {
 				deferred.reject("Invalid state!");
