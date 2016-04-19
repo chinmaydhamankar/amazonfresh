@@ -9,6 +9,7 @@ var mongoStore = require("connect-mongo")(session);
 var MongoDB = require("./javascripts/commons/mongodbhandler");
 
 var routes = require('./routes/index');
+var farmersRoute = require("./routes/farmers");
 var trucksRoute = require("./routes/trucks");
 var customersRoute = require("./routes/customers");
 var Auth = require("./routes/authentication");
@@ -26,6 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/farmers', farmersRoute);
 app.use('/trucks', trucksRoute);
 app.use('/customers', customersRoute);
 app.use("/auth", Auth);
