@@ -17,7 +17,8 @@ router.get("/home", Auth.requireLogin, function(req, res) {
  * function to register a truck driver into the system.
  */
 router.post("/", Auth.requireLogin, function (req, res) {
-	var promise = TruckHandler.signup(req.body.info);
+	console.log("info:" + req.body.info);
+	var promise = TruckHandler.signuptruck(req.body.info);
 	promise.done(function () {
 		res.send({
 			success: true,
