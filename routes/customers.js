@@ -28,4 +28,24 @@ router.post("/",function (req, res) {
     });
 });
 
+/**
+ * function to delete a customer from the system.
+ */
+router.delete("/:ssn", function (req, res) {
+    var ssn = req.params.ssn;
+    var promise = CustomersHandler.deleteCustomer(ssn);
+    promise.done(function () {
+        res.status(204)
+            .send();
+    }, function (error) {
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
+    });
+});
+
+
 module.exports = router;
