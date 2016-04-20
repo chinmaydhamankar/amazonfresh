@@ -27,6 +27,28 @@ exports.signup = function(info)
 
 };
 
+/**
+ * deletes a customer with given ssn from the system.
+ * @param ssn
+ * @returns {*|promise}
+ */
+exports.deleteCustomer = function (ssn) {
+
+    var deferred = Q.defer();
+    MongoDB.collection("users").remove({
+        "ssn": ssn
+    }, function (err, numberOfRemoved) {
+        if(err) {
+            deferred.reject(err);
+        }
+        if(numberOfRemoved.result.n) {
+            deferred.resolve();
+        } else {
+            deferred.reject("Customer with given SSN not found in system!");
+        }
+    });
+    return deferred.promise;
+}
 
 
 _validateCustomerInfo = function (info) {

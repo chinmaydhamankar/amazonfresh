@@ -3,8 +3,7 @@
  */
 
 var app = angular.module("amazonfresh");
-app.controller('CustomersController', ["$scope", "kendo.directives",function ($scope, KendoDirectives) {
-    alert("HI");
+app.controller('CustomersController', ["$scope",function ($scope) {
     console.log("In cust controller");
     function init(){
         new Card({
