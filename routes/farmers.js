@@ -37,9 +37,8 @@ router.post("/", function (req, res) {
 });
 
 router.delete("/:ssn", function (req, res) {
-    console.log(req.body.ssn);
-    var ssn1 = req.body.ssn;
-    var promise = FarmerHandler.delete(ssn1);
+    var ssn = req.params.ssn;
+    var promise = FarmerHandler.delete(ssn);
     promise.done(function () {
         res.status(204)
             .send();

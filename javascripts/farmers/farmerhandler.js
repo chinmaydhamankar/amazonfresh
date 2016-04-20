@@ -1,4 +1,4 @@
-/**
+    /**
  * Created by SHAILESH-PC on 4/14/2016.
  */
 
@@ -10,10 +10,13 @@ var UserTypes = require("../commons/constants").usertypes;
 
 
 exports.createfarmer = function (info) {
+    console.log("from here flow");
     var deferred = Q.defer();
-    var promise = _validateInfo(info);
+    var promise = _validateFarmerInfo(info);
+    console.log("to here");
+    console.log(info);
     promise.done(function () {
-        info = _sanitizeInfo(info);
+        info = _sanitizeFarmerInfo(info);
         var cursor = MongoDB.collection("users").insert(info);
         cursor.then(function (user) {
             deferred.resolve(user);
@@ -27,11 +30,8 @@ exports.createfarmer = function (info) {
 };
 
 exports.delete = function (ssn) {
-   console.log("came here");
-    console.log(ssn);
-    //ssn = Number(ssn);
-    //console.log(ssn);
-    var deferred = Q.defer();
+    console.log("ssn is " + ssn);
+       var deferred = Q.defer();
     MongoDB.collection("users").remove({
         "ssn": ssn
     }, function (err, numberOfRemoved) {
@@ -49,7 +49,7 @@ exports.delete = function (ssn) {
 
 
 
-_sanitizeInfo = function (info) {
+_sanitizeFarmerInfo = function (info) {
     info.password = PasswordManager.encryptPassword(info.password);
     info.usertype = UserTypes.FARMER;
     info.rating = 0;
@@ -58,7 +58,7 @@ _sanitizeInfo = function (info) {
 }
 
 
-_validateInfo = function (info) {
+_validateFarmerInfo = function (info) {
     var deferred = Q.defer();
     var promise = Utilities.validateEmail(info.email);
     var promise1 = Utilities.validateSSN(info.ssn);
@@ -75,6 +75,7 @@ _validateInfo = function (info) {
             Utilities.isEmpty(info.password) 	||
             Utilities.isEmpty(info.email))
         {
+            console.log("error from here");
             deferred.reject("All values must be provided! ");
         } else {
             if(!Utilities.validateState(info.state)) {
