@@ -3,14 +3,25 @@
  */
 var app = angular.module("amazonfresh");
 
-app.controller("TrucksController", ["$scope","TruckService", function ($scope, TruckService) {
+app.controller("TrucksController", ["$scope","TruckService", "US_STATES",function ($scope, TruckService, US_STATES) {
+
+	$scope.USStatesOptions = {
+		dataSource: US_STATES,
+		dataTextField: "name",
+		dataValueField: "abbreviation"
+	};
+
+	$scope.nextTab = function () {
+		$scope.trucksTabStrip.select(1);
+	}
+
 	$scope.signup = function () {
 		var info = {
 			"firstName": $scope.firstName,
 			"lastName": $scope.lastName,
 			"email": $scope.email,
 			"password": $scope.credentials.password,
-			"phone": $scope.phone,
+			"phoneNumber": $scope.phone,
 			"ssn": $scope.ssn,
 			"address": $scope.address,
 			"state": $scope.state,
