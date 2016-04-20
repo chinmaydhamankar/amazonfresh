@@ -3,7 +3,7 @@
  */
 var app = angular.module("amazonfresh");
 
-app.controller('AuthController', ["$scope","AuthService", function ($scope, AuthService) {
+app.controller('AuthController', ["$scope","$window","AuthService", function ($scope, $window, AuthService) {
 	$scope.login = function () {
 		var promise = AuthService.login($scope.email, $scope.password);
 		promise.then(function () {
@@ -12,13 +12,12 @@ app.controller('AuthController', ["$scope","AuthService", function ($scope, Auth
 			alert("Invalid!");
 		});
 	};
+	
+	$scope.redirectToFarmerSignUp = function () {
+		$window.location.href = "/#farmers/signup";
+	}
+	
+	$scope.redirectToDriverSignUp = function () {
+		$window.location.href = "/#trucks/signup";
+	}
 }]);
-
-/*
-define(['angularAMD',"../services/AuthService"], function (app) {
-	app.register.controller('AuthController', ["$scope", "AuthService", function ($scope, AuthService) {
-		$scope.login = function () {
-			AuthService.login();
-		}
-	}]);
-});*/

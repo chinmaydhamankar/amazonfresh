@@ -13,6 +13,10 @@ router.get("/home", Auth.requireLogin, function(req, res) {
 	res.render("trucks", { title: "Trucks" });
 });
 
+router.get("/", Auth.requireLogin, function (req, res) {
+	
+});
+
 /**
  * function to register a truck driver into the system.
  */
