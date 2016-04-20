@@ -3,8 +3,8 @@
 
         <div class="demo-section k-content">
             <div>
-                <form>
-                    <div id="trucksTabStrip" kendo-tab-strip="trucksTabStrip" k-content-urls="[ null, null]">
+                <form name="driver-signup">
+                    <div id="trucksTabStrip" kendo-tab-strip="trucksTabStrip">
                         <ul>
                             <li class="k-state-active">Personal Information</li>
                             <li>Truck Information</li>
@@ -15,6 +15,12 @@
                                        class="form-control driver-sign-up-input" placeholder="First Name"
                                        title="First Name" required/>
                             </span>
+                            <div class="col-xs-8"
+                                 ng-show="driver-signup.$submitted || driver-signup.firstName.$touched">
+                                <div ng-show="driver-signup.firstName.$error.required">
+                                    Please tell us your name!
+                                </div>
+                            </div>
                             <span class="form-group truck-text">
                                 <input id="truck-lastName" type="text" name="lastName" ng-model="lastName"
                                        class="driver-sign-up-input form-control" placeholder="Last Name"
@@ -98,5 +104,9 @@
                 </form>
             </div>
         </div>
+        <script id="notificationTemplate" type="text/x-kendo-template">
+            <p style="width: 16em; padding:1em;white-space:nowrap;color:white"> {{ngValue}} #= kValue # </p>
+        </script>
+        <span kendo-notification="errorNotification" k-options="notf1Options"></span>
     </div>
 </div>
