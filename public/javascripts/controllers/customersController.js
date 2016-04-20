@@ -3,8 +3,9 @@
  */
 
 var app = angular.module("amazonfresh");
-app.controller('CustomersController', function ($scope) {
-
+app.controller('CustomersController', ["$scope", "kendo.directives",function ($scope, KendoDirectives) {
+    alert("HI");
+    console.log("In cust controller");
     function init(){
         new Card({
             form: document.querySelector('form'),
@@ -12,4 +13,4 @@ app.controller('CustomersController', function ($scope) {
         });
     }
     init();
-});
+}]);

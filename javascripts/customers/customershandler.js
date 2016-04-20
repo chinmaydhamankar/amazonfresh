@@ -11,9 +11,9 @@ var UserTypes = require("../commons/constants").usertypes;
 exports.signup = function(info)
 {
     var deferred = Q.defer();
-    var promise = _validateInfo(info);
+    var promise = _validateCustomerInfo(info);
     promise.done(function () {
-        info = _sanitizeInfo(info);
+        info = _sanitizeCustomerInfo(info);
         var cursor = MongoDB.collection("users").insert(info);
         cursor.then(function (user) {
             deferred.resolve(user);
@@ -29,7 +29,7 @@ exports.signup = function(info)
 
 
 
-_validateInfo = function (info) {
+_validateCustomerInfo = function (info) {
     var deferred = Q.defer();
     var promise = Utilities.validateEmail(info.email);
     var promise1 = Utilities.validateSSN(info.ssn);
@@ -42,8 +42,7 @@ _validateInfo = function (info) {
             Utilities.isEmpty(info.state) 		||
             Utilities.isEmpty(info.zipCode) 	||
             Utilities.isEmpty(info.phoneNumber) ||
-            Utilities.isEmpty(info.password1) 	||
-            Utilities.isEmpty(info.password2) 	||
+            Utilities.isEmpty(info.password) 	||
             Utilities.isEmpty(info.email))
         {
             deferred.reject("All values must be provided! ");
@@ -53,11 +52,9 @@ _validateInfo = function (info) {
             } else
             if(!Utilities.validateZipCode(info.zipCode)) {
                 deferred.reject("Invalid zip code!");
-            }else
-            if(!Utilities.verifyPassword(info.password1,info.password2)){
-                deferred.reject("Invalid Password!");
             }
-            else {
+            else
+            {
                 deferred.resolve();
             }
         }
@@ -67,7 +64,8 @@ _validateInfo = function (info) {
     return deferred.promise;
 }
 
-_sanitizeInfo = function (info) {
+_sanitizeCustomerInfo = function (info) {
+    console.log("In cust sanitize");
     info.password = PasswordManager.encryptPassword(info.password);
     info.usertype = UserTypes.CUSTOMER;
     return info;

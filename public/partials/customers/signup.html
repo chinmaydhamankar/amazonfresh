@@ -2,7 +2,7 @@
     <div id = "registration" class = "area">        <h1 style="font-size: 2.5rem">Create New Account</h1>
 
         <div class="demo-section k-content">
-            <div ng-controller="MyCtrl">
+           <!-- <div ng-controller="MyCtrl">-->
                 <form>
                     <div kendo-tab-strip k-content-urls="[ null, null]">
                         <ul>
@@ -24,7 +24,7 @@
                                   title="E-mail Address" /><br><br>
                             </span>
                               <span class="form-group customer-password">
-                                  <input type="password" name="password" id="password" ng-model="credentials.password" k-ng-model="password" ng-model-options="{allowInvalid: true}" pattern-validator="((?=.*\d)(?=.*[A-Z])(?=.*\W).{8,8})" class="form-control" placeholder="Password" />
+                                  <input type="password" name="customer-password" id="password" ng-model="credentials.password" k-ng-model="password" ng-model-options="{allowInvalid: true}" pattern-validator="((?=.*\d)(?=.*[A-Z])(?=.*\W).{8,8})" class="form-control" placeholder="Password" />
                                   <password-strength ng-model="credentials.password"></password-strength>
                                 <br>
                               </span>
@@ -36,22 +36,22 @@
                          </div>
 
                         <div>
-                           <span class="form-group ">
+                           <span class="form-group customer-address">
                                  <textarea id="customer-address" name="address" k-ng-model="address" class="form-control" placeholder="Enter Address"
                                         title="Enter Address" ></textarea><br><br>
                             </span>
-                            <span class="form-group">
+                            <span class="form-group customer-state">
                                 <select id="customer-state" kendo-drop-down-list  style="width: 28rem;"  placeholder='State'>
                                     <option>Azerbaijan</option>
                                     <option>Belarus</option>
                                 </select>
                             </span>
                             <br><br>
-                            <span class="form-group">
+                            <span class="form-group customer-city">
                                  <input id="customer-city" type="text" name="city" k-ng-model="city" class="form-control" placeholder="City"
                                         title="Enter City" />
                             </span><br><br>
-                            <span class="form-group">
+                            <span class="form-group customer-zipcode">
                                  <input id="customer-zipcode" type="text" name="zipcode" k-ng-model="zipcode" class="form-control" placeholder="ZipCode"
                                         title="Enter zipcode" />
                             </span><br><br>
@@ -59,7 +59,7 @@
                                  <input id="customer-phone" type="number" name="phone" k-ng-model="phone" class="form-control" placeholder="Phone Number"
                                         title="Enter Phone Number" />
                             </span><br><br>
-                             <span class="form-group">
+                             <span class="form-group customer-ssn">
                                      <input id="customer-ssn" type="text" name="ssn" k-ng-model="ssn" class="form-control" placeholder="Social Security Number"
                                         title="Enter Social Security Number" />
                             </span><br><br>
@@ -68,19 +68,19 @@
                         <div>
                             <div class="card-wrapper"></div>
                             <form>
-                            <span class="form-group">
+                            <span class="form-group customer-cardName">
                                  <input id="customer-cardName" type="text" name="name" k-ng-model="cardName" class="form-control"
                                         placeholder="Credit Card Name" title="Enter Phone Number" />
-                                <span class="form-group">
+                                <span class="form-group customer-cardNumber">
                                  <input id="customer-cardNumber" type="text" name="number" k-ng-model="cardNumber"
                                         class="form-control"  placeholder="Credit Card Number" title="Enter Card Number" />
                                 </span>
                             </span><br><br>
 
-                             <span class="form-group">
+                             <span class="form-group customer-expiry">
                                     <input id="customer-expiry" type="text" name="expiry" k-ng-model="expiry"
                                         class="form-control"  placeholder="MM/YY" title="Enter Expiry Details"/>
-                                 <span class="form-group">
+                                 <span class="form-group customer-cvc">
                                      <input id="customer-cvc" type="text" name="cvc" k-ng-model="cvc"
                                         class="form-control"  placeholder="CVC" title="Enter CVC Details"/>
                                 </span><br><br>
@@ -89,7 +89,7 @@
                         </div>
                     </div>
                 </form>
-            </div>
+           <!-- </div>-->
         </div>
     </div>
 </div>
