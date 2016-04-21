@@ -14,6 +14,8 @@ var trucksRoute = require("./routes/trucks");
 var customersRoute = require("./routes/customers");
 var Auth = require("./routes/authentication");
 var TripsRoute = require("./routes/trips");
+var productsRoute = require("./routes/products");
+
 var app = express();
 
 // view engine setup
@@ -30,6 +32,7 @@ app.use('/', routes);
 app.use('/farmers', farmersRoute);
 app.use('/trucks', trucksRoute);
 app.use('/customers', customersRoute);
+app.use('/products',productsRoute);
 app.use("/auth", Auth);
 app.use("/trips", TripsRoute);
 
