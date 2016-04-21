@@ -3,7 +3,7 @@
  */
 
 var app = angular.module("amazonfresh");
-app.controller('CustomersController',["$scope","US_STATES","CustomerServiceindex.",function ($scope, US_STATES, CustomerService) {
+app.controller('CustomersController',["$scope","US_STATES","CustomerService",function ($scope, US_STATES, CustomerService) {
     function init(){
         new Card({
             form: document.querySelector('form'),
