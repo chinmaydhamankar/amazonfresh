@@ -92,6 +92,6 @@ var promise= ProductHandler.getproductinfo(productID);
                 data: null
             });
     });
-
+router.post("/")
 });
 module.exports = router;
