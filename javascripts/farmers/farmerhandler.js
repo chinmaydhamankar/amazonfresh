@@ -105,7 +105,18 @@ exports.delete = function (ssn) {
         console.log(info);
         promise.done(function () {
             info = _sanitizeFarmerInfo(info);
-            var cursor = MongoDB.collection("users").update({"ssn": info.ssn,"usertype" : "FARMER"},{"city": info.city});
+            var cursor = MongoDB.collection("users").update({"ssn": info.ssn,"usertype" : "FARMER"},
+                {
+                    "ssn": info.ssn,
+                    "firstName" : info.firstName,
+                "lastName": info.lastName,
+                "address": info.address,
+                "city": info.city,
+                "state" : info.state,
+                "zipCode" : info.zipCode,
+                "phoneNumber" : info.phoneNumber,
+                "email" : info.email,
+                "password" : info.password});
             cursor.then(function (user) {
                 deferred.resolve(user);
             }).catch(function (error) {
