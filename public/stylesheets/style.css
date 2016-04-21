@@ -225,3 +225,15 @@ input[name = customer-password]{
 .k-state-hover{
     background-color: #009933!important;
 }
+
+.driver-sign-up-input {
+    width: 37% !important;
+    height: 15% !important;
+    margin-top: 1rem;
+}
+
+.driver-sign-up-button {
+    float: right !important;
+    margin-right: 1rem !important;
+    margin-bottom: 1rem !important;
+}

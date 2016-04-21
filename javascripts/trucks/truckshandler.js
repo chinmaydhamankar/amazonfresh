@@ -52,6 +52,11 @@ exports.delete = function (ssn) {
 	return deferred.promise;
 }
 
+
+exports.getAllTrucks = function () {
+	
+}
+
 /**
  * function to sanitize the provided input.
  * @param info

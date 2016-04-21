@@ -27,6 +27,62 @@ exports.signup = function(info)
 
 };
 
+/**
+ * deletes a customer with given ssn from the system.
+ * @param ssn
+ * @returns {*|promise}
+ */
+exports.deleteCustomer = function (ssn) {
+
+    var deferred = Q.defer();
+    MongoDB.collection("users").remove({
+        "ssn": ssn
+    }, function (err, numberOfRemoved) {
+        if(err) {
+            deferred.reject(err);
+        }
+        if(numberOfRemoved.result.n) {
+            deferred.resolve();
+        } else {
+            deferred.reject("Customer with given SSN not found in system!");
+        }
+    });
+    return deferred.promise;
+}
+
+/**
+ * Get list of all the customer with given ssn from the system.
+
+ */
+exports.getCustomersList = function()
+{
+    console.log("In get list function");
+    var customers = [];
+    var deferred = Q.defer();
+    var cursor = MongoDB.collection("users").find({"usertype" : "CUSTOMER"});
+    if(cursor != null)
+    {
+        cursor.each(function(err,doc){
+            if(err)
+            {
+                deferred.reject("Error is - "+err);
+            }
+            else if(doc != null)
+            {
+                customers = customers.concat(doc);
+            }
+            else
+            {
+                deferred.resolve(customers);
+            }
+        });
+    }
+    else
+    {
+        deferred.reject("There are no Records for Customers");
+    }
+    return deferred.promise;
+}
 
 
 _validateCustomerInfo = function (info) {

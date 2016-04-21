@@ -7,7 +7,7 @@ angular.module("amazonfresh").factory("AuthService",["$http","$q", function ($ht
 			var url = "http://localhost:3000/auth/login";
 			var def = $q.defer();
 			$http({
-				method: 'POST',
+				method: "POST",
 				url: url,
 				data: {
 					email: email,
