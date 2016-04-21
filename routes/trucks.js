@@ -38,6 +38,7 @@ router.post("/", Auth.requireLogin, function (req, res) {
 /**
  * function to delete a truck driver from the system.
  */
+
 router.delete("/:ssn", function (req, res) {
 	var ssn = req.params.ssn;
 	var promise = TruckHandler.delete(ssn);
