@@ -73,4 +73,25 @@ router.get("/", function (req, res) {
             });
     });
 });
+
+router.get("/:productID",function(req,res){
+    var productID = req.params.productID;
+    console.log(productID);
+var promise= ProductHandler.getproductinfo(productID);
+    promise.done(function () {
+        res.send({
+            success: true,
+            error: null,
+            data: "Got One Product with gien ID!"
+        });
+    }, function (error) {
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
+    });
+
+});
 module.exports = router;

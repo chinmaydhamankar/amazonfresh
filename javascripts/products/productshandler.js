@@ -80,8 +80,32 @@ exports.listallproducts = function () {
 
     return deferred.promise;
 };
+/**
+ * * function to get a single product .
 
+ * @returns {*|promise}
+ */
+exports.getproductinfo= function(productID){
+    var deferred = Q.defer();
+    var product= MongoDB.collection("products").findOne({"productID": productID},
+        function(err,doc){
+            if (err) {
 
+            deferred.reject(err);
+        }   /*if(doc != null){
+                product= doc;
+            }
+            */
+            else{
+                product=doc;
+                console.log(product);
+                deferred.resolve(product);
+
+            }
+
+        });
+    return deferred.promise;
+};
 /**
  * function to sanitize the provided input.
  * @param info
