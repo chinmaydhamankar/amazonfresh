@@ -29,6 +29,30 @@ router.post("/",function (req, res) {
 });
 
 /**
+ * function to get List of all customer from the system.
+ */
+
+router.get("/",function(req,res) {
+    console.log("In get Customer list");
+    var promise = CustomersHandler.getCustomersList();
+    promise.done(function (data) {
+        console.log("Data is - "+data);
+        res.send({
+            success: true,
+            error: null,
+            data: data
+        });
+    }, function (error) {
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
+    });
+});
+
+/**
  * function to delete a customer from the system.
  */
 router.delete("/:ssn", function (req, res) {
@@ -46,6 +70,5 @@ router.delete("/:ssn", function (req, res) {
             });
     });
 });
-
 
 module.exports = router;
