@@ -73,7 +73,9 @@ router.get("/", function (req, res) {
             });
     });
 });
-
+/**
+ * function to get a product from the system.
+ */
 router.get("/:productID",function(req,res){
     var productID = req.params.productID;
     console.log(productID);
@@ -92,6 +94,8 @@ var promise= ProductHandler.getproductinfo(productID);
                 data: null
             });
     });
-router.post("/")
+
 });
+
+
 module.exports = router;
