@@ -81,7 +81,7 @@ exports.listallproducts = function () {
         });
     }
         else{
-        deferred.reject("There are no Records for Customers");
+        deferred.reject("There are no Records for products");
     }
     return deferred.promise;
 };
@@ -97,14 +97,16 @@ exports.getproductinfo= function(productID){
             if (err) {
 
             deferred.reject(err);
-        }   /*if(doc != null){
+        }   if(doc != null){
                 product= doc;
-            }
-            */
-            else{
-                product=doc;
                 console.log(product);
                 deferred.resolve(product);
+            }
+
+            else{
+                deferred.reject("There are no Records for product");
+                //product=doc;
+
 
             }
 
