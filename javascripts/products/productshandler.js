@@ -66,18 +66,23 @@ exports.listallproducts = function () {
 
         var productList=[];
         var cursor = MongoDB.collection("products").find();
-        cursor.each(function (err,doc) {
+    if(cursor != null) {
+        cursor.each(function (err, doc) {
             if (err) {
                 deferred.reject(err);
-        }if (doc != null){
-                productList=productList.concat(doc);
+            }
+            else if (doc != null) {
+                productList = productList.concat(doc);
             }
             else {
                 console.log(productList);
                 deferred.resolve(productList);
             }
         });
-
+    }
+        else{
+        deferred.reject("There are no Records for Customers");
+    }
     return deferred.promise;
 };
 /**
