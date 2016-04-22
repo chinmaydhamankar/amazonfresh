@@ -6,6 +6,7 @@ var Utilities = require("../commons/utilities");
 var PasswordManager = require("../authentication/passwordmanager");
 var Q = require("q");
 var UserTypes = require("../commons/constants").usertypes;
+var GoogleMaps = require("../commons/googlemapshandler");
 
 /**
  * function to sign up the new truck driver.
@@ -13,9 +14,13 @@ var UserTypes = require("../commons/constants").usertypes;
  * @returns {*|promise}
  */
 exports.signuptruck = function (info) {
+	var address = info.address + "," + info.city + "," + info.state + "," + info.zipCode;
+	var promise1 = GoogleMaps.getLatLang(address);
 	var deferred = Q.defer();
 	var promise = _validateTrucksInfo(info);
-	promise.done(function () {
+	Q.all([promise, promise1]).done(function (values) {
+		console.log(values[1]);
+		info.location = values[1];
 		info = _sanitizeTrucksInfo(info);
 		var cursor = MongoDB.collection("users").insert(info);
 		cursor.then(function (user) {
@@ -65,6 +70,7 @@ exports.getAllTrucks = function () {
 _sanitizeTrucksInfo = function (info) {
 	info.password = PasswordManager.encryptPassword(info.password);
 	info.usertype = UserTypes.DRIVER;
+	info.isApproved = false;
 	return info;
 }
 

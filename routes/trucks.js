@@ -7,12 +7,8 @@ var router = express.Router();
 var TruckHandler = require("../javascripts/trucks/truckshandler");
 
 /**
- * function that shows the home page for the truck driver.
+ * function to return all trucks in the system.
  */
-router.get("/home", Auth.requireLogin, function(req, res) {
-	res.render("trucks", { title: "Trucks" });
-});
-
 router.get("/", Auth.requireLogin, function (req, res) {
 	
 });
@@ -42,6 +38,7 @@ router.post("/", Auth.requireLogin, function (req, res) {
 /**
  * function to delete a truck driver from the system.
  */
+
 router.delete("/:ssn", function (req, res) {
 	var ssn = req.params.ssn;
 	var promise = TruckHandler.delete(ssn);
