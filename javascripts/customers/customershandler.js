@@ -136,6 +136,6 @@ _sanitizeCustomerInfo = function (info) {
     console.log("In cust sanitize");
     info.password = PasswordManager.encryptPassword(info.password);
     info.usertype = UserTypes.CUSTOMER;
-	info.isApproved = false;
+	info.isApproved = true;
     return info;
 }
