@@ -237,3 +237,113 @@ input[name = customer-password]{
     margin-right: 1rem !important;
     margin-bottom: 1rem !important;
 }
+
+#AdminSidePanel{
+    z-index: 1000;
+    margin-top: -16rem;
+    position: fixed;
+    width: 30rem;
+    height: 100rem;
+    overflow-y: auto;
+    background: #303030 ;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+#userbox{
+    height: 15rem;
+    width: 22rem;
+    margin-top: 1rem;
+    margin-left: 4rem;
+    background-color:#404040;
+    border-radius: 1rem;
+}
+#admin-name{
+    color: #999999;
+    font-size: 1.5rem;
+    margin-left: 1rem;
+
+}
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+    width: 20rem;
+}
+.sidebar-nav li a {
+
+    display: block;
+    text-decoration: none;
+    color: #999999;
+    font-size: 1.5rem;
+    text-indent: 20px;
+    line-height: 40px;
+}
+.sidebar-nav{
+    margin-top: 2rem;
+}
+.notification{
+    position:absolute;
+    margin-right: 10rem;
+    margin-top:-4rem;
+    background-color:#585858;
+    line-height:15px;
+    width:15px;
+    margin-left:11rem;
+    height:15px;
+    padding-left: 3px;
+    border-radius:10px;
+}
+#box{
+    height: 20rem;
+    width: 31rem;
+    background-color: #404040;
+    margin-left: 35rem;
+    border-radius: 1rem;
+    padding-top: 1rem;
+}
+#boxbottombhalf{
+    height: 10rem;
+    background-color: #585858;
+}
+#innerpic{
+    height: 6rem;
+    width: 8rem;
+    margin-left: 2rem;
+    margin-top: -3rem;
+    border-radius: 10rem !important;
+}
+    #innerpiccolor{
+    height: 3rem;
+    background-color:#404040;
+}
+#innerbottompiccolor{
+    background-color: #585858;
+    height: 3rem;
+}
+#h4text{
+    margin-left: 92px;
+    margin-top: -52px;
+    color: #999999;
+}
+#confirmButton{
+    margin-left: 15rem;
+    margin-top: 14.5rem;
+    height: 34px;
+    width: 67px;
+    padding-left: 6px;
+}
+#deleteButton{
+    margin-left: 23rem;
+    margin-top: 1.5rem;
+}
+
+.content{
+    width: 100rem;
+    margin-left: -2rem ;
+}
+
+.col-sm-4{
+    padding: 1rem;
+}

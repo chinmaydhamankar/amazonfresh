@@ -7,13 +7,13 @@ var bodyParser = require('body-parser');
 var session = require("express-session");
 var mongoStore = require("connect-mongo")(session);
 var MongoDB = require("./javascripts/commons/mongodbhandler");
-
 var routes = require('./routes/index');
 var farmersRoute = require("./routes/farmers");
 var trucksRoute = require("./routes/trucks");
 var customersRoute = require("./routes/customers");
 var Auth = require("./routes/authentication");
 var TripsRoute = require("./routes/trips");
+var AdminRoute = require("./routes/admin");
 var productsRoute = require("./routes/products");
 
 var app = express();
@@ -33,6 +33,7 @@ app.use('/farmers', farmersRoute);
 app.use('/trucks', trucksRoute);
 app.use('/customers', customersRoute);
 app.use('/products',productsRoute);
+app.use('/admin',AdminRoute);
 app.use("/auth", Auth);
 app.use("/trips", TripsRoute);
 

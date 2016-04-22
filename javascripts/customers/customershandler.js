@@ -10,6 +10,7 @@ var UserTypes = require("../commons/constants").usertypes;
 
 exports.signup = function(info)
 {
+    console.log("In sign up function custm handelr");
     var deferred = Q.defer();
     var promise = _validateCustomerInfo(info);
     promise.done(function () {
@@ -99,18 +100,25 @@ _validateCustomerInfo = function (info) {
             Utilities.isEmpty(info.zipCode) 	||
             Utilities.isEmpty(info.phoneNumber) ||
             Utilities.isEmpty(info.password) 	||
-            Utilities.isEmpty(info.email))
+            Utilities.isEmpty(info.email)       ||
+            Utilities.isEmpty(info.cardName)    ||
+            Utilities.isEmpty(info.cardNumber)  ||
+            Utilities.isEmpty(info.expiry))
         {
+            console.log("1st validate");
             deferred.reject("All values must be provided! ");
         } else {
             if(!Utilities.validateState(info.state)) {
+                console.log("2st validate");
                 deferred.reject("Invalid state!");
             } else
             if(!Utilities.validateZipCode(info.zipCode)) {
+                console.log("3st validate");
                 deferred.reject("Invalid zip code!");
             }
             else
             {
+                console.log("else part of validate");
                 deferred.resolve();
             }
         }

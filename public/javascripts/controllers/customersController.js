@@ -29,9 +29,11 @@ app.controller('CustomersController',["$scope","US_STATES","CustomerService",fun
             "address": $scope.address,
             "state": $scope.state,
             "city": $scope.city,
-            "zipCode": $scope.zipcode
+            "zipCode": $scope.zipcode,
+            "cardName" : $scope.cardName,
+            "cardNumber" : $scope.cardNumber,
+            "expiry" : $scope.expiry
         }
-
         var promise = CustomerService.signup(info);
         promise.then(function (result) {
             alert("Success!");
