@@ -53,6 +53,26 @@ router.delete("/:ssn", function (req, res) {
 });
 
 
+router.post("/searchFarmers", function (req, res) {
+    var data = req.body;
+    data = JSON.stringify(data);
+    var promise = FarmerHandler.searchFarmerInfo(data);
+    promise.done(function () {
+        res.send({
+            success: true,
+            error: null,
+            data: "Here is a list of all farmers"
+        });
+    }, function (error) {
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
+    });
+});
+
 router.get("/listfarmers", function (req, res) {
     var promise = FarmerHandler.getAllFarmers();
     promise.done(function () {
