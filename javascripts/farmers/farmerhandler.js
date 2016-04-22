@@ -1,4 +1,4 @@
-    /**
+/**
  * Created by SHAILESH-PC on 4/14/2016.
  */
 
@@ -7,15 +7,16 @@ var Utilities = require("../commons/utilities");
 var PasswordManager = require("../authentication/passwordmanager");
 var Q = require("q");
 var UserTypes = require("../commons/constants").usertypes;
+var GoogleMaps = require("../commons/googlemapshandler");
 
 exports.createfarmer = function (info) {
-    console.log("from here flow");
     var deferred = Q.defer();
+	var address = info.address + "," + info.city + "," + info.state + "," + info.zipCode;
+	var promise1 = GoogleMaps.getLatLang(address);
     var promise = _validateFarmerInfo(info);
-    console.log("to here");
-    console.log(info);
-    promise.done(function () {
+    Q.all([promise,promise1]).done(function (values) {
         info = _sanitizeFarmerInfo(info);
+		info.location = values[1];
         var cursor = MongoDB.collection("users").insert(info);
         cursor.then(function (user) {
             deferred.resolve(user);
@@ -131,6 +132,7 @@ exports.delete = function (ssn) {
 _sanitizeFarmerInfo = function (info) {
     info.password = PasswordManager.encryptPassword(info.password);
     info.usertype = UserTypes.FARMER;
+	info.isApproved = false;
     info.rating = 0;
     info.reviews = [];
     return info;
