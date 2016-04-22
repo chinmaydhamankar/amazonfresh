@@ -5,18 +5,9 @@ var router = express.Router();
 var ProductHandler = require("../javascripts/products/productshandler");
 
 /**
- * function that shows the home page for the truck driver.
- */
-//added by me
-
-/*router.get("/home", Auth.requireLogin, function(req, res) {
-    res.render("trucks", { title: "Trucks" });
-});*/
-
-/**
  * function to create a product into the system.
  */
-router.post("/", function (req, res) {
+router.post("/", Auth.requireLogin, function (req, res) {
     var promise = ProductHandler.createproduct(req.body.info);
     promise.done(function () {
         res.send({
@@ -37,7 +28,7 @@ router.post("/", function (req, res) {
 /**
  * function to delete a product from the system.
  */
-router.delete("/:productID", function (req, res) {
+router.delete("/:productID", Auth.requireLogin, function (req, res) {
     var productID = req.params.productID;
     console.log(productID);
     var promise = ProductHandler.delete(productID);
@@ -56,7 +47,7 @@ router.delete("/:productID", function (req, res) {
 /**
  * function to list all products from the system.
  */
-router.get("/", function (req, res) {
+router.get("/", Auth.requireLogin, function (req, res) {
     var promise = ProductHandler.listallproducts();
     promise.done(function () {
         res.send({
@@ -76,15 +67,15 @@ router.get("/", function (req, res) {
 /**
  * function to get a product from the system.
  */
-router.get("/:productID",function(req,res){
+router.get("/:productID",Auth.requireLogin, function(req,res){
     var productID = req.params.productID;
     console.log(productID);
-var promise= ProductHandler.getproductinfo(productID);
+var promise = ProductHandler.getproductinfo(productID);
     promise.done(function () {
         res.send({
             success: true,
             error: null,
-            data: "Got One Product with gien ID!"
+            data: "Got One Product with given ID!"
         });
     }, function (error) {
         res.status(500)
@@ -94,7 +85,6 @@ var promise= ProductHandler.getproductinfo(productID);
                 data: null
             });
     });
-
 });
 
 

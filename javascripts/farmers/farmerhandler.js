@@ -8,7 +8,6 @@ var PasswordManager = require("../authentication/passwordmanager");
 var Q = require("q");
 var UserTypes = require("../commons/constants").usertypes;
 
-
 exports.createfarmer = function (info) {
     console.log("from here flow");
     var deferred = Q.defer();

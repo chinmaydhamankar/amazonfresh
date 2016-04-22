@@ -7,14 +7,18 @@ var Utilities = require("../commons/utilities");
 var PasswordManager = require("../authentication/passwordmanager");
 var Q = require("q");
 var UserTypes = require("../commons/constants").usertypes;
+var GoogleMaps = require("../commons/googlemapshandler");
 
 exports.signup = function(info)
 {
     var deferred = Q.defer();
     var promise = _validateCustomerInfo(info);
-    promise.done(function () {
+	var address = info.address + "," + info.city + "," + info.state + "," + info.zipCode;
+	var promise1 = GoogleMaps.getLatLang(address);
+    Q.all([promise, promise1]).done(function (values) {
         info = _sanitizeCustomerInfo(info);
-        var cursor = MongoDB.collection("users").insert(info);
+		info.location = values[1];
+		var cursor = MongoDB.collection("users").insert(info);
         cursor.then(function (user) {
             deferred.resolve(user);
         }).catch(function (error) {
@@ -124,5 +128,6 @@ _sanitizeCustomerInfo = function (info) {
     console.log("In cust sanitize");
     info.password = PasswordManager.encryptPassword(info.password);
     info.usertype = UserTypes.CUSTOMER;
+	info.isApproved = false;
     return info;
 }
