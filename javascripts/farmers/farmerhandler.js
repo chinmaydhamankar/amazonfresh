@@ -33,7 +33,7 @@ exports.delete = function (ssn) {
     console.log("ssn is " + ssn);
        var deferred = Q.defer();
     MongoDB.collection("users").remove({
-        "ssn": ssn
+        "ssn": ssn, "isApproved" : "true"
     }, function (err, numberOfRemoved) {
         if(err) {
             deferred.reject(err);
@@ -50,7 +50,7 @@ exports.delete = function (ssn) {
     exports.getAllFarmers = function()
     {
        var deferred = Q.defer();
-        var cursor = MongoDB.collection("users").find({"usertype" : "FARMER"});
+        var cursor = MongoDB.collection("users").find({"usertype" : "FARMER","isApproved" : "true"});
         var farmerList = [];
         cursor.each(function (err, doc) {
             if (err) {
@@ -72,7 +72,7 @@ exports.delete = function (ssn) {
     exports.getFarmerInfo = function(ssn)
     {
         var deferred = Q.defer();
-        var cursor = MongoDB.collection("users").find({"ssn": ssn});
+        var cursor = MongoDB.collection("users").find({"ssn": ssn,"isApproved" : "true"});
         var farmerList = {};
         cursor.each(function (err, doc) {
             if (err) {
@@ -97,6 +97,7 @@ exports.searchFarmerInfo = function(ssn)
     var deferred = Q.defer();
     var searchQuery = JSON.parse(ssn);
     delete searchQuery.password;
+    searchQuery.isApproved = "true";
     var searchQuery = _validateSearchInput(searchQuery);
     var cursor = MongoDB.collection("users").find(searchQuery);
     var farmerList = [];
@@ -129,7 +130,7 @@ exports.searchFarmerInfo = function(ssn)
         console.log(info);
         promise.done(function () {
             info = _sanitizeFarmerInfo(info);
-            var cursor = MongoDB.collection("users").update({"ssn": info.ssn,"usertype" : "FARMER"},
+            var cursor = MongoDB.collection("users").update({"ssn": info.ssn,"usertype" : "FARMER","isApproved" : "true"},
                 {
                     "ssn": info.ssn,
                     "firstName" : info.firstName,
