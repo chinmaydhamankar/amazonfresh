@@ -84,7 +84,7 @@ var promise= ProductHandler.getproductinfo(productID);
         res.send({
             success: true,
             error: null,
-            data: "Got One Product with gien ID!"
+            data: "Got One Product with given ID!"
         });
     }, function (error) {
         res.status(500)
@@ -96,6 +96,27 @@ var promise= ProductHandler.getproductinfo(productID);
     });
 
 });
+router.post("/searchproduct",function(req,res){
+    //var productName=req.params.productName;
+    var productName=req.body.productName;
+
+    console.log(productName);
+    var promise= ProductHandler.searchproduct(productName);
+    promise.done(function () {
+        res.send({
+            success: true,
+            error: null,
+            data: "Got One Product!"
+        });
+    }, function (error) {
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
 
 
+    });
+});
 module.exports = router;

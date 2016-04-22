@@ -114,6 +114,35 @@ exports.getproductinfo= function(productID){
     return deferred.promise;
 };
 /**
+ * * function to get a single product .
+
+ * @returns {*|promise}
+ */
+exports.searchproduct= function(productName){
+    var deferred = Q.defer();
+  //  var productList=[];
+    var product= MongoDB.collection("products").findOne({"productName": productName},
+    function(err,doc) {
+
+        if (err) {
+
+            deferred.reject(err);
+        }
+        if (doc != null) {
+            product = doc;
+            console.log(product);
+            deferred.resolve(product);
+        }
+
+        else {
+            deferred.reject("There are no Records for product");
+
+        }
+    });
+
+        return deferred.promise;
+};
+/**
  * function to sanitize the provided input.
  * @param info
  * @private
