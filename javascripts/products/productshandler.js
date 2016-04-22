@@ -142,6 +142,36 @@ exports.searchproduct= function(productName){
 
         return deferred.promise;
 };
+exports.updateproduct = function (info) {
+
+    console.log(info);
+    var deferred = Q.defer();
+    var promise = _validateProductInfo(info);
+
+    info1 = {};
+    info1 = info;
+
+    promise.done(function () {
+
+        var cursor = MongoDB.collection("products").update({"productID": info.productID},
+            {
+                "productID": info.productID,
+                "ssn" : info.ssn,
+                "productName": info.productName,
+                "productPrice": info.productPrice,
+                "description": info.description
+                });
+        cursor.then(function (user) {
+            deferred.resolve(user);
+        }).catch(function (error) {
+            deferred.reject(error);
+        });
+    }, function (error) {
+        deferred.reject(error);
+    });
+    return deferred.promise;
+};
+
 /**
  * function to sanitize the provided input.
  * @param info

@@ -119,4 +119,21 @@ router.post("/searchproduct",function(req,res){
 
     });
 });
+router.put("/",function(req,res){
+    var promise = ProductHandler.updateproduct(req.body.info);
+    promise.done(function () {
+        res.send({
+            success: true,
+            error: null,
+            data: "products to be updated"
+        });
+    }, function (error) {
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
+    });
+});
 module.exports = router;
