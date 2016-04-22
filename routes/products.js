@@ -86,6 +86,44 @@ var promise = ProductHandler.getproductinfo(productID);
             });
     });
 });
+router.post("/searchproduct",function(req,res){
+    //var productName=req.params.productName;
+    var productName=req.body.productName;
+
+    console.log(productName);
+    var promise= ProductHandler.searchproduct(productName);
+    promise.done(function () {
+        res.send({
+            success: true,
+            error: null,
+            data: "Got One Product!"
+        });
+    }, function (error) {
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
 
 
+    });
+});
+router.put("/",function(req,res){
+    var promise = ProductHandler.updateproduct(req.body.info);
+    promise.done(function () {
+        res.send({
+            success: true,
+            error: null,
+            data: "products to be updated"
+        });
+    }, function (error) {
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
+    });
+});
 module.exports = router;

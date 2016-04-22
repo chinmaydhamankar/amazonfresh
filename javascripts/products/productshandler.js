@@ -114,6 +114,65 @@ exports.getproductinfo= function(productID){
     return deferred.promise;
 };
 /**
+ * * function to get a single product .
+
+ * @returns {*|promise}
+ */
+exports.searchproduct= function(productName){
+    var deferred = Q.defer();
+  //  var productList=[];
+    var product= MongoDB.collection("products").findOne({"productName": productName},
+    function(err,doc) {
+
+        if (err) {
+
+            deferred.reject(err);
+        }
+        if (doc != null) {
+            product = doc;
+            console.log(product);
+            deferred.resolve(product);
+        }
+
+        else {
+            deferred.reject("There are no Records for product");
+
+        }
+    });
+
+        return deferred.promise;
+};
+exports.updateproduct = function (info) {
+
+    console.log(info);
+    var deferred = Q.defer();
+    var promise = _validateProductInfo(info);
+
+    info1 = {};
+    info1 = info;
+
+    promise.done(function () {
+
+        var cursor = MongoDB.collection("products").update({"productID": info.productID},
+            {
+                "productID": info.productID,
+                "ssn" : info.ssn,
+                "productName": info.productName,
+                "productPrice": info.productPrice,
+                "description": info.description
+                });
+        cursor.then(function (user) {
+            deferred.resolve(user);
+        }).catch(function (error) {
+            deferred.reject(error);
+        });
+    }, function (error) {
+        deferred.reject(error);
+    });
+    return deferred.promise;
+};
+
+/**
  * function to sanitize the provided input.
  * @param info
  * @private
