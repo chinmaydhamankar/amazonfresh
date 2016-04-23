@@ -18,7 +18,6 @@ router.get("/home", function(req, res) {
  * function to register a truck driver into the system.
  */
 router.post("/", function (req, res) {
-    console.log("ala re ala");
     var promise = FarmerHandler.createfarmer(req.body.info);
     promise.done(function () {
         res.send({
