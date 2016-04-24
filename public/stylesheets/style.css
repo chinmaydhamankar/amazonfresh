@@ -375,10 +375,15 @@ input[name = customer-password]{
     margin-left: 16rem;
     font-size: 1rem;
 }
-.popup{
-    margin-left: 45rem;
-    border-radius: 1rem;
-}
+
 .k-window-titlebar{
     background-color:#585858 !important;
+}
+
+.admin-advanced-search-window {
+    margin: 0rem 1rem 0rem 1rem;
+}
+
+.admin-advanced-search-window-container {
+    width: inherit !important;
 }
