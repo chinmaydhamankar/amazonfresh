@@ -108,8 +108,6 @@ exports.searchFarmerInfo = function(ssn)
         if (doc != null) {
             farmerList.push(doc);
         } else {
-            console.log("farmer search is here1");
-            console.log(farmerList);
             deferred.resolve(farmerList);
         }
     });
@@ -219,11 +217,11 @@ _validateFarmerInfo = function (info) {
             deferred.reject("All values must be provided! ");
         } else {
             if(!Utilities.validateState(info.state)) {
-                console.log("inavlaid sate");
+                console.log("invalid sate");
                 deferred.reject("Invalid state!");
             } else
             if(!Utilities.validateZipCode(info.zipCode)) {
-                console.log("inavlaid zip codd");
+                console.log("invalid zip codd");
                 deferred.reject("Invalid zip code!");
             } else {
                 deferred.resolve();
