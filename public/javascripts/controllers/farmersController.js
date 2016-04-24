@@ -3,7 +3,7 @@
  */
 
 var app = angular.module("amazonfresh");
-app.controller('CustomersController',["$scope","US_STATES","CustomerService",function ($scope, US_STATES, CustomerService) {
+app.controller('FarmersController',["$scope","US_STATES","FarmerService",function ($scope, US_STATES, FarmerService) {
     function init(){
         new Card({
             form: document.querySelector('form'),
@@ -29,12 +29,9 @@ app.controller('CustomersController',["$scope","US_STATES","CustomerService",fun
             "address": $scope.address,
             "state": $scope.state,
             "city": $scope.city,
-            "zipCode": $scope.zipcode,
-            "cardName" : $scope.cardName,
-            "cardNumber" : $scope.cardNumber,
-            "expiry" : $scope.expiry
+            "zipCode": $scope.zipcode
         }
-        var promise = CustomerService.signup(info);
+        var promise = FarmerService.signup(info);
         promise.then(function (result) {
             alert("Success!");
         }, function (error) {
