@@ -7,4 +7,6 @@ app.controller('AdminController',function ($scope) {
     $scope.options = {
         tabPosition: "left"
     };
+
+
 });
