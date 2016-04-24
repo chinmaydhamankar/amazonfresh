@@ -12,6 +12,146 @@ var GoogleMaps = require("../commons/googlemapshandler");
 var Crypto = require("crypto");
 
 /**
+ * deletes a trip from system.
+ * @param tripID
+ * @returns {*|promise}
+ */
+exports.deleteTrip = function (tripID) {
+	var deferred = q.defer();
+	MongoDB.collection("trips").remove({
+		tripID: tripID
+	}).then(function () {
+		deferred.resolve();
+	}).catch(function (error) {
+		deferred.reject(error);
+	});
+	return deferred.promise;
+}
+
+/**
+ * searches all trips by certain driver.
+ * @param driverID
+ * @returns {*|promise}
+ */
+exports.findTripsByDriver = function (driverID) {
+	var deferred = q.defer();
+	var trips = [];
+	var cursor = MongoDB.collection("trips").find({
+		driverSSN: driverID
+	});
+	cursor.each(function (error, doc) {
+		if(error){
+			deferred.reject(error);
+		}
+		if(doc != null) {
+			trips.push(doc);
+		} else {
+			deferred.resolve(trips);
+		}
+	});
+	return deferred.promise;
+}
+
+/**
+ * searches all trips by certain customer.
+ * @param driverID
+ * @returns {*|promise}
+ */
+exports.findTripsByCustomer = function (customerID) {
+	var deferred = q.defer();
+	var trips = [];
+	var cursor = MongoDB.collection("trips").find({
+		customerSSN: customerID
+	});
+	cursor.each(function (error, doc) {
+		if(error){
+			deferred.reject(error);
+		}
+		if(doc != null) {
+			trips.push(doc);
+		} else {
+			deferred.resolve(trips);
+		}
+	});
+	return deferred.promise;
+}
+
+
+/**
+ * searches all trips by certain city.
+ * @param driverID
+ * @returns {*|promise}
+ */
+exports.findTripsByDeliveryCity = function (city) {
+	var deferred = q.defer();
+	var trips = [];
+	var cursor = MongoDB.collection("trips").find({
+		customerCity: city
+	});
+	cursor.each(function (error, doc) {
+		if(error){
+			deferred.reject(error);
+		}
+		if(doc != null) {
+			trips.push(doc);
+		} else {
+			deferred.resolve(trips);
+		}
+	});
+	return deferred.promise;
+}
+
+/**
+ * finds a trip with given ID.
+ * @param tripID
+ * @returns {*|promise}
+ */
+exports.findTripById = function (tripID) {
+	var deferred = q.defer();
+	var trip = null;
+	var cursor = MongoDB.collection("trips").find({
+		tripID: tripID
+	});
+
+	cursor.each(function (error, doc) {
+		if(error) {
+			deferred.reject(error);
+		}
+		if(doc != null) {
+			trip = doc;
+		} else {
+			if(trip === null) {
+				deferred.reject("Trip with given ID not found!");
+			} else {
+				deferred.resolve(trip);
+			}
+		}
+	});
+	return deferred.promise;
+}
+
+/**
+ * returns all trips registered in the system.
+ * @returns {*|promise}
+ */
+exports.getAllTrips = function () {
+	var deferred = q.defer();
+	var cursor = MongoDB.collection("trips").find();
+	var trips = [];
+	cursor.each(function (error, doc) {
+		if(error) {
+			deferred.reject(error);
+		}
+		if(doc === null) {
+			deferred.resolve(trips);
+		} else {
+			trips.push(doc);
+		}
+	});
+	return deferred.promise;
+}
+
+/**
  * creates a new trip with given details.
  * @param customerID
  * @param farmerID
@@ -77,9 +217,11 @@ _constructTripDetails = function (customer, farmer, product, journeyDetails, dri
 		customerSSN: customer.ssn,
 		customerFirstName: customer.firstName,
 		customerLastName: customer.lastName,
+		customerLocation: customer.location,
 		farmerSSN: farmer.ssn,
 		farmerFirstName: farmer.firstName,
 		farmerLastName: farmer.lastName,
+		farmerLocation: farmer.location,
 		driverSSN: driver.ssn,
 		driverFirstName: driver.firstName,
 		driverLastName: driver.lastName,
@@ -89,8 +231,8 @@ _constructTripDetails = function (customer, farmer, product, journeyDetails, dri
 		destination: customerAddress,
 		orderTime: orderTime,
 		deliveryTime: deliveryTime,
-		deliverySteps: deliverySteps
 	};
+	deliverySteps: deliverySteps
 	return tripDetails;
 }
 

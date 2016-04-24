@@ -28,12 +28,13 @@
     <input id = "searchAdmin" type="text" placeholder="Search" ng-model = "searchText" />
     <button id="searchButton" type="button">
         <img style="height: 16px; width: 16px" src="https://cdn2.iconfinder.com/data/icons/kailoon/myicon/search.png" /></button>
-    <a style="text-decoration: none" id="advanced-search" ng-click = "popup.open()" ng-show="!popupvisible">Advanced Search</a>
+    <a style="text-decoration: none" id="advanced-search" ng-click = "popup.center().open()" ng-show="!popupvisible">Advanced Search</a>
 </div>
+<!--<<<<<<< HEAD
 <div class="popup" kendo-window = "popup" k-visible = "false" k-on-open="popupvisible = true" k-modal="true"
-     k-on-close="popupvisible = false" k-width="800" k-height="300">
-
-    <div class="form-group">
+     k-on-close="popupvisible = false">
+<popup-directive > </popup-directive>
+    &lt;!&ndash;<div class="form-group">
         <label for="sel1">Search For:</label>
         <select class="form-control" id="sel1">
             <option>Farmers</option>
@@ -41,7 +42,22 @@
             <option>Customers</option>
             <option>Trips</option>
         </select>
+    </div>&ndash;&gt;
+=======-->
+<div class="admin-advanced-search-window" kendo-window = "popup" k-options="advancedSearchWindowOptions" k-on-open = "popupvisible = true" k-on-close="popupvisible = false">
+
+    <div class="container admin-advanced-search-window-container">
+        <div class = "col-md-4 form-group">
+            <label for="sel1">Search For:</label>
+            <select class="form-control" id="sel1">
+                <option>Farmers</option>
+                <option>Products</option>
+                <option>Customers</option>
+                <option>Trips</option>
+            </select>
+        </div>
     </div>
+
 
 </div>
 

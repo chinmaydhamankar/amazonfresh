@@ -8,5 +8,11 @@ app.controller('AdminController',function ($scope) {
         tabPosition: "left"
     };
 
-
+	$scope.advancedSearchWindowOptions = {
+		title: "Advanced Search",
+		visible: false,
+		modal: true,
+		width: "800",
+		height: "300"
+	}
 });
