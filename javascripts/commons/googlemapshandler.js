@@ -72,7 +72,7 @@ exports.getDirections = function (origin, destination) {
 			if(result.routes) {
 				var tripDetails = {
 					timeRequired: result.routes[0].legs[0].duration_in_traffic.value,
-					steps: result.routes[0].legs[0].steps
+					steps: _extractSteps(result.routes[0].legs[0].steps)
 				}
 				deferred.resolve(tripDetails);
 			} else {
@@ -80,5 +80,22 @@ exports.getDirections = function (origin, destination) {
 			}
 		}
 	});
+	return deferred.promise;
 }
 
+/**
+ * extracts useful information from all the information that Google Maps provides.
+ * @param steps
+ * @returns {Array}
+ * @private
+ */
+_extractSteps = function (steps) {
+	var extractedSteps = [];
+	for(var i = 0 ; i < steps.length ; i++) {
+		extractedSteps.push({
+			location: [steps[i].end_location.lat, steps[i].end_location.lng],
+			duration: steps[i].duration.value * 100
+		});
+	}
+	return extractedSteps;
+}

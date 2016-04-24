@@ -71,6 +71,7 @@ _sanitizeTrucksInfo = function (info) {
 	info.password = PasswordManager.encryptPassword(info.password);
 	info.usertype = UserTypes.DRIVER;
 	info.isApproved = false;
+	info.freeFrom = new Date().getTime();
 	return info;
 }
 

@@ -11,7 +11,6 @@ var GoogleMaps = require("../commons/googlemapshandler");
 
 exports.signup = function(info)
 {
-    console.log("In sign up function custm handelr");
     var deferred = Q.defer();
     var promise = _validateCustomerInfo(info);
 	var address = info.address + "," + info.city + "," + info.state + "," + info.zipCode;
@@ -89,6 +88,32 @@ exports.getCustomersList = function()
     return deferred.promise;
 }
 
+/**
+ * finds a customer with given ssn.
+ * @param ssn
+ * @returns {*|promise}
+ */
+exports.getCustomer = function (ssn) {
+	var deferred = Q.defer();
+	var customer;
+	var cursor = MongoDB.collection("users").find({ssn: ssn});
+	cursor.each(function (error, doc) {
+		if (error) {
+			deferred.reject(error);
+		}
+		if (doc != null) {
+			customer = doc;
+		} else {
+			if (customer === null) {
+				deferred.reject("Customer not found!");
+			} else {
+				console.log(customer);
+				deferred.resolve(customer);
+			}
+		}
+	});
+	return deferred.promise;
+}
 
 _validateCustomerInfo = function (info) {
     var deferred = Q.defer();
@@ -104,25 +129,18 @@ _validateCustomerInfo = function (info) {
             Utilities.isEmpty(info.zipCode) 	||
             Utilities.isEmpty(info.phoneNumber) ||
             Utilities.isEmpty(info.password) 	||
-            Utilities.isEmpty(info.email)       ||
-            Utilities.isEmpty(info.cardName)    ||
-            Utilities.isEmpty(info.cardNumber)  ||
-            Utilities.isEmpty(info.expiry))
+            Utilities.isEmpty(info.email))
         {
-            console.log("1st validate");
             deferred.reject("All values must be provided! ");
         } else {
             if(!Utilities.validateState(info.state)) {
-                console.log("2st validate");
                 deferred.reject("Invalid state!");
             } else
             if(!Utilities.validateZipCode(info.zipCode)) {
-                console.log("3st validate");
                 deferred.reject("Invalid zip code!");
             }
             else
             {
-                console.log("else part of validate");
                 deferred.resolve();
             }
         }
@@ -136,6 +154,6 @@ _sanitizeCustomerInfo = function (info) {
     console.log("In cust sanitize");
     info.password = PasswordManager.encryptPassword(info.password);
     info.usertype = UserTypes.CUSTOMER;
-	info.isApproved = true;
+	info.isApproved = false;
     return info;
 }
