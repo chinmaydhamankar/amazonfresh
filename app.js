@@ -15,6 +15,8 @@ var AdminRoute = require("./routes/admin");
 var Auth = require("./routes/authentication");
 var TripsRoute = require("./routes/trips");
 var productsRoute = require("./routes/products");
+var billsRoute = require("./routes/bills");
+
 
 var app = express();
 
@@ -36,6 +38,8 @@ app.use('/products',productsRoute);
 app.use('/admin',AdminRoute);
 app.use("/auth", Auth);
 app.use("/trips", TripsRoute);
+app.use('/bills',billsRoute);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
