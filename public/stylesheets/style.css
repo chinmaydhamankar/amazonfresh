@@ -387,3 +387,48 @@ input[name = customer-password]{
 .admin-advanced-search-window-container {
     width: inherit !important;
 }
+
+#bill-cart{
+    background-color: #fff;
+    width: 270px;
+}
+
+#bill-proceedToCheckout{
+    margin-top: 10px;
+
+}
+
+#bill-cartSubtotal {
+    /*margin-top: 10px;*/
+    color: #669900;
+   /* float: left;*/
+    text-align: left;
+}
+
+#bill-quantity{
+    background-color: white;
+    border: 1px solid #888;
+    min-height: 40px;
+   /* border-right: none;*/
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 0 0 5px;
+   /* float: left;*/
+    width: 30px;
+}
+
+#bill-quantityValue{
+    background-color: white;
+    border: 1px solid #888;
+    min-height: 40px;
+    /*border-right: none;*/
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 0 0 5px;
+    /*float: left;*/
+    width: 30px;
+
+    color: gray;
+    font-size: 25px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 12px;
+}

@@ -6,18 +6,19 @@ var Q = require("q");
 var Mysql = require("../commons/mysqlhandler");
 
 exports.generatebill = function (info) {
+    console.log("handler madhe ala")
     var deferred = Q.defer();
-    var sqlQuery = "INSERT INTO bill " +
-                    "(date, expected_delivery_time, total_amount, item_amount, shipping_amount, trip_id, customer_id)" +
-                    " VALUES (sysdate(), DATE_ADD(sysdate(),INTERVAL 3 DAY) , 17, 17, 17, 17, 17);";
+    var sqlQuery = "INSERT INTO bill (order_date, total_amount, customer_id) VALUES (sysdate(), 11, 1);";
+    console.log("sqlQuery:"+sqlQuery)
     var insertInBillPromise = Mysql.executeQuery(sqlQuery);
     insertInBillPromise.done(function () {
         var getBillIdPromise = Mysql.executeQuery("SELECT max(bill_id) as max_bill_id from bill;");
         getBillIdPromise.done(function (rows) {
             var billId = rows[0].max_bill_id;
             sqlQuery =  "INSERT INTO item" +
-                        " ( bill_id, product_id, quantity, price_per_unit,customer_id) " +
-                        "VALUES (" + billId + ", '17', '17', '17',17);"
+                        " ( bill_id, product_id, quantity, price_per_unit, trip_id, delivery_date ) " +
+                        "VALUES (" + billId + ", 17, 17, 17,17, '2016-01-01');"
+            console.log("sqlQuery:"+sqlQuery)
             Mysql.executeQuery(sqlQuery);
         }, function (error) {
             insertInBillPromise.reject(error);
@@ -30,6 +31,7 @@ exports.generatebill = function (info) {
 };
 
 exports.delete = function (billId) {
+    console.log(billId);
     var deferred = Q.defer();
     var promise = Mysql.executeQuery("DELETE FROM bill WHERE bill_id=" + billId + ";");
     promise.done( function(){
