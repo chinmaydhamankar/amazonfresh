@@ -56,11 +56,11 @@ router.post("/searchFarmers", function (req, res) {
     var data = req.body;
     data = JSON.stringify(data);
     var promise = FarmerHandler.searchFarmerInfo(data);
-    promise.done(function () {
+    promise.done(function (farmerdata) {
         res.send({
             success: true,
             error: null,
-            data: "Here is a list of all farmers"
+            data: farmerdata
         });
     }, function (error) {
         res.status(500)
@@ -74,11 +74,11 @@ router.post("/searchFarmers", function (req, res) {
 
 router.get("/listfarmers", function (req, res) {
     var promise = FarmerHandler.getAllFarmers();
-    promise.done(function () {
+    promise.done(function (farmerlist) {
         res.send({
             success: true,
             error: null,
-            data: "Here is a list of all farmers"
+            data: farmerlist
         });
     }, function (error) {
         res.status(500)
@@ -94,11 +94,11 @@ router.get("/listfarmers", function (req, res) {
 router.get("/:ssn", function (req, res) {
     var ssn = req.params.ssn;
     var promise = FarmerHandler.getFarmerInfo(ssn);
-    promise.done(function () {
+    promise.done(function (farmerinfo) {
         res.send({
             success: true,
             error: null,
-            data: "Here is a list of all farmers"
+            data: farmerinfo
         });
     }, function (error) {
         res.status(500)
@@ -119,7 +119,7 @@ router.put("/updateFarmer", function (req, res) {
         res.send({
             success: true,
             error: null,
-            data: "Here is a list of all farmers to be updated"
+            data: "Farmer data updated"
         });
     }, function (error) {
         res.status(500)
