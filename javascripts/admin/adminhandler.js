@@ -67,6 +67,7 @@ exports.getAllUnApprovedFarmers = function() {
         if (doc != null) {
             farmerList.push(doc);
             console.log(farmerList);
+            console.log("get here");
         } else
         {
             deferred.resolve(farmerList);
