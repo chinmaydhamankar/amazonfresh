@@ -26,10 +26,14 @@ app.config(function ($routeProvider, $locationProvider) {
 	}).when("/farmers/home", {
 		templateUrl: "partials/products/createproduct.html",
 		controller: "ProductController"
+	}).when("/bills/cart", {
+		templateUrl: "partials/bills/cart.html",
+		controller: "BillsController"
 	}).otherwise({
 		redirectTo: "/index"
 	});
-	$locationProvider.html5Mode(true);
+
+	$locationProvider.html5Mode(false);
 });
 
 /*

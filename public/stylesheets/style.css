@@ -351,6 +351,11 @@ input[name = customer-password] {
     margin-top: -52px;
     color: #999999;
 }
+#h5text{
+    margin-left: 92px;
+    margin-top: -52px;
+    color: #999999;
+}
 
 #confirmButton {
     margin-left: 15rem;
