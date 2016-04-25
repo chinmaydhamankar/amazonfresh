@@ -29,13 +29,14 @@ router.post('/login', function (req, res, next) {
 			});
 		}
 
-		req.logIn(user, {session: true}, function (err) {
+		req.logIn(user, {session: false}, function (err) {
 			if (err) {
 				return next(err);
 			}
 
+			delete user.passport;
+			req.user = user;
 			req.session.user = user;
-			console.log("session initilized");
 			return res.send({
 				success: true,
 				error: null,

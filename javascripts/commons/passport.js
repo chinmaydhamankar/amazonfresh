@@ -22,7 +22,7 @@ module.exports = function (passport) {
 						if (doc.password === PasswordManager.encryptPassword(password)) {
 							return done(null, doc);
 						} else {
-							return done(null, doc);
+							return done("Invalid Password", false);
 						}
 					}
 				});
