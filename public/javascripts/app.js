@@ -11,7 +11,6 @@ app.config(function ($routeProvider, $locationProvider) {
 	}).when("/customers/signup", {
 		templateUrl: "partials/customers/signup.html",
 		controller: "CustomersController"
-
 	}).when("/trucks/signup", {
 		templateUrl: "partials/trucks/signup.html",
 		controller: "TrucksController"
@@ -21,10 +20,12 @@ app.config(function ($routeProvider, $locationProvider) {
 	}).when("/farmers/signup", {
 		templateUrl: "partials/farmers/signup.html",
 		controller: "FarmersController"
+	}).when("/products/home", {
+		templateUrl: "partials/products/products_list.html",
+		controller: "ProductController"
 	}).otherwise({
 		redirectTo: "/index"
 	});
-
 	$locationProvider.html5Mode(true);
 });
 

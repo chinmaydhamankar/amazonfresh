@@ -1,4 +1,4 @@
-.main-content{
+.main-content {
     margin-top: 15%;
 }
 
@@ -10,14 +10,14 @@
 }
 
 body {
-    background :url(http://g-ec2.images-amazon.com/images/G/01/omaha/images/WelcomePage/af_welcomebackground._V288790855_.jpg);
+    background: url(http://g-ec2.images-amazon.com/images/G/01/omaha/images/WelcomePage/af_welcomebackground._V288790855_.jpg);
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
-#nav
-{
+
+#nav {
     color: #fff;
     height: 45px;
     min-width: 1015px;
@@ -32,13 +32,14 @@ body {
     right: 0px;
     z-index: 100;
 }
+
 #logo {
     list-style-type: none;
     margin-top: 1px;
     margin-left: 10px;
 }
 
-.sign-in-button-wrapper{
+.sign-in-button-wrapper {
     width: 100%;
     text-align: center;
 }
@@ -49,17 +50,19 @@ body {
 }
 
 .sign-up-prompt-span {
-    font-weight: normal;!important;
+    font-weight: normal;
+!important;
     font-size: small;
 }
-h1{
+
+h1 {
     font-size: 24px !important;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
     font-weight: normal !important;
     margin-top: -1rem !important;
 }
 
-.button{
+.button {
     background-color: #b7b7b7 !important;
     border-radius: 1rem;
     -moz-border-radius: 5px;
@@ -73,7 +76,8 @@ h1{
     height: 3rem !important;
     width: 114.047px;
 }
-.area{
+
+.area {
     background-image: url(https://images-na.ssl-images-amazon.com/images/G/01/omaha/images/categorypages/gradcx/seamless-white-line-unit-2._V383736962_.png);
     border-radius: 1rem !important;
     -moz-border-radius: 5rem !important;
@@ -88,7 +92,7 @@ h1{
     padding-bottom: 50rem !important;
     text-align: left !important;
     width: 80rem !important;
-    margin-top:-10rem;
+    margin-top: -10rem;
     height: 1rem !important;
     padding-bottom: 45rem;
 }
@@ -117,36 +121,7 @@ h1{
     height: 2rem !important;
 }*/
 
-#customer-firstName,#customer-lastName,#customer-city,#customer-zipcode,#customer-email,#customer-address,#customer-phone,#customer-ssn{
-    margin-bottom: 1rem !important;
-
-
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
-    -webkit-appearance: textfield !important;
-    background-color: white !important;
-    -webkit-rtl-ordering: logical !important;
-    -webkit-user-select: text !important;
-    cursor: auto !important;
-    text-rendering: auto !important;
-    color: initial !important;
-    letter-spacing: normal !important;
-    word-spacing: normal !important;
-    text-transform: none !important;
-    text-indent: 0px !important;
-    text-shadow: none !important;
-    display: inline-block !important;
-    text-align: start !important;
-    margin: 0em 0em 0em 0em !important;
-    font: 13.3333px Arial !important;
-    padding: 8px !important;
-    width: 26rem !important;
-    font-size: 14px !important;
-    height: 2rem !important;
-}
-#customer-state{
-    margin-bottom: 1rem !important;
-}
-#customer-cardName,#customer-expiry,#customer-cardNumber,#customer-cvc,#verifyPassword{
+#customer-firstName, #customer-lastName, #customer-city, #customer-zipcode, #customer-email, #customer-address, #customer-phone, #customer-ssn {
     margin-bottom: 1rem !important;
 
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
@@ -172,7 +147,11 @@ h1{
     height: 2rem !important;
 }
 
-input[name = customer-password]{
+#customer-state {
+    margin-bottom: 1rem !important;
+}
+
+#customer-cardName, #customer-expiry, #customer-cardNumber, #customer-cvc, #verifyPassword {
     margin-bottom: 1rem !important;
 
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
@@ -197,33 +176,66 @@ input[name = customer-password]{
     font-size: 14px !important;
     height: 2rem !important;
 }
-#customer-cardName{
+
+input[name = customer-password] {
+    margin-bottom: 1rem !important;
+
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
+    -webkit-appearance: textfield !important;
+    background-color: white !important;
+    -webkit-rtl-ordering: logical !important;
+    -webkit-user-select: text !important;
+    cursor: auto !important;
+    text-rendering: auto !important;
+    color: initial !important;
+    letter-spacing: normal !important;
+    word-spacing: normal !important;
+    text-transform: none !important;
+    text-indent: 0px !important;
+    text-shadow: none !important;
+    display: inline-block !important;
+    text-align: start !important;
+    margin: 0em 0em 0em 0em !important;
+    font: 13.3333px Arial !important;
+    padding: 8px !important;
+    width: 26rem !important;
+    font-size: 14px !important;
+    height: 2rem !important;
+}
+
+#customer-cardName {
     margin-top: 20px !important;
 }
+
 .password-progress-bar {
     width: 41%;
     height: 0.5rem !important;
     margin: 0;
-    margin-top:0.5rem;
+    margin-top: 0.5rem;
 }
-.jp-card-front,.jp-card-back{
+
+.jp-card-front, .jp-card-back {
     background-image: url("http://www.ambrosiasw.com/assets/images/graphics_products/ipadwallpaper/wallpaper/Felt-Green.jpg") !important;
 }
-.k-tabstrip>.k-tabstrip-items>.k-item {
+
+.k-tabstrip > .k-tabstrip-items > .k-item {
     border-radius: 0;
     background-color: #1DA237;
 }
+
 .k-tabstrip .k-tabstrip-items {
     padding: 0;
     background-color: #1DA237;
 }
+
 .k-panelbar .k-tabstrip-items .k-state-active, .k-tabstrip-items .k-state-active {
     background-color: #009900;
     background-image: none;
     border-color: #1DA237 !important;
 }
-.k-state-hover{
-    background-color: #009933!important;
+
+.k-state-hover {
+    background-color: #009933 !important;
 }
 
 .driver-sign-up-input {
@@ -238,39 +250,43 @@ input[name = customer-password]{
     margin-bottom: 1rem !important;
 }
 
-#AdminSidePanel{
+#AdminSidePanel {
     z-index: 1000;
     margin-top: -3rem;
     position: fixed;
     width: 30rem;
     height: 100rem;
     overflow-y: auto;
-    background: #303030 ;
+    background: #303030;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
 }
-#userbox{
+
+#userbox {
     height: 15rem;
     width: 22rem;
     margin-top: 1rem;
     margin-left: 4rem;
-    background-color:#404040;
+    background-color: #404040;
     border-radius: 1rem;
 }
-#admin-name{
+
+#admin-name {
     color: #999999;
     font-size: 1.5rem;
     margin-left: 1rem;
 
 }
+
 .sidebar-nav li a:hover {
     text-decoration: none;
     color: #fff;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.2);
     width: 20rem;
 }
+
 .sidebar-nav li a {
 
     display: block;
@@ -280,22 +296,25 @@ input[name = customer-password]{
     text-indent: 20px;
     line-height: 40px;
 }
-.sidebar-nav{
+
+.sidebar-nav {
     margin-top: 2rem;
 }
-.notification{
-    position:absolute;
+
+.notification {
+    position: absolute;
     margin-right: 10rem;
-    margin-top:-4rem;
-    background-color:#585858;
-    line-height:15px;
-    width:15px;
-    margin-left:11rem;
-    height:15px;
+    margin-top: -4rem;
+    background-color: #585858;
+    line-height: 15px;
+    width: 15px;
+    margin-left: 11rem;
+    height: 15px;
     padding-left: 3px;
-    border-radius:10px;
+    border-radius: 10px;
 }
-#box{
+
+#box {
     height: 20rem;
     width: 31rem;
     background-color: #404040;
@@ -303,26 +322,31 @@ input[name = customer-password]{
     border-radius: 1rem;
     padding-top: 1rem;
 }
-#boxbottombhalf{
+
+#boxbottombhalf {
     height: 10rem;
     background-color: #585858;
 }
-#innerpic{
+
+#innerpic {
     height: 6rem;
     width: 8rem;
     margin-left: 2rem;
     margin-top: -3rem;
     border-radius: 10rem !important;
 }
-    #innerpiccolor{
+
+#innerpiccolor {
     height: 3rem;
-    background-color:#404040;
+    background-color: #404040;
 }
-#innerbottompiccolor{
+
+#innerbottompiccolor {
     background-color: #585858;
     height: 3rem;
 }
-#h4text{
+
+#h4text {
     margin-left: 92px;
     margin-top: -52px;
     color: #999999;
@@ -332,41 +356,46 @@ input[name = customer-password]{
     margin-top: -52px;
     color: #999999;
 }
-#confirmButton{
+
+#confirmButton {
     margin-left: 15rem;
     margin-top: 14.5rem;
     height: 34px;
     width: 67px;
     padding-left: 6px;
 }
-#deleteButton{
+
+#deleteButton {
     margin-left: 23rem;
     margin-top: 1.5rem;
 }
 
-.content{
+.content {
     width: 100rem;
-    margin-left: -2rem ;
+    margin-left: -2rem;
 }
 
-.col-sm-4{
+.col-sm-4 {
     padding: 1rem;
 }
-.searchdiv{
+
+.searchdiv {
     margin-top: -13rem;
     margin-left: 102rem;
     width: 26rem;
     height: 5rem;
-    background-color:#585858 ;
+    background-color: #585858;
     border-radius: 1rem;
 }
-#searchAdmin{
+
+#searchAdmin {
     width: 20rem;
     border-radius: 0.5rem;
     margin-left: 1.5rem;
     margin-top: 0.6rem;
 }
-#searchButton{
+
+#searchButton {
     height: 2.7rem;
     width: 3rem;
     background-color: #585858;
@@ -374,15 +403,16 @@ input[name = customer-password]{
     margin-left: -7px;
     padding: 1px;
 }
-#advanced-search{
+
+#advanced-search {
     font-weight: 200;
     color: floralwhite;
     margin-left: 16rem;
     font-size: 1rem;
 }
 
-.k-window-titlebar{
-    background-color:#585858 !important;
+.k-window-titlebar {
+    background-color: #585858 !important;
 }
 
 .admin-advanced-search-window {
@@ -391,4 +421,101 @@ input[name = customer-password]{
 
 .admin-advanced-search-window-container {
     width: inherit !important;
+}
+
+/*
+Shruti's classes.
+*/
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+    width: 100%;
+
+    float: left, right
+}
+
+.section_header span {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-style: italic;
+    margin: 0px;
+    font-size: 24px;
+    /* margin-bottom: 10px; */
+}
+
+#header-divider {
+    background: url(https://images-na.ssl-images-amazon.com/images/G/01/omaha/images/categorypages/FarmToFresh/header_line._V326546473_.jpg);
+    width: 710px;
+}
+
+#header-divider-text {
+    text-align: center;
+    /* width: 410px; */
+    margin: 20px auto;
+    background-color: #fff;
+    font-family: Georgia;
+    font-size: 16px;
+    font-style: italic;
+}
+
+#listView {
+    padding: 10px 5px;
+    margin-bottom: -1px;
+    min-height: 510px;
+}
+
+.product {
+    float: left;
+    position: relative;
+    width: 21rem;
+    height: 30rem;
+    margin: 1rem 1rem;
+    border: 0.2rem solid #e6e6e6;
+    padding: 0.5rem;
+}
+
+.image2 {
+    width: 100px;
+    height: 100px;
+    margin-top: 50px;
+    margin-left: 45px;
+}
+
+.product h3 {
+    margin: 0;
+    padding: 3px 5px 0 0;
+    max-width: 96px;
+    overflow: hidden;
+    line-height: 1.1em;
+    font-size: .9em;
+    font-weight: normal;
+    text-transform: uppercase;
+    color: #999;
+}
+
+.product p {
+
+    font-size: 14px;
+    font-weight: bold;
+    color: #000000;
+
+}
+
+.k-listview:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.badgeOvl {
+
+    width: 10%;
+}
+
+#addtocartbtn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 10px;
+    margin-left: 10px;
 }
