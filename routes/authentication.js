@@ -5,39 +5,50 @@
 var express = require('express');
 var router = express.Router();
 var Auth = require("../javascripts/authentication/authentication");
+var passport = require("passport");
 /**
  * returns the login page
  */
-router.get('/login', function(req, res) {
-	res.render('./index', { title : "Login" });
+router.get('/login', function (req, res) {
+	res.render('./index', {title: "Login"});
 });
 
 /**
  * Authenticates the user with given username and password
  */
-router.post('/login', function(req, res) {
-	var email = req.body.email;
-	var password = req.body.password;
-	var promise = Auth.login(email, password);
-	promise.done(function (result) {
-		res.send({
-			success: true,
-			error: null,
-			data: result
-		});
-	}, function (errorObject) {
-		res.status(errorObject.statusCode).send({
-			success: false,
-			error: errorObject.error,
-			data: null
-		});
-	});
+router.post('/login', function (req, res, next) {
+	passport.authenticate('local', function (err, user) {
+		if (err) {
+			return next(err);
+		}
+		if (!user) {
+			return res.status(401).send({
+				success: false,
+				error: "User not found!",
+				data: null
+			});
+		}
+
+		req.logIn(user, {session: true}, function (err) {
+			if (err) {
+				return next(err);
+			}
+
+			req.session.user = user;
+			console.log("session initilized");
+			return res.send({
+				success: true,
+				error: null,
+				data: user
+			});
+		})
+	})(req, res, next);
 });
 
 /**
  * logouts the user from system.
  */
-router.get('/logout', function(req, res) {
+router.get('/logout', function (req, res) {
 	req.session.destroy();
 	res.redirect('/');
 });
@@ -49,13 +60,12 @@ router.get('/logout', function(req, res) {
  * @param res
  * @param next
  */
-router.requireLogin  = function(req, res, next) {
-	//TODO temporarily commenting till login functionality is implemented.
-	/*if (!req.user) {
-		res.redirect('/auth/login');
-	} else {
-		next();
-	}*/
+router.requireLogin = function (req, res, next) {
+	if (!req.user) {
+	 res.redirect('/auth/login');
+	 } else {
+	 next();
+	 }
 	next();
 };
 

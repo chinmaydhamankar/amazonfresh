@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require("express-session");
-var mongoStore = require("connect-mongo")(session);
+var mongoStore = require("connect-mongo/es5")(session);
 var MongoDB = require("./javascripts/commons/mongodbhandler");
 var routes = require('./routes/index');
 var farmersRoute = require("./routes/farmers");
@@ -16,8 +16,8 @@ var Auth = require("./routes/authentication");
 var TripsRoute = require("./routes/trips");
 var productsRoute = require("./routes/products");
 var billsRoute = require("./routes/bills");
-
-
+var passport = require('passport');
+require("./javascripts/commons/passport")(passport);
 var app = express();
 
 // view engine setup
@@ -29,6 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
 
 app.use('/', routes);
 app.use('/farmers', farmersRoute);
@@ -53,7 +54,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
+  app.use(function(err, req, res) {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
@@ -73,36 +74,14 @@ app.use(session({
 	})
 }));
 
-//TODO fix this after implementing authentication.
-/*app.use(function(req, res, next) {
-	if (req.session && req.session.user) {
-		var twitterHandle = req.session.user.twitterHandle.trim().replace('@','');
-		res.header("Cache-Control", "no-cache, no-store, must-revalidate");
-		res.header("Pragma", "no-cache");
-		res.header("Expires", 0);
-		var authPromise = RabbitMQClient.request("user_queue",{type: "user_auth", twitterHandle: twitterHandle});
-		authPromise.done( function ( response ) {
-			if(response.statusCode === 200) {
-				var user = response.response;
-				req.user = user;
-				delete req.user.password; // delete the password from the session
-				req.session.user = user;  // refresh the session value
-				res.locals.user = user;
-				next();
-			} else {
-				next();
-			}
-		}, function (error) {
-			next();
-		});
-	} else {
-		next();
-	}
-});*/
+/*
+app.use(passport.session());
+*/
+
+
 
 // production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
@@ -111,7 +90,20 @@ app.use(function(err, req, res, next) {
 });
 
 MongoDB.connect(MongoDB.MONGODB_URL, function(){
-	console.log('Connected to mongo at: ' + MongoDB.MONGODB_URL);
+	console.log('Connected to MongoDB at: ' + MongoDB.MONGODB_URL);
+});
+
+passport.serializeUser(function(user, done) {
+	console.log('serializeUser: ' + user._id);
+	done(null, user._id);
+});
+
+passport.deserializeUser(function(id, done) {
+	db.users.findById(id, function(err, user){
+		console.log(user);
+		if(!err) done(null, user);
+		else done(err, null);
+	});
 });
 
 module.exports = app;
