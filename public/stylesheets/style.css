@@ -514,3 +514,32 @@ Shruti's classes.
     margin-bottom: 10px;
     margin-left: 10px;
 }
+/* shruti create product*/
+#productID{
+    margin-top: 1rem !important;
+}
+#productFarmer-ssn, #productID, #product-name, #product-price, #description  {
+    margin-bottom: 1rem !important;
+
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
+    -webkit-appearance: textfield !important;
+    background-color: white !important;
+    -webkit-rtl-ordering: logical !important;
+    -webkit-user-select: text !important;
+    cursor: auto !important;
+    text-rendering: auto !important;
+    color: initial !important;
+    letter-spacing: normal !important;
+    word-spacing: normal !important;
+    text-transform: none !important;
+    text-indent: 0px !important;
+    text-shadow: none !important;
+    display: inline-block !important;
+    text-align: start !important;
+    margin: 0em 0em 0em 0em !important;
+    font: 13.3333px Arial !important;
+    padding: 8px !important;
+    width: 26rem !important;
+    font-size: 14px !important;
+    height: 2rem !important;
+}

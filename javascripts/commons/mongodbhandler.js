@@ -7,7 +7,7 @@ exports.MONGODB_URL = MONGODB_URL;
 var MongoClient = require('mongodb').MongoClient;
 var db;
 var connected = false;
-pool = {
+var pool = {
 	_collections: {}
 };
 pool.getCollection = function (name) {
