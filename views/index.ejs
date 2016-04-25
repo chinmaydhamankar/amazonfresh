@@ -2,10 +2,8 @@
 <html>
 <head>
     <title><%= title %></title>
-    <!--Scripts-->
-   <!-- <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
-   <script src="/javascripts/vendor/angular-1.5.3.js"></script>-->
-  <!--  <script src="//kendo.cdn.telerik.com/2016.1.412/js/jquery.min.js"></script>-->
+    <!-- Scripts -->
+    <!--  <script src="//kendo.cdn.telerik.com/2016.1.412/js/jquery.min.js"></script>-->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="//kendo.cdn.telerik.com/2016.1.412/js/angular.min.js"></script>
     <script src="http://kendo.cdn.telerik.com/2016.1.412/js/kendo.all.min.js"></script>
@@ -25,12 +23,18 @@
     <script src="/javascripts/services/TruckService.js"></script>
     <script src="/javascripts/controllers/TrucksController.js"></script>
 
+    <!-- Scripts for farmers -->
     <script src="/javascripts/services/FarmerService.js"></script>
     <script src="/javascripts/controllers/FarmersController.js"></script>
+
+    <!-- Scripts for Products -->
+    <script src="/javascripts/services/ProductService.js"></script>
+    <script src="/javascripts/controllers/ProductController.js"></script>
 
     <!-- Scripts for customers -->
     <script src="/javascripts/services/CustomerService.js"></script>
     <script src="/javascripts/controllers/customersController.js"></script>
+
     <!-- Scripts for Admin -->
     <script src="/javascripts/controllers/AdminController.js"></script>
 
@@ -52,6 +56,10 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
+
+    <!--Temporary script. Remove later-->
+    <script src="http://demos.telerik.com/kendo-ui/content/shared/js/products.js"></script>
+
     <base href="/">
 </head>
 <body ng-app="amazonfresh" >
