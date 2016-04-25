@@ -4,13 +4,13 @@
 var express = require("express");
 var router = express.Router();
 var CustomersHandler = require("../javascripts/customers/customershandler");
+var Auth = require("./authentication");
 
-router.get("/home", function(req, res) {
+router.get("/home", Auth.requireLogin, function(req, res) {
     res.render("home", { title: "Welcome | AmazonFresh" });
 });
 
 router.post("/",function (req, res) {
-    console.log("In sign up function");
     var promise = CustomersHandler.signup(req.body.info);
     promise.done(function () {
         res.send({
@@ -31,8 +31,7 @@ router.post("/",function (req, res) {
 /**
  * function to get List of all customer from the system.
  */
-
-router.get("/",function(req,res) {
+router.get("/", Auth.requireLogin, function(req,res) {
     console.log("In get Customer list");
     var promise = CustomersHandler.getCustomersList();
     promise.done(function (data) {
@@ -55,7 +54,7 @@ router.get("/",function(req,res) {
 /**
  * function to delete a customer from the system.
  */
-router.delete("/:ssn", function (req, res) {
+router.delete("/:ssn", Auth.requireLogin, function (req, res) {
     var ssn = req.params.ssn;
     var promise = CustomersHandler.deleteCustomer(ssn);
     promise.done(function () {

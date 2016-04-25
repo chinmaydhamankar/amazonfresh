@@ -19,7 +19,6 @@ exports.signuptruck = function (info) {
 	var deferred = Q.defer();
 	var promise = _validateTrucksInfo(info);
 	Q.all([promise, promise1]).done(function (values) {
-		console.log(values[1]);
 		info.location = values[1];
 		info = _sanitizeTrucksInfo(info);
 		var cursor = MongoDB.collection("users").insert(info);
@@ -45,10 +44,10 @@ exports.delete = function (ssn) {
 	MongoDB.collection("users").remove({
 		"ssn": ssn
 	}, function (err, numberOfRemoved) {
-		if(err) {
+		if (err) {
 			deferred.reject(err);
 		}
-		if(numberOfRemoved.result.n) {
+		if (numberOfRemoved.result.n) {
 			deferred.resolve();
 		} else {
 			deferred.reject("Driver with given SSN not found in system!");
@@ -57,9 +56,25 @@ exports.delete = function (ssn) {
 	return deferred.promise;
 }
 
-
+/**
+ * returns the all the trucks in the system.
+ * @returns {*|promise}
+ */
 exports.getAllTrucks = function () {
-	
+	var deferred = Q.defer();
+	var cursor = MongoDB.collection("users").find();
+	var trucks = [];
+	cursor.each(function (error, doc) {
+		if (error) {
+			deferred.reject(error);
+		}
+		if (doc != null) {
+			trucks.push(doc);
+		} else {
+			deferred.resolve(trucks);
+		}
+	});
+	return deferred.promise;
 }
 
 /**
@@ -78,8 +93,8 @@ _sanitizeTrucksInfo = function (info) {
 /**
  * function to validate the given input.
  * validations provided -
- * 		check if the email id is already registered.
- * 		check if values are provided for all required fields.
+ *        check if the email id is already registered.
+ *        check if values are provided for all required fields.
  * @param info
  * @returns {*|promise}
  * @private
@@ -89,23 +104,21 @@ _validateTrucksInfo = function (info) {
 	var promise = Utilities.validateEmail(info.email);
 	var promise1 = Utilities.validateSSN(info.ssn);
 	Q.all([promise, promise1]).done(function () {
-		if( Utilities.isEmpty(info.ssn)		 	||
-			Utilities.isEmpty(info.firstName) 	||
-			Utilities.isEmpty(info.lastName) 	||
-			Utilities.isEmpty(info.address)	 	||
-			Utilities.isEmpty(info.city) 		||
-			Utilities.isEmpty(info.state) 		||
-			Utilities.isEmpty(info.zipCode) 	||
+		if (Utilities.isEmpty(info.ssn) ||
+			Utilities.isEmpty(info.firstName) ||
+			Utilities.isEmpty(info.lastName) ||
+			Utilities.isEmpty(info.address) ||
+			Utilities.isEmpty(info.city) ||
+			Utilities.isEmpty(info.state) ||
+			Utilities.isEmpty(info.zipCode) ||
 			Utilities.isEmpty(info.phoneNumber) ||
-			Utilities.isEmpty(info.password) 	||
-			Utilities.isEmpty(info.email))
-		{
+			Utilities.isEmpty(info.password) ||
+			Utilities.isEmpty(info.email)) {
 			deferred.reject("All Values must be provided! ");
 		} else {
-			if(!Utilities.validateState(info.state)) {
+			if (!Utilities.validateState(info.state)) {
 				deferred.reject("Invalid state!");
-			} else
-			if(!Utilities.validateZipCode(info.zipCode)) {
+			} else if (!Utilities.validateZipCode(info.zipCode)) {
 				deferred.reject("Invalid zip code!");
 			} else {
 				deferred.resolve();

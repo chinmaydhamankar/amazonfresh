@@ -4,7 +4,6 @@
 
 var express = require('express');
 var router = express.Router();
-var Auth = require("../javascripts/authentication/authentication");
 var passport = require("passport");
 /**
  * returns the login page

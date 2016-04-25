@@ -10,13 +10,27 @@ var TruckHandler = require("../javascripts/trucks/truckshandler");
  * function to return all trucks in the system.
  */
 router.get("/", Auth.requireLogin, function (req, res) {
-	
+	var promise = TruckHandler.getAllTrucks();
+	promise.done(function (data) {
+		res.send({
+			success: true,
+			error: null,
+			data: data
+		});
+	}, function (error) {
+		res.status(500)
+			.send({
+				success: false,
+				error: error,
+				data: null
+			});
+	});
 });
 
 /**
  * function to register a truck driver into the system.
  */
-router.post("/", Auth.requireLogin, function (req, res) {
+router.post("/", function (req, res) {
 	console.log("info:" + req.body.info);
 	var promise = TruckHandler.signuptruck(req.body.info);
 	promise.done(function () {
@@ -39,7 +53,7 @@ router.post("/", Auth.requireLogin, function (req, res) {
  * function to delete a truck driver from the system.
  */
 
-router.delete("/:ssn", function (req, res) {
+router.delete("/:ssn", Auth.requireLogin, function (req, res) {
 	var ssn = req.params.ssn;
 	var promise = TruckHandler.delete(ssn);
 	promise.done(function () {

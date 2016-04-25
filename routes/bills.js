@@ -2,12 +2,16 @@
  * Created by Abhay on 4/16/2016.
  */
 
-var express = require("express");;
+var express = require("express");
 var router = express.Router();
 var BillHandler = require("../javascripts/bills/billshandler");
 var TruckHandler = require("../javascripts/trucks/truckshandler");
+var Auth = require("./authentication");
 
-router.post("/generatebill", function (req, res) {
+/**
+ * generates the bill.
+ */
+router.post("/generatebill", Auth.requireLogin, function (req, res) {
     var promise = BillHandler.generatebill(req.body.info);
     promise.done(function () {
         res.send({
@@ -25,7 +29,10 @@ router.post("/generatebill", function (req, res) {
     });
 });
 
-router.delete("/:billId", function (req, res) {
+/**
+ * deletes the bill.
+ */
+router.delete("/:billId", Auth.requireLogin, function (req, res) {
     var promise = BillHandler.delete(req.params.billId);
     promise.done(function () {
         res.status(204).send();
@@ -38,7 +45,10 @@ router.delete("/:billId", function (req, res) {
     });
 });
 
-router.get("/searchbill/:billId", function (req, res) {
+/**
+ * searches the bill with given bill id.
+ */
+router.get("/searchbill/:billId", Auth.requireLogin, function (req, res) {
     var promise = BillHandler.searchbill(req.params.billId);
     promise.done(function (result) {
         res.send({
@@ -56,7 +66,7 @@ router.get("/searchbill/:billId", function (req, res) {
     });
 });
 
-router.get("/getallbills/:customerId", function (req, res) {
+router.get("/getallbills/:customerId", Auth.requireLogin, function (req, res) {
     var promise = BillHandler.getallbills(req.params.customerId);
     promise.done(function (result) {
         res.send({
