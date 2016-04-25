@@ -2,7 +2,7 @@
     <div id = "userbox">
         <img style="margin-left: 2rem; margin-top: 4rem" src="https://cdn3.iconfinder.com/data/icons/basic-interface/100/user_man-64.png" />
         <span id = "admin-name">
-            <button style="background-color: transparent; border: none" class="dropdown-toggle" data-toggle="dropdown" type="button" >Admin
+            <button style="background-color: transparent; border: none" class="dropdown-toggle" data-toggle="dropdown" type="button" >
                 <span class="caret"></span>
                 <ul class="dropdown-menu">
                     <li><a role="menuitem" tabindex="-1" href="#">Logout</a></li>
@@ -12,11 +12,11 @@
     </div>
 
     <ul style="list-style: none" class = "sidebar-nav">
-        <li><a href="#">Customers &nbsp <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-24.png" />
+        <li><a href="#"  ng-click="getPendingCustomers()">Customers &nbsp <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-24.png" />
         </a><span style="margin-left: 12rem" class="notification">2</span></li>
-        <li><a href="#">Products &nbsp <img src="https://cdn2.iconfinder.com/data/icons/food-drink-10/24/food-drink-31-24.png" />
+        <li><a href="#" ng-click = "getPendingProducts()">Products &nbsp <img src="https://cdn2.iconfinder.com/data/icons/food-drink-10/24/food-drink-31-24.png" />
         </a><span style="margin-left: 11.2rem" class="notification">2</span></li>
-        <li><a href="#">Farmers &nbsp <img src="https://cdn3.iconfinder.com/data/icons/mobipeople/512/farmer_remove_volume_vector_icons-24.png" />
+        <li><a href="#" ng-click="getPendingFarmers()">Farmers &nbsp <img src="https://cdn3.iconfinder.com/data/icons/mobipeople/512/farmer_remove_volume_vector_icons-24.png" />
         </a><span class="notification">2</span></li>
         <li><a href="#">Charts &nbsp <img src="https://cdn0.iconfinder.com/data/icons/free-misc-icon-set-2/512/graph_up_arrow-24.png" />
         </a></li>
@@ -61,7 +61,8 @@
 
 </div>
 
-<div class="content">
+<div class="content" ng-repeat = "value in data.data">
+
     <div class="col-sm-4">
     <div id ="box">
 
@@ -74,93 +75,12 @@
             </div>
             <div id = "innerbottompiccolor">
             </div>
-            <h4 id = "h4text">Hello</h4>
+            <h4 id = "h4text" ng-show = "abcd == 1"> {{ value.productName}}</h4>
+            <h4 id = "h5text" ng-show = "abcd == 2"> {{ value.firstName}} {{value.lastName}}</h4>
 
         </div>
 
          <button id="deleteButton" type="button" class="btn btn-danger" >Delete</button>
     </div>
-    </div>
-
-
-
-    <div class="col-sm-4">
-        <div id ="box">
-
-            <div id= "boxbottombhalf">
-                <button id="confirmButton" type="button" class="btn" >Confirm</button>
-            </div>
-            <div id = "innerpic">
-
-                <div id = "innerpiccolor">
-                </div>
-                <div id = "innerbottompiccolor">
-                </div>
-                <h4 id = "h4text">Hello</h4>
-
-            </div>
-
-            <button id="deleteButton" type="button" class="btn btn-danger" >Delete</button>
-        </div>
-    </div>
-
-
-    <div class="col-sm-4">
-        <div id ="box">
-
-            <div id= "boxbottombhalf">
-                <button id="confirmButton" type="button" class="btn" >Confirm</button>
-            </div>
-            <div id = "innerpic">
-
-                <div id = "innerpiccolor">
-                </div>
-                <div id = "innerbottompiccolor">
-                </div>
-                <h4 id = "h4text">Hello</h4>
-
-            </div>
-
-            <button id="deleteButton" type="button" class="btn btn-danger" >Delete</button>
-        </div>
-    </div>
-
-    <div class="col-sm-4">
-        <div id ="box">
-
-            <div id= "boxbottombhalf">
-                <button id="confirmButton" type="button" class="btn" >Confirm</button>
-            </div>
-            <div id = "innerpic">
-
-                <div id = "innerpiccolor">
-                </div>
-                <div id = "innerbottompiccolor">
-                </div>
-                <h4 id = "h4text">Hello</h4>
-
-            </div>
-
-            <button id="deleteButton" type="button" class="btn btn-danger" >Delete</button>
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <div id ="box">
-
-            <div id= "boxbottombhalf">
-                <button id="confirmButton" type="button" class="btn" >Confirm</button>
-            </div>
-            <div id = "innerpic">
-
-                <div id = "innerpiccolor">
-                </div>
-                <div id = "innerbottompiccolor">
-                </div>
-                <h4 id = "h4text">Hello</h4>
-
-            </div>
-
-            <button id="deleteButton" type="button" class="btn btn-danger" >Delete</button>
-        </div>
     </div>
 </div>

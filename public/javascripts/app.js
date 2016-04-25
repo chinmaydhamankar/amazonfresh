@@ -23,10 +23,17 @@ app.config(function ($routeProvider, $locationProvider) {
 	}).when("/products/home", {
 		templateUrl: "partials/products/products_list.html",
 		controller: "ProductController"
+	}).when("/farmers/home", {
+		templateUrl: "partials/products/createproduct.html",
+		controller: "ProductController"
+	}).when("/bills/cart", {
+		templateUrl: "partials/bills/cart.html",
+		controller: "BillsController"
 	}).otherwise({
 		redirectTo: "/index"
 	});
-	$locationProvider.html5Mode(true);
+
+	$locationProvider.html5Mode(false);
 });
 
 /*

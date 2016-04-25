@@ -1,7 +1,30 @@
 /**
  * Created by pratiksanglikar on 24/04/16.
  */
+/**
+ * Created by Dell on 20-04-2016.
+ */
+var app = angular.module("amazonfresh");
+
+
 angular.module("amazonfresh").controller("ProductController",["$scope","ProductService", function ($scope, ProductService) {
+	$scope.message = "Hi";
+	$scope.createproduct = function () {
+		var info = {
+			"productID": $scope.productID,
+			"ssn": $scope.ssn,
+			"productName": $scope.productName,
+			"productPrice": $scope.productPrice,
+			"description": $scope.description,
+
+		}
+		var promise = ProductService.createproduct(info);
+		promise.then(function (result) {
+			alert("Success!");
+		}, function (error) {
+			alert("Error - " + error);
+		});
+	}
 	$scope.products = [{
 		ProductID : 1,
 		ProductName : "Chai",
