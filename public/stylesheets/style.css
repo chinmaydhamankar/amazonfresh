@@ -423,7 +423,7 @@ input[name = customer-password] {
     width: inherit !important;
 }
 
-<<<<<<< HEAD
+
 #bill-cart{
     background-color: #fff;
     width: 270px;
@@ -452,7 +452,7 @@ input[name = customer-password] {
     width: 30px;
 }
 
-#bill-quantityValue{
+#bill-quantityValue {
     background-color: white;
     border: 1px solid #888;
     min-height: 40px;
@@ -467,7 +467,7 @@ input[name = customer-password] {
     text-align: center;
     margin-top: 10px;
     margin-bottom: 12px;
-=======
+}
 /*
 Shruti's classes.
 */
@@ -475,7 +475,7 @@ Shruti's classes.
 .carousel-inner > .item > a > img {
     width: 100%;
 
-    float: left, right
+    float: left,right
 }
 
 .section_header span {
