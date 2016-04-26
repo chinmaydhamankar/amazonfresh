@@ -1,5 +1,5 @@
 .main-content {
-    margin-top: 15%;
+    margin-top: 5rem;
 }
 
 .login-form-wrapper {
@@ -448,6 +448,64 @@ input[name = customer-password] {
     height: 50rem;
     overflow-y: scroll;
 }
+
+#bill-order{
+    margin-left: auto;
+    margin-right: auto;
+    /*width: 6em
+    /*margin-right: ;*/
+    border: 1px #c0c0c0 solid;
+    background-color: white;
+    width: 80rem;
+    border-radius: 4px 4px 4px 4px;
+    margin-bottom: 10px;
+}
+
+#bill-orderinfo{
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f6f6f6;
+    border: 1px #cecece solid;
+}
+
+#bill-orderPlaced{
+    width: 200px;
+    text-align: center;
+}
+
+#bill-totalAmount{
+    width: 150px;
+    text-align: center;
+}
+
+#bill-orderNumber{
+    text-align: right;
+    font-size: medium;
+    padding-top: 2rem;
+}
+
+
+#bill-iteminfo{
+    background-color: white;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: 1px #cecece solid;
+}
+
+#bill-itemImage{
+    width: inherit;
+}
+
+#bill-productId{
+
+}
+
+#bill-expectedDeliveryDate{
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /*
 Shruti's classes.
 */
@@ -455,7 +513,7 @@ Shruti's classes.
 .carousel-inner > .item > a > img {
     width: 100%;
 
-    float: left, right
+    float: left;
 }
 
 .section_header span {
@@ -572,4 +630,63 @@ Shruti's classes.
     width: 26rem !important;
     font-size: 14px !important;
     height: 2rem !important;
+}
+
+
+
+
+/*Styles addded for Google Maps by Pratik. Do not overwrite. */
+
+.google-maps-wrapper-div {
+    border: solid;
+    border-color: #111111;
+    border-width: 0.25rem;
+    padding: 0 !important;
+}
+
+.google-map {
+    height: 50rem;
+    width: 100%;
+}
+
+.trip-details-wrapper-div {
+    background-color: snow;
+    opacity: 0.8;
+    height: 50rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    border-radius: 1rem;
+    margin-left: 5rem;
+}
+
+.trip-details-container-div {
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.trip-details-row {
+    display: inline-table;
+    margin-top: 1rem;
+    width: 100%;
+    font-weight: bold;
+}
+
+.trip-details-heading {
+    background-color: snow;
+    border-radius: 0.5rem;
+    width: 96%;
+    opacity: 0.8;
+    height: 4rem;
+    text-align: center;
+    padding-top: 0.5rem;
+}
+
+.google-maps-custom-marker {
+    background-color: snow;
+    opacity: 0.8;
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.25rem 0.25rem 0.25rem;
+    width: 15rem;
+    height: 8rem;
 }

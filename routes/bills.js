@@ -46,10 +46,32 @@ router.delete("/:billId", Auth.requireLogin, function (req, res) {
 });
 
 /**
- * searches the bill with given bill id.
+ * searches a bill with given bill id.
  */
 router.get("/searchbill/:billId", Auth.requireLogin, function (req, res) {
     var promise = BillHandler.searchbill(req.params.billId);
+    promise.done(function (result) {
+        //console.log("back"+result.billResult[0].bill_id)
+        res.send({
+            success: true,
+            error: null,
+            data: result
+        });
+    }, function (error) {
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
+    });
+});
+
+/**
+ * searches all bills with given customer id.
+ */
+router.get("/getallbills/:customerId", Auth.requireLogin, function (req, res) {
+    var promise = BillHandler.getallbills(req.params.customerId);
     promise.done(function (result) {
         res.send({
             success: true,
@@ -66,8 +88,8 @@ router.get("/searchbill/:billId", Auth.requireLogin, function (req, res) {
     });
 });
 
-router.get("/getallbills/:customerId", Auth.requireLogin, function (req, res) {
-    var promise = BillHandler.getallbills(req.params.customerId);
+router.get("/revenue", Auth.requireLogin, function (req, res) {
+    var promise = BillHandler.revenue();
     promise.done(function (result) {
         res.send({
             success: true,

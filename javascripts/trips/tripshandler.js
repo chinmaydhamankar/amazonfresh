@@ -176,7 +176,7 @@ exports.generateTrip = function (customerID, farmerID, productID) {
 				cursor.then(function () {
 					var updateDriver = MongoDB.collection("users").update({ssn: driver.ssn}, {$set: {freeFrom: tripDetails.deliveryTime}});
 					updateDriver.then(function () {
-						deferred.resolve();
+						deferred.resolve(tripDetails);
 					}).catch(function (error) {
 						deferred.reject(error);
 					});
@@ -231,8 +231,8 @@ _constructTripDetails = function (customer, farmer, product, journeyDetails, dri
 		destination: customerAddress,
 		orderTime: orderTime,
 		deliveryTime: deliveryTime,
+		deliverySteps: deliverySteps
 	};
-	deliverySteps: deliverySteps
 	return tripDetails;
 }
 

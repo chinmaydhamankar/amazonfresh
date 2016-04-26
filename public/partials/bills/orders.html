@@ -1,0 +1,43 @@
+<button ng-click="getallbills(10)">search</button>
+<div id="bill-order" ng-repeat="value in result">
+    <div id="bill-orderinfo" class="row" >
+        <div id="bill-orderPlaced" class="left col-sm-4">
+            ORDER PLACED
+            <div>
+                {{value.order_date | date:'yyyy-MM-dd'}}
+            </div>
+        </div>
+        <div id="bill-totalAmount" class="mid col-sm-4">
+            TOTAL
+            <div>
+                ${{value.total_amount}}
+            </div>
+        </div>
+        <div id="bill-orderNumber" class="right col-sm-4">
+            BILL #{{value.bill_id}}
+        </div>
+    </div >
+    <div id="bill-iteminfo" ng-repeat="items in value.item_details"  class="row">
+        <img id="bill-itemImage" class="left col-sm-2" src="https://images-na.ssl-images-amazon.com/images/I/91BCkMnPAhL._SR120,120__SR50,52_.jpg" height="50" title="Organic Strawberries, 1 lb">
+        <div id="bill-item" class="midleft col-sm-5">
+            <div id="bill-productId" >
+                Hass Avocado, Ripe, One Large X {{items.quantity}}
+            </div>
+            <div >
+                Price Per Unit :{{items.price_per_unit}}
+            </div>
+            <div >
+                Subtotal : ${{items.price_per_unit*items.quantity}}
+            </div>
+        </div>
+        <div id="bill-expectedDeliveryDate" class="midright col-sm-3">
+            <div>
+                {{items.expectedDeliveryDate}}
+            </div>
+
+        </div>
+        <div class="right col-sm-2">
+            <button ng-click="trackPackage(items.trip_id)">Track Package</button>
+        </div>
+    </div>
+</div>
