@@ -2,12 +2,15 @@
  * Created by pratiksanglikar on 12/04/16.
  */
 
-var app = angular.module("amazonfresh", ["ngRoute","kendo.directives"]);
+var app = angular.module("amazonfresh", ["ngRoute","kendo.directives","ngMaps"]);
 
 app.config(function ($routeProvider, $locationProvider) {
 	$routeProvider.when("/index", {
 		templateUrl: "partials/login.html",
 		controller: "AuthController"
+	}).when("/trips/track/:tripId", {
+		templateUrl: "partials/trips/track.html",
+		controller: "TripsController"
 	}).when("/customers/signup", {
 		templateUrl: "partials/customers/signup.html",
 		controller: "CustomersController"
@@ -37,7 +40,3 @@ app.config(function ($routeProvider, $locationProvider) {
 	});
 	$locationProvider.html5Mode(false);
 });
-
-/*
-app.controller("MyCtrl", function($scope){
-});*/
