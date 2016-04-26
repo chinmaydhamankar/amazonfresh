@@ -23,6 +23,13 @@ angular.module("amazonfresh").factory("ProductService", ["$http","$q", function 
 				def.reject(error);
 			});
 			return def.promise;
+		},
+
+		getList: function () {
+			$http({
+				method: 'GET',
+				url: "http://localhost:3000/products"
+			});
 		}
 		
 	};

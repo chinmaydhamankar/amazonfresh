@@ -15,7 +15,7 @@ angular.module("amazonfresh").factory("AuthService",["$http","$q", function ($ht
 				}
 			}).then(function (data) {
 				if (data.data.success) {
-					def.resolve();
+					def.resolve(data.data.data);
 				} else {
 					def.reject(data.data.error);
 				}

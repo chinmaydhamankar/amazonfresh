@@ -8,7 +8,10 @@ var app = angular.module("amazonfresh");
 
 
 angular.module("amazonfresh").controller("ProductController",["$scope","ProductService", function ($scope, ProductService) {
-	$scope.message = "Hi";
+	init = function () {
+		ProductService.getList();
+	}
+	init();
 	$scope.createproduct = function () {
 		var info = {
 			"productID": $scope.productID,

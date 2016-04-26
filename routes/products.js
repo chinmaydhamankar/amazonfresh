@@ -46,13 +46,13 @@ router.delete("/:productID", Auth.requireLogin, function (req, res) {
 /**
  * function to list all products from the system.
  */
-router.get("/", Auth.requireLogin, function (req, res) {
+router.get("/", Auth.fakeEndHack, Auth.requireLogin, function (req, res) {
 	var promise = ProductHandler.listallproducts();
-	promise.done(function () {
+	promise.done(function (data) {
 		res.send({
 			success: true,
 			error: null,
-			data: "Products List!"
+			data: data
 		});
 	}, function (error) {
 		res.status(500)

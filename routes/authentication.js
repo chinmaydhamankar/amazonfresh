@@ -4,6 +4,7 @@
 
 var express = require('express');
 var router = express.Router();
+var Auth = require("../javascripts/authentication/authentication");
 var passport = require("passport");
 /**
  * returns the login page
@@ -33,7 +34,7 @@ router.post('/login', function (req, res, next) {
 				return next(err);
 			}
 
-			delete user.passport;
+			delete user.password;
 			req.user = user;
 			req.session.user = user;
 			return res.send({
@@ -41,7 +42,7 @@ router.post('/login', function (req, res, next) {
 				error: null,
 				data: user
 			});
-		})
+		});
 	})(req, res, next);
 });
 
@@ -61,12 +62,22 @@ router.get('/logout', function (req, res) {
  * @param next
  */
 router.requireLogin = function (req, res, next) {
-	if (!req.user) {
-	 res.redirect('/auth/login');
+	if (!req.session.user) {
+	 	res.redirect('/auth/login');
 	 } else {
-	 next();
+	 	next();
 	 }
+};
+
+router.fakeEndHack = function (req, res, next) {
 	next();
+	/*res._originalEnd = res.end;
+	res.end = function() {
+		var url = res.get('Location');
+		res.end = res._originalEnd;
+		res.status(200).send(url);
+	};
+	next(null);*/
 };
 
 module.exports = router;

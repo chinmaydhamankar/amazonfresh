@@ -4,7 +4,8 @@
 exports.usertypes = {
 	"DRIVER":"DRIVER",
 	"CUSTOMER":"CUSTOMER",
-	"FARMER":"FARMER"
+	"FARMER":"FARMER",
+	"ADMIN":"ADMIN"
 }
 
 exports.USStates = {
