@@ -16,6 +16,11 @@ angular.module("amazonfresh").factory("TripsService",["$http", "$q", function ($
 					deferred.reject(data.data.error);
 				}
 			}).catch(function (error) {
+
+				if(error.status=== 302)
+				{
+					$window.location.href="http://localhost:3000/#auth/login";
+				}
 				deferred.reject(error);
 			});
 			return deferred.promise;

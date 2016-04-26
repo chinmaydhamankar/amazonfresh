@@ -20,6 +20,7 @@ angular.module("amazonfresh").factory("CustomerService",["$http","$q", function 
                     def.reject(data.data.error);
                 }
             }, function (error) {
+                if(error.status=== 302)
                 def.reject(error);
             });
             return def.promise;
