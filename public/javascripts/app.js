@@ -29,6 +29,9 @@ app.config(function ($routeProvider, $locationProvider) {
 	}).when("/bills/cart", {
 		templateUrl: "partials/bills/cart.html",
 		controller: "BillsController"
+	}).when("/bills/orders", {
+		templateUrl: "partials/bills/orders.html",
+		controller: "BillsController"
 	}).otherwise({
 		redirectTo: "/index"
 	});

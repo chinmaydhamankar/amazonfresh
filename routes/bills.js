@@ -51,6 +51,7 @@ router.delete("/:billId", Auth.requireLogin, function (req, res) {
 router.get("/searchbill/:billId", Auth.requireLogin, function (req, res) {
     var promise = BillHandler.searchbill(req.params.billId);
     promise.done(function (result) {
+        //console.log("back"+result.billResult[0].bill_id)
         res.send({
             success: true,
             error: null,

@@ -448,6 +448,64 @@ input[name = customer-password] {
     height: 50rem;
     overflow-y: scroll;
 }
+
+#bill-order{
+    margin-left: auto;
+    margin-right: auto;
+    /*width: 6em
+    /*margin-right: ;*/
+    border: 1px #c0c0c0 solid;
+    background-color: white;
+    width: 80rem;
+    border-radius: 4px 4px 4px 4px;
+    margin-bottom: 10px;
+}
+
+#bill-orderinfo{
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f6f6f6;
+    border: 1px #cecece solid;
+}
+
+#bill-orderPlaced{
+    width: 200px;
+    text-align: center;
+}
+
+#bill-totalAmount{
+    width: 150px;
+    text-align: center;
+}
+
+#bill-orderNumber{
+    text-align: right;
+    font-size: medium;
+    padding-top: 2rem;
+}
+
+
+#bill-iteminfo{
+    background-color: white;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: 1px #cecece solid;
+}
+
+#bill-itemImage{
+    width: inherit;
+}
+
+#bill-productId{
+
+}
+
+#bill-expectedDeliveryDate{
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /*
 Shruti's classes.
 */
