@@ -12,8 +12,8 @@ exports.approvecreatefarmer = function (info) {
     console.log("come to approve");
     var deferred = Q.defer();
     var searchQuery = JSON.parse(info);
-    console.log(searchQuery);
-    var cursor = MongoDB.collection("users").update({"ssn" : searchQuery.ssn},searchQuery);
+    console.log(searchQuery.ssn);
+    var cursor = MongoDB.collection("users").update({"ssn" : searchQuery.ssn},{$set :{"isApproved" : true}});
         cursor.then(function (user) {
             deferred.resolve(user);
         }).catch(function (error) {
@@ -22,17 +22,49 @@ exports.approvecreatefarmer = function (info) {
     return deferred.promise;
 };
 
+exports.declinefarmer = function (info) {
+    console.log("idhr aama");
+    var deferred = Q.defer();
+    var searchQuery = JSON.parse(info);
+    console.log(searchQuery);
+    var cursor = MongoDB.collection("users").remove({"ssn" : searchQuery.ssn});
+    cursor.then(function (user) {
+        deferred.resolve(user);
+    }).catch(function (error) {
+        deferred.reject(error);
+    });
+    return deferred.promise;
+};
+
+
+exports.declineproduct = function (info) {
+    console.log("idhr aaya re");
+    var deferred = Q.defer();
+    var searchQuery = JSON.parse(info);
+    console.log(searchQuery);
+    var cursor = MongoDB.collection("products").remove({"productName" : searchQuery.productName});
+    cursor.then(function (user) {
+        deferred.resolve(user);
+    }).catch(function (error) {
+        deferred.reject(error);
+    });
+    return deferred.promise;
+};
+
+
 
 
 exports.approveproduct = function (info) {
     var deferred = Q.defer();
     var searchQuery = JSON.parse(info);
     console.log(searchQuery);
-    console.log(searchQuery.info.productName);
-    var cursor = MongoDB.collection("products").update({"productName" : searchQuery.info.productName},{$set : { "isApproved" : true }});
+    console.log(searchQuery.productName);
+    var cursor = MongoDB.collection("products").update({"productName" : "grapes"},{$set : { "isApproved" : true }});
     cursor.then(function (user) {
+        console.log("**************************");
         deferred.resolve(user);
     }).catch(function (error) {
+        console.log("@@@@@@@@@@@@@@@@@@@");
         deferred.reject(error);
     });
     return deferred.promise;
@@ -58,7 +90,7 @@ exports.approvecustomer = function (info) {
 exports.getAllUnApprovedFarmers = function() {
     console.log("here again why");
     var deferred = Q.defer();
-    var cursor = MongoDB.collection("users").find({"usertype" : "FARMER", "isApproved": false });
+    var cursor = MongoDB.collection("users").find({"usertype" : UserTypes.FARMER, "isApproved": false });
     var farmerList = [];
     cursor.each(function (err, doc) {
         if (err) {
@@ -66,8 +98,6 @@ exports.getAllUnApprovedFarmers = function() {
         }
         if (doc != null) {
             farmerList.push(doc);
-            console.log(farmerList);
-            console.log("get here");
         } else
         {
             deferred.resolve(farmerList);
@@ -97,15 +127,20 @@ exports.getAllUnApprovedProducts = function() {
 };
 
 exports.getAllUnApprovedCustomers = function() {
+    console.log("in admin handler  1");
     var deferred = Q.defer();
+    console.log("in admin handler 2");
     var cursor = MongoDB.collection("users").find({"usertype" : "CUSTOMER", "isApproved": false});
+    console.log("in admin handler 3");
     var customerList = [];
+    console.log("in admin handler");
     cursor.each(function (err, doc) {
         if (err) {
             deferred.reject(err);
         }
         if (doc != null) {
             customerList.push(doc);
+            console.log("In admin handle get list pending customer");
             console.log(customerList);
         } else
         {

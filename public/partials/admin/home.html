@@ -12,12 +12,12 @@
     </div>
 
     <ul style="list-style: none" class = "sidebar-nav">
-        <li><a href="#"  ng-click="getPendingCustomers()">Customers &nbsp <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-24.png" />
-        </a><span style="margin-left: 12rem" class="notification">2</span></li>
-        <li><a href="#" ng-click = "getPendingProducts()">Products &nbsp <img src="https://cdn2.iconfinder.com/data/icons/food-drink-10/24/food-drink-31-24.png" />
-        </a><span style="margin-left: 11.2rem" class="notification">2</span></li>
-        <li><a href="#" ng-click="getPendingFarmers()">Farmers &nbsp <img src="https://cdn3.iconfinder.com/data/icons/mobipeople/512/farmer_remove_volume_vector_icons-24.png" />
-        </a><span class="notification">2</span></li>
+        <li><a  ng-click="getPendingCustomers()">Customers &nbsp <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-24.png" />
+        </a><span style="margin-left: 12rem" class="notification">{{ custlength }}</span></li>
+        <li><a  ng-click = "getPendingProducts()">Products &nbsp <img src="https://cdn2.iconfinder.com/data/icons/food-drink-10/24/food-drink-31-24.png" />
+        </a><span style="margin-left: 11.2rem" class="notification">{{prodlength }}</span></li>
+        <li><a ng-click="getPendingFarmers()">Farmers &nbsp <img src="https://cdn3.iconfinder.com/data/icons/mobipeople/512/farmer_remove_volume_vector_icons-24.png" />
+        </a><span class="notification">{{farmlength}}</span></li>
         <li><a href="#">Charts &nbsp <img src="https://cdn0.iconfinder.com/data/icons/free-misc-icon-set-2/512/graph_up_arrow-24.png" />
         </a></li>
     </ul>
@@ -30,36 +30,113 @@
         <img style="height: 16px; width: 16px" src="https://cdn2.iconfinder.com/data/icons/kailoon/myicon/search.png" /></button>
     <a style="text-decoration: none" id="advanced-search" ng-click = "popup.center().open()" ng-show="!popupvisible">Advanced Search</a>
 </div>
-<!--<<<<<<< HEAD
-<div class="popup" kendo-window = "popup" k-visible = "false" k-on-open="popupvisible = true" k-modal="true"
-     k-on-close="popupvisible = false">
-<popup-directive > </popup-directive>
-    &lt;!&ndash;<div class="form-group">
-        <label for="sel1">Search For:</label>
-        <select class="form-control" id="sel1">
-            <option>Farmers</option>
-            <option>Products</option>
-            <option>Customers</option>
-            <option>Trips</option>
-        </select>
-    </div>&ndash;&gt;
-=======-->
-<div class="admin-advanced-search-window" kendo-window = "popup" k-options="advancedSearchWindowOptions" k-on-open = "popupvisible = true" k-on-close="popupvisible = false">
+
+<div class="admin-advanced-search-window" kendo-window = "popup" k-options="advancedSearchWindowOptions" k-on-open = "popupvisible = true; onAdvancedSearchWindowOpen();" k-on-close="popupvisible = false">
 
     <div class="container admin-advanced-search-window-container">
-        <div class = "col-md-4 form-group">
-            <label for="sel1">Search For:</label>
-            <select class="form-control" id="sel1">
-                <option>Farmers</option>
-                <option>Products</option>
-                <option>Customers</option>
-                <option>Trips</option>
+        <div class = "col-md-4 form-group dropdown">
+            <label style="margin-left: 14rem">Search</label>
+            <select  style="margin-left: 20rem;margin-top: -4rem;" kendo-drop-down-list = "typeSelectionList" required ng-model = "type" >
+            <option oi-options selected = "true" value = "Farmers">Farmers</option>
+                <option oi-options value = "Products">Products</option>
+                <option oi-options value = "Customers">Customers</option>
+                <option oi-options value = "Trips">Trips</option>
             </select>
         </div>
     </div>
 
+<div id = "Customers" ng-if= "type == 'Customers'">
+    <div class="container admin-advanced-search-window-container">
+
+        <div class="col-sm-5">
+            <input style="width: 24rem" type="text" name="firstName" ng-model="firstName" class="form-control" placeholder="First Name"
+                   title="First Name" />
+        </div>
+        <div class="col-sm-5">
+            <input style="width: 24rem" type="text" name="lastName" ng-model="lastName" class="form-control" placeholder="Last Name"
+                   title="Last Name" />
+        </div>
+
+    </div>
+    <div class="container admin-advanced-search-window-container">
+
+        <div class="col-sm-5">
+            <input style="width: 24rem" type="text" name="city" ng-model="city" class="form-control" placeholder="City"
+                   title="City" />
+        </div>
+        <div class="col-sm-5">
+            <input style="width: 24rem" type="text" name="zipcode" ng-model="zipcode" class="form-control" placeholder="Zip Code"
+                   title="Zip Code" />
+        </div>
+    </div>
+
+    <div class="col-sm-3">
+    </div>
+    <div class="col-sm-3">
+        <button id="advanced-search-button" type="button" class="btn btn-primary" >Search</button>
+    </div>
+</div>
+
+
+    <div id = "Farmers" ng-if = "type == 'Farmers'">
+        <div class="container admin-advanced-search-window-container">
+
+            <div class="col-sm-5">
+                <input style="width: 24rem" type="text" name="firstName" ng-model="firstName" class="form-control" placeholder="First Name"
+                       title="First Name" />
+            </div>
+            <div class="col-sm-5">
+                <input style="width: 24rem" type="text" name="lastName" ng-model="lastName" class="form-control" placeholder="Last Name"
+                       title="Last Name" />
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </div>
+
+
+
+<div class="pending-request-wrapper col-md-8 col-md-offset-4">
+    <div  class = "pending-request-row container col-md-8" ng-repeat = "value in data.data">
+        <div class="col-sm-8">
+            <label style="font-size: 2rem; color: floralwhite;margin-top: 3.5rem;" ng-show = "abcd == 2"> {{ value.firstName}} {{value.lastName}}</label>
+            <label style="font-size: 2rem; color: floralwhite;margin-top: 3.5rem;" ng-show = "abcd == 1"> {{ value.productName}}</label>
+        </div>
+        <div class="col-sm-2">
+            <button id="confirmButton" type="button" class="btn btn-primary" ng-click = "approveReq(value.ssn,value.productName,value.usertype)">Confirm</button>
+        </div>
+        <div class="col-sm-2">
+            <button id="deleteButton" type="button" class="btn btn-danger" ng-click = "declineReq(value.ssn,value.productName,value.usertype)">Decline</button>
+        </div>
+    </div>
+</div>
+
+
+
+<!--
 
 <div class="content" ng-repeat = "value in data.data">
 
@@ -67,7 +144,7 @@
     <div id ="box">
 
         <div id= "boxbottombhalf">
-            <button id="confirmButton" type="button" class="btn" >Confirm</button>
+            <button id="confirmButton" type="button" class="btn btn-primary" >Confirm</button>
         </div>
         <div id = "innerpic">
 
@@ -80,7 +157,7 @@
 
         </div>
 
-         <button id="deleteButton" type="button" class="btn btn-danger" >Delete</button>
+         <button type="button" class="btn btn-danger" ng-click = "declineReq()">Decline</button>
     </div>
     </div>
-</div>
+</div>-->

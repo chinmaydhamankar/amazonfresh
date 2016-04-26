@@ -346,6 +346,7 @@ input[name = customer-password] {
     height: 3rem;
 }
 
+/*
 #h4text {
     margin-left: 92px;
     margin-top: -52px;
@@ -356,19 +357,20 @@ input[name = customer-password] {
     margin-top: -52px;
     color: #999999;
 }
+*/
+
 
 #confirmButton {
-    margin-left: 15rem;
-    margin-top: 14.5rem;
-    height: 34px;
-    width: 67px;
-    padding-left: 6px;
+    /*margin-left: 30rem;*/
+    margin-top: 4rem;
+
 }
 
 #deleteButton {
-    margin-left: 23rem;
-    margin-top: 1.5rem;
+    /*margin-left: 49rem;*/
+    margin-top: 4rem;
 }
+
 
 .content {
     width: 100rem;
@@ -421,8 +423,31 @@ input[name = customer-password] {
 
 .admin-advanced-search-window-container {
     width: inherit !important;
+    margin-top: 3rem;
+}
+.advanced-search-button{
+    width: 6rem;
+    height: 3rem;
+    margin-left: 6rem;
+    margin-top: 4rem;
 }
 
+
+
+
+.pending-request-row{
+    /*margin-left: 45rem !important;*/
+    margin-top:4rem;
+    height: 10rem;
+    width: inherit;
+    background-color: #585858;
+    border-radius: 1rem;
+}
+.pending-request-wrapper
+{
+    height: 50rem;
+    overflow-y: scroll;
+}
 /*
 Shruti's classes.
 */

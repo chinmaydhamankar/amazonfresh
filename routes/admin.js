@@ -3,8 +3,7 @@ var Auth = require("./authentication");
 var router = express.Router();
 var adminHandler = require("../javascripts/admin/adminhandler");
 
-router.post("/", function (req, res) {
-    req.body.isApproved = true;
+router.post("/approvefarmer", function (req, res) {
     var data = req.body;
     data = JSON.stringify(data);
     var promise = adminHandler.approvecreatefarmer(data);
@@ -86,6 +85,79 @@ router.get("/listunapprovedcustomers", function (req, res) {
 });
 
 router.post("/approveproduct", function (req, res) {
+    console.log("In server part admin.js");
+    var data = req.body;
+    data = JSON.stringify(data);
+    console.log("Data to be confirmed is :"+data);
+    var promise = adminHandler.approveproduct(data);
+    promise.done(function () {
+        res.send({
+            success: true,
+            error: null,
+            data: "Product has been approved successfully!"
+        });
+    }, function (error) {
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
+    });
+});
+
+
+router.post("/declinefarmer", function (req, res) {
+    console.log("COMING devli");
+    var data = req.body;
+    data = JSON.stringify(data);
+    console.log(data);
+    var promise = adminHandler.declinefarmer(data);
+    promise.done(function () {
+        res.send({
+            success: true,
+            error: null,
+            data: "Farmer registration has been declined successfully!"
+        });
+    }, function (error) {
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
+    });
+});
+
+
+router.post("/declineproduct", function (req, res) {
+    console.log("COMING decline prod");
+    var data = req.body;
+    data = JSON.stringify(data);
+    console.log(data);
+    var promise = adminHandler.declineproduct(data);
+    promise.done(function () {
+        res.send({
+            success: true,
+            error: null,
+            data: "Product registration has been declined successfully!"
+        });
+    }, function (error) {
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
+    });
+});
+
+
+
+
+
+
+router.post("/approveproduct", function (req, res) {
     var data = req.body;
     data = JSON.stringify(data);
     var promise = adminHandler.approveproduct(data);
@@ -104,6 +176,7 @@ router.post("/approveproduct", function (req, res) {
             });
     });
 });
+
 
 
 router.post("/approvecustomer", function (req, res) {
