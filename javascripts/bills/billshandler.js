@@ -6,6 +6,7 @@ var Q = require("q");
 var TripHandler = require("../trips/tripshandler");
 var Mysql = require("../commons/mysqlhandler");
 
+
 exports.generatebill = function (info) {
     var deferred = Q.defer();
     var sqlQuery = "INSERT INTO bill (order_date, total_amount, customer_id) " +
@@ -17,7 +18,7 @@ exports.generatebill = function (info) {
         getBillIdPromise.done( function(rows){
             billId = rows[0].max_bill_id;
         });
-        var getTripIdPromise = TripHandler.generateTrip("111-11-1222","111-11-8008","a3cd58f9c3495f7dd417af09f36f59687f342522");
+        var getTripIdPromise = TripHandler.generateTrip("111-11-1222","111-11-8008","211294ebbe0a46ca55fa307737e1e4e68676c92c");
         var tripId;
         var expectedDeliveryDate;
         getTripIdPromise.done( function(tripResult){
@@ -56,6 +57,9 @@ exports.delete = function (billId) {
     return deferred.promise;
 };
 
+/**
+ * searches a bill with given bill id.
+ */
 exports.searchbill = function (billId) {
     var deferred = Q.defer();
     var promise = _getOrder(billId);
@@ -67,7 +71,11 @@ exports.searchbill = function (billId) {
     return deferred.promise;
 };
 
+/**
+ * searches all bills with given customer id.
+ */
 exports.getallbills = function (customerId) {
+    console.log("handeler")
     var deferred = Q.defer();
     var result = {};
     var getJoinPromise = Mysql.executeQuery("SELECT * FROM bill, item Where bill.customer_id = '" + customerId + "' AND bill.bill_id = item.bill_id;");
@@ -81,6 +89,7 @@ exports.getallbills = function (customerId) {
                 result[joinResult[i].bill_id].item_details = [];
             }
             result[joinResult[i].bill_id].item_details.push({
+                "trip_id" : joinResult[i].trip_id,
                 "product_id" : joinResult[i].product_id,
                 "quantity" : joinResult[i].quantity,
                 "price_per_unit" : joinResult[i].price_per_unit,
@@ -95,6 +104,21 @@ exports.getallbills = function (customerId) {
     return deferred.promise;
 
 };
+
+exports.revenue = function () {
+    console.log("itha ala")
+    var deferred = Q.defer();
+    var sqlQuery = "SELECT order_date as date, SUM(total_amount) as revenue " +
+                    "FROM bill GROUP BY CAST(order_date AS DATE);";
+    var promise = Mysql.executeQuery(sqlQuery);
+    promise.done( function(rows){
+        deferred.resolve(rows);
+    }, function (error) {
+        deferred.reject(error);
+    });
+    return deferred.promise;
+};
+
 
 function _getOrder(billId){
     var deferred = Q.defer();

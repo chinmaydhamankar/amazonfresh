@@ -1,4 +1,4 @@
-<button ng-click="getallbills()">search</button>
+<button ng-click="getallbills(10)">search</button>
 <div id="bill-order" ng-repeat="value in result">
     <div id="bill-orderinfo" class="row" >
         <div id="bill-orderPlaced" class="left col-sm-4">
@@ -37,7 +37,7 @@
 
         </div>
         <div class="right col-sm-2">
-            <button>Track Package</button>
+            <button ng-click="trackPackage(items.trip_id)">Track Package</button>
         </div>
     </div>
 </div>
