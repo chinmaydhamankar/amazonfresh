@@ -5,10 +5,11 @@
 var app = angular.module("amazonfresh");
 app.controller('AdminController',["$scope","AdminService",function ($scope,AdminService) {
 	function init()
-	{
+	{    alert("sdddd");
 		$scope.getPendingCustomers();
 		$scope.getPendingFarmers();
 		$scope.getPendingProducts();
+
 	}
 
     $scope.options = {
@@ -20,6 +21,7 @@ app.controller('AdminController',["$scope","AdminService",function ($scope,Admin
 		$scope.type = "Farmers";
 	}
 	$scope.getPendingFarmers = function () {
+		alert("getting here");
 		var promise = AdminService.signup();
 		promise.then(function (result) {
 			$scope.data = result.data;
