@@ -111,6 +111,7 @@ router.get("/:ssn", Auth.requireLogin, function (req, res) {
 });
 
 router.put("/updateFarmer", Auth.requireLogin, function (req, res) {
+    console.log("In farmer.js");
     var promise = FarmerHandler.updateFarmer(req.body.info);
     promise.done(function () {
         res.send({

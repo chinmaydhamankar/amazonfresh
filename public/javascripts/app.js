@@ -29,6 +29,15 @@ app.config(function ($routeProvider, $locationProvider) {
 	}).when("/bills/cart", {
 		templateUrl: "partials/bills/cart.html",
 		controller: "BillsController"
+	}).when("/admin/farmersearch", {
+		templateUrl: "partials/admin/farmersearch.html",
+		controller: "AdminController"
+	}).when("/admin/customersearch", {
+		templateUrl: "partials/admin/customersearch.html",
+		controller: "AdminController"
+	}).when("/admin/productsearch", {
+		templateUrl: "partials/admin/productsearch.html",
+		controller: "AdminController"
 	}).otherwise({
 		redirectTo: "/index"
 	});

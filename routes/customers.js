@@ -51,6 +51,25 @@ router.get("/", Auth.requireLogin, function(req,res) {
     });
 });
 
+
+router.put("/updateCustomer", Auth.requireLogin, function (req, res) {
+    console.log("In customer.js");
+    var promise = CustomersHandler.updateCustomer(req.body.info);
+    promise.done(function () {
+        res.send({
+            success: true,
+            error: null,
+            data: "Customer data updated"
+        });
+    }, function (error) {
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
+    });
+});
 /**
  * function to delete a customer from the system.
  */

@@ -12,6 +12,7 @@
     </div>
 
     <ul style="list-style: none" class = "sidebar-nav">
+        <li><a ng-click = "goToHome()">Home</a></li>
         <li><a  ng-click="getPendingCustomers()">Customers &nbsp <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male-24.png" />
         </a><span style="margin-left: 12rem" class="notification">{{ custlength }}</span></li>
         <li><a  ng-click = "getPendingProducts()">Products &nbsp <img src="https://cdn2.iconfinder.com/data/icons/food-drink-10/24/food-drink-31-24.png" />
@@ -45,7 +46,7 @@
         </div>
     </div>
 
-<div id = "Customers" ng-if= "type == 'Customers'">
+<div id = "Customers" ng-hide= 'Customers'>
     <div class="container admin-advanced-search-window-container">
 
         <div class="col-sm-5">
@@ -73,16 +74,17 @@
     <div class="col-sm-3">
     </div>
     <div class="col-sm-3">
-        <button id="advanced-search-button" type="button" class="btn btn-primary" >Search</button>
+        <button class="advanced-search-button btn btn-primary" type="button" ng-click = "advancedSearchCustomers()" >Search</button>
     </div>
 </div>
 
 
-    <div id = "Farmers" ng-if = "type == 'Farmers'">
+    <div id = "Farmers" ng-hide='Farmers'>
+        <form>
         <div class="container admin-advanced-search-window-container">
 
             <div class="col-sm-5">
-                <input style="width: 24rem" type="text" name="firstName" ng-model="firstName" class="form-control" placeholder="First Name"
+                <input style="width: 24rem" type="text" name="firstName" ng-model="ffirstName" class="form-control" placeholder="First Name"
                        title="First Name" />
             </div>
             <div class="col-sm-5">
@@ -91,25 +93,72 @@
             </div>
 
         </div>
+        <div class="container admin-advanced-search-window-container">
 
+            <div class="col-sm-5">
+                <input style="width: 24rem" type="text" name="city" ng-model="city" class="form-control" placeholder="City"
+                       title="City" />
+            </div>
+            <div class="col-sm-5">
+                <input style="width: 24rem" type="text" name="zipcode" ng-model="zipcode" class="form-control" placeholder="Zip Code"
+                       title="Zip Code" />
+            </div>
+        </div>
+
+        <div class="col-sm-3">
+        </div>
+        <div class="col-sm-3">
+            <button class="advanced-search-button btn btn-primary" type="button" ng-click = "advancedSearchFarmers()">Search</button>
+        </div>
+        </form>
     </div>
 
 
+    <div id = "Products" ng-hide='Products'>
+        <form>
+            <div class="container admin-advanced-search-window-container">
 
+                <div class="col-sm-5">
+                    <input style="width: 24rem" type="text" name="productName" ng-model="productName" class="form-control" placeholder="Product Name"
+                           title="Product Name" />
+                </div>
+                <div class="col-sm-5">
+                    <input style="width: 24rem" type="text" name="description" ng-model="description" class="form-control" placeholder="Description"
+                           title="description" />
+                </div>
 
+            </div>
+            <div class="container admin-advanced-search-window-container">
 
+                <div class="col-sm-5">
+                    <input style="width: 24rem" type="text" name="farmerFirstName" ng-model="farmerFirstName" class="form-control" placeholder="Farmer Name"
+                           title="Farmer Name" />
+                </div>
+                <div class="col-sm-5">
+                    <input style="width: 24rem" type="text" name="farmerLastName" ng-model="farmerLastName" class="form-control" placeholder="Farmer Last Name"
+                           title="Farmer Last Name" />
+                </div>
+            </div>
 
+            <div class="container admin-advanced-search-window-container">
 
+                <div class="col-sm-5">
+                    <input style="width: 24rem" type="text" name="productPrice" ng-model="productPrice" class="form-control" placeholder="Price"
+                           title="Price" />
+                </div>
+                <div class="col-sm-5">
+                    <input style="width: 24rem" type="text" name="farmerSSN" ng-model="farmerSSN" class="form-control" placeholder="Farmer SSN"
+                           title="Farmer SSN" />
+                </div>
+            </div>
 
-
-
-
-
-
-
-
-
-
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-3">
+                <button class="advanced-search-button btn btn-primary" type="button" ng-click = "advancedSearchProducts()">Search</button>
+            </div>
+        </form>
+    </div>
 
 
 
@@ -119,7 +168,12 @@
 
 
 
-<div class="pending-request-wrapper col-md-8 col-md-offset-4">
+
+
+
+
+
+<div class="pending-request-wrapper col-md-8 col-md-offset-4" ng-show = "variable == 1 || variable == 2 || variable == 3">
     <div  class = "pending-request-row container col-md-8" ng-repeat = "value in data.data">
         <div class="col-sm-8">
             <label style="font-size: 2rem; color: floralwhite;margin-top: 3.5rem;" ng-show = "abcd == 2"> {{ value.firstName}} {{value.lastName}}</label>
@@ -134,6 +188,20 @@
     </div>
 </div>
 
+<!--
+<div class="pending-request-wrapper col-md-8 col-md-offset-4">
+    <div  class = "pending-request-row container col-md-8" ng-repeat = "value in result">
+        <div class="col-sm-8">
+            <label style="font-size: 2rem; color: floralwhite;margin-top: 3.5rem;"> {{ value.firstName}} {{value.lastName}}</label>
+        </div>
+        &lt;!&ndash;<div class="col-sm-2">
+            <button id="confirmButton" type="button" class="btn btn-primary" ng-click = "approveReq(value.ssn,value.productName,value.usertype)">Confirm</button>
+        </div>
+        <div class="col-sm-2">
+            <button id="deleteButton" type="button" class="btn btn-danger" ng-click = "declineReq(value.ssn,value.productName,value.usertype)">Decline</button>
+        </div>&ndash;&gt;
+    </div>
+</div>-->
 
 
 <!--

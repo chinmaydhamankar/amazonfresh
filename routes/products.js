@@ -108,6 +108,8 @@ router.post("/searchproduct", Auth.requireLogin, function (req, res) {
 });
 
 router.put("/", Auth.requireLogin, function (req, res) {
+
+	console.log("In product.js module");
 	var promise = ProductHandler.updateproduct(req.body.info);
 	promise.done(function () {
 		res.send({

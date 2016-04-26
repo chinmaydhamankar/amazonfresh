@@ -90,24 +90,20 @@ exports.delete = function (ssn) {
 
     };
 
-
-
-exports.searchFarmerInfo = function(ssn)
+exports.farmerViewInfo = function(info)
 {
     var deferred = Q.defer();
-    var searchQuery = JSON.parse(ssn);
-    delete searchQuery.password;
-    searchQuery.isApproved = true;
-    var searchQuery = _validateSearchInput(searchQuery);
-    var cursor = MongoDB.collection("users").find(searchQuery);
-    var farmerList = [];
+    var info = JSON.parse(info);
+    var cursor = MongoDB.collection("users").find({"ssn": info.ssn});
+    var farmerList = {};
     cursor.each(function (err, doc) {
         if (err) {
             deferred.reject(err);
         }
         if (doc != null) {
-            farmerList.push(doc);
+            farmerList = doc;
         } else {
+            console.log(farmerList);
             deferred.resolve(farmerList);
         }
     });
@@ -117,21 +113,49 @@ exports.searchFarmerInfo = function(ssn)
 
 
 
-    exports.updateFarmer = function (info) {
-        console.log("from here flowingss");
-        console.log(info);
-        var deferred = Q.defer();
-        var promise = _validateFarmerInfo(info);
-        console.log("to here");
-        info1 = {};
-        info1 = info;
-        console.log(info);
-        promise.done(function () {
-            info = _sanitizeFarmerInfo(info);
-            var cursor = MongoDB.collection("users").update({"ssn": info.ssn,"usertype" : "FARMER","isApproved" : true},
-                {
-                    "ssn": info.ssn,
-                    "firstName" : info.firstName,
+exports.searchFarmerInfo = function(info)
+{
+
+    var deferred = Q.defer();
+    var searchQuery = JSON.parse(info);
+    var searchQuery = _validateSearchInput(searchQuery);
+    var farmerList = [];
+    var cursor = MongoDB.collection("users").find(searchQuery);
+    if(cursor != null)
+    {
+        cursor.each(function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            if (doc != null) {
+                farmerList.push(doc);
+            } else {
+                deferred.resolve(farmerList);
+            }
+        });
+    }
+    else
+    {
+        deferred.reject("There are no Advanced Search Records for Farmers");
+    }
+
+    return deferred.promise;
+
+};
+
+
+
+
+exports.updateFarmer = function (info) {
+    var deferred = Q.defer();
+    console.log(info);
+    var promise = _validateFarmerInfo1(info);
+    promise.done(function () {
+        console.log("Repeater");
+        var cursor = MongoDB.collection("users").update({"ssn": info.ssn,"usertype" : "FARMER"},
+            {
+                "ssn": info.ssn,
+                "firstName" : info.firstName,
                 "lastName": info.lastName,
                 "address": info.address,
                 "city": info.city,
@@ -140,17 +164,22 @@ exports.searchFarmerInfo = function(ssn)
                 "phoneNumber" : info.phoneNumber,
                 "email" : info.email,
                 "password" : info.password,
-                    "usertype" : UserTypes.FARMER});
-            cursor.then(function (user) {
-                deferred.resolve(user);
-            }).catch(function (error) {
-                deferred.reject(error);
+                "usertype" : UserTypes.FARMER,
+                "isApproved" : info.isApproved,
+                "rating" : info.rating,
+                "reviews" : info.reviews,
+                "location" : info.location
             });
-        }, function (error) {
+        cursor.then(function (user) {
+            deferred.resolve(user);
+        }).catch(function (error) {
             deferred.reject(error);
         });
-        return deferred.promise;
-    };
+    }, function (error) {
+        deferred.reject(error);
+    });
+    return deferred.promise;
+};
 
 
 _sanitizeFarmerInfo = function (info) {
@@ -196,39 +225,35 @@ _validateSearchInput = function (info)
 }
 
 
-_validateFarmerInfo = function (info) {
+_validateFarmerInfo1 = function (info) {
     var deferred = Q.defer();
-    var promise = Utilities.validateEmail(info.email);
-   // var promise1 = Utilities.validateSSN(info.ssn);
-  // Q.all([promise, promise1]).done(function () {
-    promise.done(function () {
-        if( Utilities.isEmpty(info.ssn)		 	||
-            Utilities.isEmpty(info.firstName) 	||
-            Utilities.isEmpty(info.lastName) 	||
-            Utilities.isEmpty(info.address)	 	||
-            Utilities.isEmpty(info.city) 		||
-            Utilities.isEmpty(info.state) 		||
-            Utilities.isEmpty(info.zipCode) 	||
-            Utilities.isEmpty(info.phoneNumber) ||
-            Utilities.isEmpty(info.password) 	||
-            Utilities.isEmpty(info.email))
+    // var promise1 = Utilities.validateSSN(info.ssn);
+    // Q.all([promise, promise1]).done(function () {
+    if( Utilities.isEmpty(info.ssn)		 	||
+        Utilities.isEmpty(info.firstName) 	||
+        Utilities.isEmpty(info.lastName) 	||
+        Utilities.isEmpty(info.address)	 	||
+        Utilities.isEmpty(info.city) 		||
+        Utilities.isEmpty(info.state) 		||
+        Utilities.isEmpty(info.zipCode) 	||
+        Utilities.isEmpty(info.phoneNumber) ||
+        Utilities.isEmpty(info.password) 	||
+        Utilities.isEmpty(info.email))
+    {
+        console.log("error from here");
+        deferred.reject("All values must be provided! ");
+    } else {
+        if(!Utilities.validateState(info.state)) {
+            console.log("invalid sate");
+            deferred.reject("Invalid state!");
+        } else
+        if(!Utilities.validateZipCode(info.zipCode)) {
+            console.log("invalid zip codd");
+            deferred.reject("Invalid zip code!");
+        } else
         {
-            console.log("error from here");
-            deferred.reject("All values must be provided! ");
-        } else {
-            if(!Utilities.validateState(info.state)) {
-                console.log("invalid sate");
-                deferred.reject("Invalid state!");
-            } else
-            if(!Utilities.validateZipCode(info.zipCode)) {
-                console.log("invalid zip codd");
-                deferred.reject("Invalid zip code!");
-            } else {
-                deferred.resolve();
-            }
+            deferred.resolve();
         }
-    }, function (error) {
-        deferred.reject(error);
-    });
+    };
     return deferred.promise;
 }

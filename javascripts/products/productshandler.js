@@ -117,6 +117,81 @@ exports.getproductinfo= function(productID){
 
  * @returns {*|promise}
  */
+
+exports.searchProductInfo = function(info){
+    var deferred = Q.defer();
+    var searchQuery = JSON.parse(info);
+    var searchQuery = _sanitizeProductSearchInput(searchQuery);
+    console.log(searchQuery);
+    var productList = [];
+    var cursor = MongoDB.collection("products").find(searchQuery);
+    if(cursor != null)
+    {
+        cursor.each(function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            }
+            if (doc != null) {
+                productList.push(doc);
+            } else {
+                deferred.resolve(productList);
+            }
+        });
+    }
+    else
+    {
+        deferred.reject("There are no Advanced Search Records for Products");
+    }
+
+    return deferred.promise;
+
+
+}
+
+_sanitizeProductSearchInput = function(info){
+    if ( Utilities.isEmpty(info.productName))
+        delete info.productName;
+
+    if ( Utilities.isEmpty(info.productPrice))
+        delete info.productPrice;
+
+    if ( Utilities.isEmpty(info.description))
+        delete info.description;
+
+    if ( Utilities.isEmpty(info.farmerFirstName))
+        delete info.farmerFirstName;
+
+    if ( Utilities.isEmpty(info.farmerLastName))
+        delete info.farmerLastName;
+
+    if ( Utilities.isEmpty(info.farmerSSN))
+        delete info.farmerSSN;
+
+    return info;
+
+
+}
+
+exports.searchByProductId = function (info) {
+    var deferred = Q.defer();
+    var info = JSON.parse(info);
+    var cursor = MongoDB.collection("products").find({"productID": info.productID});
+    var productList = {};
+    cursor.each(function (err, doc) {
+        if (err) {
+            deferred.reject(err);
+        }
+        if (doc != null) {
+            productList = doc;
+        } else {
+            console.log(productList);
+            deferred.resolve(productList);
+        }
+    });
+    return deferred.promise;
+}
+
+
 exports.searchproduct= function(productName){
     var deferred = Q.defer();
   //  var productList=[];
@@ -143,23 +218,28 @@ exports.searchproduct= function(productName){
 };
 exports.updateproduct = function (info) {
 
+    console.log("@@@@@@@@@@@@@@@@@");
     console.log(info);
+    console.log("%%%%%%%%%%%%%%");
     var deferred = Q.defer();
     var promise = _validateProductInfo(info);
 
-    info1 = {};
-    info1 = info;
 
     promise.done(function () {
-
+        console.log("sasasasasasasasas");
         var cursor = MongoDB.collection("products").update({"productID": info.productID},
             {
                 "productID": info.productID,
-                "ssn" : info.ssn,
                 "productName": info.productName,
                 "productPrice": info.productPrice,
-                "description": info.description
-                });
+                "description": info.description,
+                "productImage" : info.productImage,
+                "farmerFirstName" : info.farmerFirstName,
+                "farmerLastName" : info.farmerLastName,
+                "farmerSSN" : info.farmerSSN,
+                "reviews" : info.reviews,
+                "isApproved" : info.isApproved
+            });
         cursor.then(function (user) {
             deferred.resolve(user);
         }).catch(function (error) {
@@ -182,6 +262,8 @@ _sanitizeInfo = function (info) {
     return info;
 }
 
+
+
 /**
  * function to validate the given input.
  * validations provided -
@@ -194,24 +276,23 @@ _sanitizeInfo = function (info) {
 
 _validateProductInfo = function (info) {
     var deferred = Q.defer();
-   /* var promise = Utilities.validateEmail(info.email);*/
-    var promise = Utilities.validateSSN(info.ssn);
-    Q.all([promise]).done(function () {
-        if( Utilities.isEmpty(info.productID)		 	||
-            Utilities.isEmpty(info.ssn)		 	||
+
+        if( Utilities.isEmpty(info.productID)	 	||
+            Utilities.isEmpty(info.farmerSSN)		||
             Utilities.isEmpty(info.productName) 	||
             Utilities.isEmpty(info.productPrice) 	||
-            Utilities.isEmpty(info.description) )
+            Utilities.isEmpty(info.description))
 
         {
+            consolee.log("errrororororororororororororoor");
             deferred.reject("All values must be provided! ");
-        } else {
+        }
+        else
+        {
+                console.log("In else error");
                 deferred.resolve();
-            }
+        }
 
-    }, function (error) {
-        deferred.reject(error);
-    });
     return deferred.promise;
 }
 

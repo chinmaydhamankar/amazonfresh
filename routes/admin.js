@@ -2,7 +2,9 @@ var express = require("express");
 var Auth = require("./authentication");
 var router = express.Router();
 var adminHandler = require("../javascripts/admin/adminhandler");
-
+var farmerHandler = require("../javascripts/farmers/farmerhandler");
+var customerHandler = require("../javascripts/customers/customershandler");
+var productHandler = require("../javascripts/products/productshandler");
 /**
  * Approves a farmer.
  */
@@ -47,6 +49,8 @@ router.get("/listunapprovedfarmers", Auth.requireLogin, function (req, res) {
 			});
 	});
 });
+
+
 
 /**
  * returns the list of un-approved products.
@@ -112,9 +116,136 @@ router.post("/approveproduct", function (req, res) {
     });
 });
 
+router.post("/farmerViewInfo",function(req,res){
+    var data = req.body;
+    data = JSON.stringify(data);
+    console.log("SSNSNSNSNSNSNSN------"+data);
+    var promise = farmerHandler.farmerViewInfo(data);
+    promise.done(function (data) {
+        res.send({
+            success: true,
+            error: null,
+            data: data
+        });
+    }, function (error) {
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
+    });
+});
+
+router.post("/customerViewInfo",function(req,res){
+    var data = req.body;
+    data = JSON.stringify(data);
+    var promise = customerHandler.customerViewInfo(data);
+    promise.done(function (data) {
+        res.send({
+            success: true,
+            error: null,
+            data: data
+        });
+    }, function (error) {
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
+    });
+});
+
+
+
+router.post("/productViewInfo",function(req,res){
+    var data = req.body;
+    data = JSON.stringify(data);
+    var promise = productHandler.searchByProductId(data);
+    promise.done(function (data) {
+        res.send({
+            success: true,
+            error: null,
+            data: data
+        });
+    }, function (error) {
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
+    });
+});
+
+router.post("/getFarmersByAdvancedSearch",function(req,res){
+    var data = req.body;
+    data = JSON.stringify(data);
+    var promise = farmerHandler.searchFarmerInfo(data);
+    promise.done(function(data){
+        res.send({
+            success: true,
+            error: null,
+            data: data
+        });
+    },function(err){
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
+    });
+});
+
+router.post("/getProductsByAdvancedSearch",function(req,res){
+    var data = req.body;
+    data = JSON.stringify(data);
+    var promise = productHandler.searchProductInfo(data);
+    promise.done(function(data){
+        res.send({
+            success: true,
+            error: null,
+            data: data
+        });
+    },function(err){
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
+    });
+});
+
+
+
+router.post("/getCustomersByAdvancedSearch",function(req,res){
+    var data = req.body;
+    data = JSON.stringify(data);
+    var promise = customerHandler.searchCustomerInfo(data);
+    console.log("In admin.js for customer");
+    promise.done(function(data){
+        console.log("Came in admin after success");
+        res.send({
+            success: true,
+            error: null,
+            data: data
+        });
+    },function(err){
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
+    });
+
+});
+
 
 router.post("/declinefarmer", function (req, res) {
-    console.log("COMING devli");
     var data = req.body;
     data = JSON.stringify(data);
     console.log(data);

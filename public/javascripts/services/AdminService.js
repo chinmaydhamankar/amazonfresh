@@ -46,7 +46,6 @@ angular.module("amazonfresh").factory("AdminService",["$http","$q", function ($h
         },
 
         declineReq: function (ssn,productName) {
-            alert("Here Hit" + ssn);
             var url,x;
             if (productName === undefined) {
                  url = "http://localhost:3000/admin/declinefarmer";
@@ -77,17 +76,228 @@ angular.module("amazonfresh").factory("AdminService",["$http","$q", function ($h
             return def.promise;
         },
 
+        getFarmersByAdvancedSearch :function(info){
+            var url = "http://localhost:3000/admin/getFarmersByAdvancedSearch";
+            var def = $q.defer();
+            $http({
+                "method" : 'POST',
+                "url" : url,
+                "data" : info
+
+            }).then(function(data){
+                if(data)
+                {
+                    def.resolve(data);
+                }
+                else
+                {
+                    def.reject(data.data.error);
+                }
+            },function(err){
+                def.reject(error);
+            });
+            return def.promise;
+        },
+
+        getProductsByAdvancedSearch :function(info){
+            var url = "http://localhost:3000/admin/getProductsByAdvancedSearch";
+            var def = $q.defer();
+            $http({
+                "method" : 'POST',
+                "url" : url,
+                "data" : info
+
+            }).then(function(data){
+                if(data)
+                {
+                    def.resolve(data);
+                }
+                else
+                {
+                    def.reject(data.data.error);
+                }
+            },function(err){
+                def.reject(error);
+            });
+            return def.promise;
+        },
+
+        farmerViewInfo : function(info)
+        {
+            var url = "http://localhost:3000/admin/farmerViewInfo";
+            var def = $q.defer();
+            $http({
+                "method" : 'POST',
+                "url" : url,
+                "data" : info
+
+            }).then(function(data){
+                if(data)
+                {
+                    def.resolve(data);
+                }
+                else
+                {
+                    def.reject(data.data.error);
+                }
+            },function(err){
+                def.reject(error);
+            });
+            return def.promise;
+        },
+
+        customerViewInfo : function(info)
+        {
+            var url = "http://localhost:3000/admin/customerViewInfo";
+            var def = $q.defer();
+            $http({
+                "method" : 'POST',
+                "url" : url,
+                "data" : info
+
+            }).then(function(data){
+                if(data)
+                {
+                    def.resolve(data);
+                }
+                else
+                {
+                    def.reject(data.data.error);
+                }
+            },function(err){
+                def.reject(error);
+            });
+            return def.promise;
+        },
+
+        updateCustomerInfo:function(info){
+            var url = "http://localhost:3000/customers/updateCustomer";
+            var def = $q.defer();
+            $http({
+                method: 'PUT',
+                url: url,
+                data: {
+                    "info" : info
+                }
+            }).then(function (data) {
+                if (data) {
+                    def.resolve(data);
+                } else {
+                    def.reject(data.data.error);
+                }
+            }, function (error) {
+                def.reject(error);
+            });
+            return def.promise;
+        },
+
+        updateProductInfo:function(info){
+            alert("In admin service");
+            var url = "http://localhost:3000/products";
+            var def = $q.defer();
+            $http({
+                method: 'PUT',
+                url: url,
+                data: {
+                    "info" : info
+                }
+            }).then(function (data) {
+                if (data) {
+                    def.resolve(data);
+                } else {
+                    def.reject(data.data.error);
+                }
+            }, function (error) {
+                def.reject(error);
+            });
+            return def.promise;
+        },
+
+
+        updateFarmerInfo: function(info){
+            var url = "http://localhost:3000/farmers/updateFarmer";
+            var def = $q.defer();
+            $http({
+                method: 'PUT',
+                url: url,
+                data: {
+                    "info" : info
+                }
+            }).then(function (data) {
+                if (data) {
+                    def.resolve(data);
+                } else {
+                    def.reject(data.data.error);
+                }
+            }, function (error) {
+                def.reject(error);
+            });
+            return def.promise;
+
+        },
+
+
+        productViewInfo : function(info)
+        {
+            var url = "http://localhost:3000/admin/productViewInfo";
+            var def = $q.defer();
+            $http({
+                "method" : 'POST',
+                "url" : url,
+                "data" : info
+
+            }).then(function(data){
+                if(data)
+                {
+                    def.resolve(data);
+                }
+                else
+                {
+                    def.reject(data.data.error);
+                }
+            },function(err){
+                def.reject(error);
+            });
+            return def.promise;
+        },
+
+
+
+
+        getCustomersByAdvancedSearch :function(info){
+            var url = "http://localhost:3000/admin/getCustomersByAdvancedSearch";
+            var def = $q.defer();
+            $http({
+                "method" : 'POST',
+                "url" : url,
+                "data" : info
+
+            }).then(function(data){
+                if(data)
+                {
+                    def.resolve(data);
+                }
+                else
+                {
+                    def.reject(data.data.error);
+                }
+            },function(err){
+                def.reject(error);
+            });
+            return def.promise;
+        },
+
+
+
+
         approveReq: function (ssn,productName) {
-            alert("Here Hit" + productName);
             var url,x;
             if (productName == undefined) {
-                console.log("****************");
                 url = "http://localhost:3000/admin/approvefarmer";
                 x = "f";
             }
             else
             {
-                console.log("In else of admin service for products");
                 url = "http://localhost:3000/admin/approveproduct";
                 x = "p";
             }
@@ -101,7 +311,6 @@ angular.module("amazonfresh").factory("AdminService",["$http","$q", function ($h
                 }
             }).then(function (data) {
                 if (data) {
-                    console.log("In if of return data admin service");
                     def.resolve(x);
                 } else {
                     def.reject(data.data.error);

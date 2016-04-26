@@ -360,7 +360,7 @@ input[name = customer-password] {
 */
 
 
-#confirmButton {
+#confirmButton,#viewItem {
     /*margin-left: 30rem;*/
     margin-top: 4rem;
 
@@ -573,3 +573,9 @@ Shruti's classes.
     font-size: 14px !important;
     height: 2rem !important;
 }
+
+
+
+
+
+

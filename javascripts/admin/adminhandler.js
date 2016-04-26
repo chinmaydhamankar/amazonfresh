@@ -61,10 +61,8 @@ exports.approveproduct = function (info) {
     console.log(searchQuery.productName);
     var cursor = MongoDB.collection("products").update({"productName" : "grapes"},{$set : { "isApproved" : true }});
     cursor.then(function (user) {
-        console.log("**************************");
         deferred.resolve(user);
     }).catch(function (error) {
-        console.log("@@@@@@@@@@@@@@@@@@@");
         deferred.reject(error);
     });
     return deferred.promise;
