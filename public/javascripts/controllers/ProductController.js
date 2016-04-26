@@ -24,6 +24,16 @@ angular.module("amazonfresh").controller("ProductController",["$scope","ProductS
 			alert("Error - " + error);
 		});
 	}
+	$scope.deleteproduct = function(productID) {
+
+		var promise = ProductService.deleteproduct(productID);
+		promise.then(function (result) {
+			alert("Success!");
+		}, function (error) {
+			alert("Error" + error);
+		});
+	}
+
 
 	init = function(){
 		var promise=ProductService.listproducts();
@@ -37,6 +47,7 @@ angular.module("amazonfresh").controller("ProductController",["$scope","ProductS
 		});
 	}
 	init();
+
 
 
 }]);

@@ -161,11 +161,10 @@ exports.updateproduct = function (info) {
 
         var cursor = MongoDB.collection("products").update({"productID": info.productID},
             {
-                "productID": info.productID,
-                "ssn" : info.ssn,
                 "productName": info.productName,
                 "productPrice": info.productPrice,
-                "description": info.description
+                "description": info.description,
+                "productImage": info.productImage
                 });
         cursor.then(function (user) {
             deferred.resolve(user);
