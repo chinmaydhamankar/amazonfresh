@@ -35,7 +35,7 @@ router.post("/", function (req, res) {
     });
 });
 
-router.delete("/:ssn", function (req, res) {
+router.delete("/:ssn", Auth.requireLogin, function (req, res) {
     var ssn = req.params.ssn;
     var promise = FarmerHandler.delete(ssn);
     promise.done(function () {
@@ -52,7 +52,7 @@ router.delete("/:ssn", function (req, res) {
 });
 
 
-router.post("/searchFarmers", function (req, res) {
+router.post("/searchFarmers", Auth.requireLogin, function (req, res) {
     var data = req.body;
     data = JSON.stringify(data);
     var promise = FarmerHandler.searchFarmerInfo(data);
@@ -72,7 +72,7 @@ router.post("/searchFarmers", function (req, res) {
     });
 });
 
-router.get("/listfarmers", function (req, res) {
+router.get("/listfarmers", Auth.requireLogin, function (req, res) {
     var promise = FarmerHandler.getAllFarmers();
     promise.done(function (farmerlist) {
         res.send({
@@ -91,7 +91,7 @@ router.get("/listfarmers", function (req, res) {
 });
 
 
-router.get("/:ssn", function (req, res) {
+router.get("/:ssn", Auth.requireLogin, function (req, res) {
     var ssn = req.params.ssn;
     var promise = FarmerHandler.getFarmerInfo(ssn);
     promise.done(function (farmerinfo) {
@@ -110,10 +110,7 @@ router.get("/:ssn", function (req, res) {
     });
 });
 
-
-
-
-router.put("/updateFarmer", function (req, res) {
+router.put("/updateFarmer", Auth.requireLogin, function (req, res) {
     var promise = FarmerHandler.updateFarmer(req.body.info);
     promise.done(function () {
         res.send({
