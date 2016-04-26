@@ -77,6 +77,10 @@
                 <img src="https://images-na.ssl-images-amazon.com/images/G/01/omaha/images/ui/af-logo-white-trans3.png"
                      alt="AmazonFresh Home"/>
             </a>
+            <div class="pull-right">
+                <button id="logout">Logout</button>
+            </div>
+
         </li>
     </div>
 </div>
@@ -84,5 +88,14 @@
 
 </div>
 <script src="./jquery/card.js"></script>
+<script>
+    $("#logout").click(function(){
+        $.ajax({url: "http://localhost:3000/auth/logout", success: function(result){
+            document.location.href="http://localhost:3000";
+        }});
+    });
+
+
+</script>
 </body>
 </html>

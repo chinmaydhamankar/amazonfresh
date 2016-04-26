@@ -690,3 +690,20 @@ Shruti's classes.
     width: 15rem;
     height: 8rem;
 }
+/*logout*/
+#logout:hover{
+    background-color: red ;
+}
+#logout {
+    color: snow;
+    cursor: pointer;
+    height: 32px;
+    margin-top: 7px;
+    margin-right: 50px;
+    opacity: 0.75;
+    -ms-filter: "alpha(opacity=80)";
+    padding: 0 7px 0 8px;
+    background-color: transparent;
+    /* background: rgba(0,132,180,.8); */
+    border-radius: 5px;
+}
