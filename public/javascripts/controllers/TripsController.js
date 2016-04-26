@@ -3,8 +3,7 @@
  */
 angular.module("amazonfresh").controller("TripsController", ["$scope", "$routeParams", "TripsService",
 	function ($scope, $routeParams, TripsService) {
-		$scope.param = $routeParams.tripId;
-		$scope.tripID = "7651a8eb0fdae239ae1aef422a0a83ed88a97b44";
+		$scope.tripID = $routeParams.tripId;
 		$scope.customMarkers = [];
 		init = function () {
 			var promise = TripsService.getTripDetails($scope.tripID);
