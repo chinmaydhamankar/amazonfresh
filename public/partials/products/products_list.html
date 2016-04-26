@@ -55,13 +55,15 @@
                             <img src="https://images-na.ssl-images-amazon.com/images/G/01/omaha/images/merch/2015/CatPages/CatPage/FarmersMarket/FarmersMarket_badge._V311599607_.png"
                                  class="merchantBadge" alt="Merchant Badge">
                         </div>
-                        <img class="image2"
-                             ng-src="http://dingo.care2.com/pictures/greenliving/uploads/2011/07/fresh-vegetable-variety.jpg"
-                             alt=" {{dataItem.ProductName}} image"/>
+                        <img ng-if="dataItem.productImage != null" ng-src= {{dataItem.productImage}} alt=" {{dataItem.ProductName}} image" class="image2"/>
+                        <img ng-if="dataItem.productImage == null || dataItem.productImage == undefined || dataItem.productImage == ''" ng-src="http://dingo.care2.com/pictures/greenliving/uploads/2011/07/fresh-vegetable-variety.jpg"
+                             alt=" {{dataItem.ProductName}} image" class="image2">
                         <p>{{ dataItem.productPrice | currency }}</p>
                         <h3>{{ dataItem.productName }}</h3>
+                        <h5>{{dataItem.description}}</h5>
+                        <h5>{{dataItem.farmerFirstName}}</h5>
 
-                        <button id="addtocartbtn" disabled="enabled" class="btn btn-primary">Add to Cart
+                        <button id="addtocartbtn" class="btn btn-primary">Add to Cart
                         </button>
                     </div>
                 </div>

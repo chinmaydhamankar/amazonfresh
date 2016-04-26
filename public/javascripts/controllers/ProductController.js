@@ -8,17 +8,13 @@ var app = angular.module("amazonfresh");
 
 
 angular.module("amazonfresh").controller("ProductController",["$scope","ProductService", function ($scope, ProductService) {
-	init = function () {
-		ProductService.getList();
-	}
-	init();
 	$scope.createproduct = function () {
+
 		var info = {
-			"productID": $scope.productID,
-			"ssn": $scope.ssn,
 			"productName": $scope.productName,
 			"productPrice": $scope.productPrice,
 			"description": $scope.description,
+			"productImage": $scope.productImage
 
 		}
 		var promise = ProductService.createproduct(info);

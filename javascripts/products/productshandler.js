@@ -6,27 +6,34 @@ var Utilities = require("../commons/utilities");
 var PasswordManager = require("../authentication/passwordmanager");
 var Q = require("q");
 var UserTypes = require("../commons/constants").usertypes;
+var Crypto = require("crypto");
 
 /**
  * function to create product.
  * @param info
  * @returns {*|promise}
  */
-exports.createproduct = function (info) {
-
+exports.createproduct = function (info, user) {
+    var productID = Crypto.createHash('sha1').update(info.productName + user.ssn).digest('hex');
+    info.productID = productID;
     var deferred = Q.defer();
-    var promise = _validateProductInfo(info);
-    promise.done(function () {
-       // info = _sanitizeInfo(info);
+    if(UserTypes.FARMER == user.usertype){
+    var isValid = _validateProductInfo(info);
+    if(isValid){
+       info = _sanitizeProductInfo(info, user);
         var cursor = MongoDB.collection("products").insert(info);
         cursor.then(function (user) {
             deferred.resolve(user);
         }).catch(function (error) {
             deferred.reject(error);
         });
-    }, function (error) {
-        deferred.reject(error);
-    });
+    } else {
+        deferred.reject("All values must be provided!");
+    }
+    } else {
+        deferred.reject("Not a farmer!");
+        return deferred.promise;
+    }
     return deferred.promise;
 };
 
@@ -176,9 +183,13 @@ exports.updateproduct = function (info) {
  * @param info
  * @private
  */
-_sanitizeInfo = function (info) {
-    info.password = PasswordManager.encryptPassword(info.password);
-    info.usertype = UserTypes.DRIVER;
+_sanitizeProductInfo = function (info, user) {
+    info.farmerFirstName = user.firstName;
+    info.farmerLastName = user.lastName;
+    info.farmerSSN = user.ssn;
+    info.reviews = [];
+    info.isApproved = false;
+    delete info.ssn;
     return info;
 }
 
@@ -193,25 +204,18 @@ _sanitizeInfo = function (info) {
  */
 
 _validateProductInfo = function (info) {
-    var deferred = Q.defer();
+
    /* var promise = Utilities.validateEmail(info.email);*/
-    var promise = Utilities.validateSSN(info.ssn);
-    Q.all([promise]).done(function () {
-        if( Utilities.isEmpty(info.productID)		 	||
-            Utilities.isEmpty(info.ssn)		 	||
+
+
+        if(
             Utilities.isEmpty(info.productName) 	||
             Utilities.isEmpty(info.productPrice) 	||
-            Utilities.isEmpty(info.description) )
+            Utilities.isEmpty(info.description) ) {
+            return false;
+        }
+        return true;
 
-        {
-            deferred.reject("All values must be provided! ");
-        } else {
-                deferred.resolve();
-            }
 
-    }, function (error) {
-        deferred.reject(error);
-    });
-    return deferred.promise;
 }
 

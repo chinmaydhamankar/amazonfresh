@@ -10,15 +10,8 @@
                         </ul>
 
                         <div>
-                            <span class="form-group product-text">
-                                <input id="productID" type="text" name="productID" ng-model="productID" class="form-control" placeholder="Product ID"
-                            title="Product ID" /><br><br>
 
-                            </span>
-                            <span class="form-group productFarmer-ssn">
-                                     <input id="productFarmer-ssn" type="text" name="ssn" ng-model="ssn" class="form-control" placeholder="Farmer Social Security Number"
-                                            title="Enter Social Security Number" /><br><br>
-                            </span>
+
                             <span class="form-group product-name">
                                  <input id="product-name" type="productName" name="productName" ng-model="productName" class="form-control" placeholder="Product Name"
                                   title="Product Name" /><br><br>
@@ -30,11 +23,17 @@
                             <span class="form-group description">
                                  <input id="description" type="description" name="description" ng-model="description" class="form-control" placeholder="Product Description"
                                         title="Product Description" /><br><br>
+
                             </span>
-                            </span><br><br>
-                                <span class="form-group">
+                            <span class="form-group productImage">
+                                     <input id="productImage" type="text" name="productImage" ng-model="productImage" class="form-control" placeholder="Product Image URL"
+                                            title="Enter URL for Product Image" /><br><br>
+                            </span>
+
+                            <span class="form-group">
                                 <button kendo-button id="CustomerSignup" class="driver-sign-up-button driver-sign-up-input" ng-click="createproduct()">Add!</button>
                             </span>
+
 
                          </div>
 

@@ -8,7 +8,8 @@ var ProductHandler = require("../javascripts/products/productshandler");
  * function to create a product into the system.
  */
 router.post("/", Auth.requireLogin, function (req, res) {
-	var promise = ProductHandler.createproduct(req.body.info);
+    var user = req.session.user;
+	var promise = ProductHandler.createproduct(req.body.info, user);
 	promise.done(function () {
 		res.send({
 			success: true,
@@ -47,7 +48,7 @@ router.delete("/:productID", Auth.requireLogin, function (req, res) {
 /**
  * function to list all products from the system.
  */
-router.get("/", Auth.fakeEndHack, Auth.requireLogin, function (req, res) {
+router.get("/", Auth.requireLogin, function (req, res) {
 	var promise = ProductHandler.listallproducts();
 	promise.done(function (data) {
 		res.send({
