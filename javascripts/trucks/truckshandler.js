@@ -91,6 +91,55 @@ _sanitizeTrucksInfo = function (info) {
 }
 
 /**
+ * function to update the truck driver.
+ * @param info
+ */
+exports.updateTruckDriver = function (truckId, info) {
+	var deferred = Q.defer();
+	info = _sanitizeForTruckUpdate(info);
+	var cursor = MongoDB.collection("users").update({
+		ssn: truckId
+	},info);
+	cursor.then(function (result) {
+		deferred.resolve(result);
+	}).catch(function (error) {
+		deferred.reject(error);
+	});
+	return deferred.promise;
+}
+
+/**
+ * function that sanitizes the information provided through UI.
+ * @param info
+ * @private
+ */
+_sanitizeForTruckUpdate = function (info) {
+	var newInfo = {};
+	if(!Utilities.isEmpty(info.firstName)) {
+		newInfo.firstName = info.firstName;
+	}
+	if(!Utilities.isEmpty(info.lastName)) {
+		newInfo.lastName = info.lastName;
+	}
+	if(!Utilities.isEmpty(info.address)) {
+		newInfo.address = info.address;
+	}
+	if(!Utilities.isEmpty(info.city)) {
+		newInfo.city = info.city;
+	}
+	if(!Utilities.isEmpty(info.state)) {
+		newInfo.state = info.city;
+	}
+	if(!Utilities.isEmpty(info.zipCode)) {
+		newInfo.zipCode = info.zipCode;
+	}
+	if(!Utilities.isEmpty(info.phoneNumber)) {
+		newInfo.phoneNumber = info.phoneNumber;
+	}
+	return newInfo;
+}
+
+/**
  * function to validate the given input.
  * validations provided -
  *        check if the email id is already registered.

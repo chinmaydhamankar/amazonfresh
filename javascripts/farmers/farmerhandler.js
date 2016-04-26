@@ -73,7 +73,7 @@ exports.delete = function (ssn) {
     {
         var deferred = Q.defer();
         var cursor = MongoDB.collection("users").find({"ssn": ssn,"isApproved" : true});
-        var farmerList = {};
+        var farmerList = null;
         cursor.each(function (err, doc) {
             if (err) {
                 deferred.reject(err);
@@ -81,9 +81,11 @@ exports.delete = function (ssn) {
             if (doc != null) {
                 farmerList = doc;
             } else {
-                console.log("farmer list from here");
-                console.log(farmerList);
-                deferred.resolve(farmerList);
+                if(farmerList) {
+                    deferred.resolve(farmerList);
+                } else {
+                    deferred.reject("Farmer not found!");
+                }
             }
         });
         return deferred.promise;

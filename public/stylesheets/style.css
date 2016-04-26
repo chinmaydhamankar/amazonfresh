@@ -448,6 +448,64 @@ input[name = customer-password] {
     height: 50rem;
     overflow-y: scroll;
 }
+
+#bill-order{
+    margin-left: auto;
+    margin-right: auto;
+    /*width: 6em
+    /*margin-right: ;*/
+    border: 1px #c0c0c0 solid;
+    background-color: white;
+    width: 80rem;
+    border-radius: 4px 4px 4px 4px;
+    margin-bottom: 10px;
+}
+
+#bill-orderinfo{
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f6f6f6;
+    border: 1px #cecece solid;
+}
+
+#bill-orderPlaced{
+    width: 200px;
+    text-align: center;
+}
+
+#bill-totalAmount{
+    width: 150px;
+    text-align: center;
+}
+
+#bill-orderNumber{
+    text-align: right;
+    font-size: medium;
+    padding-top: 2rem;
+}
+
+
+#bill-iteminfo{
+    background-color: white;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: 1px #cecece solid;
+}
+
+#bill-itemImage{
+    width: inherit;
+}
+
+#bill-productId{
+
+}
+
+#bill-expectedDeliveryDate{
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /*
 Shruti's classes.
 */
@@ -455,7 +513,7 @@ Shruti's classes.
 .carousel-inner > .item > a > img {
     width: 100%;
 
-    float: left, right
+    float: left;
 }
 
 .section_header span {
@@ -491,7 +549,7 @@ Shruti's classes.
     float: left;
     position: relative;
     width: 21rem;
-    height: 30rem;
+    height: 33rem;
     margin: 1rem 1rem;
     border: 0.2rem solid #e6e6e6;
     padding: 0.5rem;
@@ -545,10 +603,10 @@ Shruti's classes.
     margin-left: 10px;
 }
 /* shruti create product*/
-#productID{
+#productName{
     margin-top: 1rem !important;
 }
-#productFarmer-ssn, #productID, #product-name, #product-price, #description  {
+#productImage, #product-name, #product-price, #description  {
     margin-bottom: 1rem !important;
 
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
@@ -577,5 +635,122 @@ Shruti's classes.
 
 
 
+/*Styles addded for Google Maps by Pratik. Do not overwrite. */
 
+.google-maps-wrapper-div {
+    border: solid;
+    border-color: #111111;
+    border-width: 0.25rem;
+    padding: 0 !important;
+}
 
+.google-map {
+    height: 50rem;
+    width: 100%;
+}
+
+.trip-details-wrapper-div {
+    background-color: snow;
+    opacity: 0.8;
+    height: 50rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    border-radius: 1rem;
+    margin-left: 5rem;
+}
+
+.trip-details-container-div {
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.trip-details-row {
+    display: inline-table;
+    margin-top: 1rem;
+    width: 100%;
+    font-weight: bold;
+}
+
+.trip-details-heading {
+    background-color: snow;
+    border-radius: 0.5rem;
+    width: 96%;
+    opacity: 0.8;
+    height: 4rem;
+    text-align: center;
+    padding-top: 0.5rem;
+}
+
+.google-maps-custom-marker {
+    background-color: snow;
+    opacity: 0.8;
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.25rem 0.25rem 0.25rem;
+    width: 15rem;
+    height: 8rem;
+}
+/*logout*/
+#logout:hover{
+    background-color: red ;
+}
+#logout {
+    color: snow;
+    cursor: pointer;
+    height: 32px;
+    margin-top: 7px;
+    margin-right: 50px;
+    opacity: 0.75;
+    -ms-filter: "alpha(opacity=80)";
+    padding: 0 7px 0 8px;
+    background-color: transparent;
+    /* background: rgba(0,132,180,.8); */
+    border-radius: 5px;
+}
+
+.products-list-cart {
+    background: snow;
+    -webkit-border-radius: ;
+    -moz-border-radius: ;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    border-radius: 1rem;
+    min-height: 50rem !important;
+    margin-top: 3rem;
+    margin-left: 3rem;
+    opacity: 0.8;
+    padding: 0 !important;
+    width: 30% !important;
+}
+
+.product-list-cart-cart-heading {
+    text-align: center;
+}
+
+.product-list-cart-hr {
+    border-top: 1px solid #888 !important;
+}
+
+.product-list-single-item {
+    width: 100% !important;
+}
+
+.product-list-single-item input{
+    width: 100% !important;
+    background: transparent;
+    background-color: transparent;
+    border-radius: 0.5rem;
+}
+
+.product-list-individual-namune{
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+}
+
+.end-list {
+    overflow: hidden !important;
+}
+
+.product-cart-checkout-button {
+    text-align: center;
+}

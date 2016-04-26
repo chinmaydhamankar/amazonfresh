@@ -11,11 +11,17 @@ app.controller('AuthController', ["$scope","$window","AuthService","USER_TYPES",
 				$scope.redirectToAdminPage();
 			} else if(user.usertype === UserTypes.CUSTOMER) {
 				$scope.redirectToCustomerHome();
+			} else if(user.usertype === UserTypes.FARMER) {
+				$scope.redirectToFarmerHome();
 			}
 		}, function () {
 			alert("Invalid!");
 		});
 	};
+
+	$scope.redirectToFarmerHome = function () {
+		$window.location.href = "/#farmers/home";
+	}
 
 	$scope.redirectToCustomerHome = function () {
 		$window.location.href = "/#products/home";

@@ -6,14 +6,17 @@
    <!-- <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
    <script src="/javascripts/vendor/angular-1.5.3.js"></script>-->
   <!--  <script src="//kendo.cdn.telerik.com/2016.1.412/js/jquery.min.js"></script>-->
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="//kendo.cdn.telerik.com/2016.1.412/js/angular.min.js"></script>
     <script src="http://kendo.cdn.telerik.com/2016.1.412/js/kendo.all.min.js"></script>
     <script src="/javascripts/vendor/angular-route.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-6Up5K0M_egpVpDL1oX8gk6rp79vG5yU" async defer></script>
+    <script src="/javascripts/vendor/ng-map.js"></script>
     <script src="/javascripts/app.js"></script>
     <script src="/javascripts/commons/constants.js"></script>
-    <!-- Directives scripts -->
 
+    <!-- Directives scripts -->
     <script src="/javascripts/directives/passwordpattern.js"></script>
     <script src="/javascripts/directives/passwordstrength.js"></script>
 
@@ -42,6 +45,11 @@
     <!--Scripts for product-->
     <script src="/javascripts/services/ProductService.js"></script>
     <script src="/javascripts/controllers/ProductController.js"></script>
+
+    <!-- Scripts for Trips -->
+    <script src="javascripts/services/TripsService.js"></script>
+    <script src="javascripts/controllers/TripsController.js"></script>
+
     <!--<script data-main="/javascripts/main.js" src="/javascripts/vendor/require-2.2.0.js"></script>-->
 
     <!-- Stylesheets -->
@@ -69,6 +77,10 @@
                 <img src="https://images-na.ssl-images-amazon.com/images/G/01/omaha/images/ui/af-logo-white-trans3.png"
                      alt="AmazonFresh Home"/>
             </a>
+            <div class="pull-right">
+                <button id="logout">Logout</button>
+            </div>
+
         </li>
     </div>
 </div>
@@ -76,5 +88,14 @@
 
 </div>
 <script src="./jquery/card.js"></script>
+<script>
+    $("#logout").click(function(){
+        $.ajax({url: "http://localhost:3000/auth/logout", success: function(result){
+            document.location.href="http://localhost:3000";
+        }});
+    });
+
+
+</script>
 </body>
 </html>

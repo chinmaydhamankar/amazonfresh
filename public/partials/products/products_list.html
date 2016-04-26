@@ -1,8 +1,6 @@
 <div class="container">
     <br>
     <div class="row">
-        <div class="leftbar col-sm-1">
-        </div>
         <div class="mid col-sm-8">
             <div class="section_header">
                 <span>Local Farmers Market Delivery</span>
@@ -55,18 +53,45 @@
                             <img src="https://images-na.ssl-images-amazon.com/images/G/01/omaha/images/merch/2015/CatPages/CatPage/FarmersMarket/FarmersMarket_badge._V311599607_.png"
                                  class="merchantBadge" alt="Merchant Badge">
                         </div>
-                        <img class="image2"
-                             ng-src="http://dingo.care2.com/pictures/greenliving/uploads/2011/07/fresh-vegetable-variety.jpg"
-                             alt=" {{dataItem.ProductName}} image"/>
-                        <p>{{ dataItem.productPrice | currency }}</p>
-                        <h3>{{ dataItem.productName }}</h3>
+                        <img ng-if="dataItem.productImage != null" ng-src= {{dataItem.productImage}} alt=" {{dataItem.ProductName}} image" class="image2"/>
+                        <img ng-if="dataItem.productImage == null || dataItem.productImage == undefined || dataItem.productImage == ''" ng-src="http://dingo.care2.com/pictures/greenliving/uploads/2011/07/fresh-vegetable-variety.jpg"
+                             alt=" {{dataItem.ProductName}} image" class="image2">
+                        <p>{{dataItem.productPrice | currency }}</p>
+                        <h3>{{dataItem.productName }}</h3>
+                        <h5>{{dataItem.description}}</h5>
+                        <h5>{{dataItem.farmerFirstName}}</h5>
 
-                        <button id="addtocartbtn" disabled="enabled" class="btn btn-primary">Add to Cart
+                        <button id="addtocartbtn" class="btn btn-success" ng-click="addToCart(dataItem)">Add to Cart
                         </button>
                     </div>
                 </div>
                 <div kendo-pager k-data-source="source"></div>
             </div>
+        </div>
+        <div id="cart" class="col-md-4 products-list-cart">
+            <h3 class="product-list-cart-cart-heading">Cart</h3>
+            <hr class="product-list-cart-hr">
+            <div class="product-list-cart-items" ng-repeat="cartItem in cartList">
+                <div class="product-list-single-item container">
+                    <div class="product-list-single-item-name col-md-4 product-list-individual-namune">
+                        {{cartItem.productName}}
+                    </div>
+                    <div class="product-list-single-item-quantity col-md-2 product-list-individual-namune">
+                        <input type="number" ng-model="cartItem.quantity" />
+                    </div>
+                    <div class="product-list-single-item-name col-md-2 product-list-individual-namune">
+                        ${{cartItem.productPrice}}
+                    </div>
+                    <div class="product-list-single-item-quantity col-md-2 end-list product-list-individual-namune">
+                        $ {{cartItem.quantity * cartItem.productPrice}}
+                    </div>
+                </div>
+            </div>
+            <hr class="product-list-cart-hr">
+            <div class="product-cart-checkout-button">
+                <button k-button class="btn btn-primary" ng-click="checkout()">Proceed to checkout</button>
+            </div>
+
         </div>
     </div>
 </div>
