@@ -24,7 +24,7 @@ app.controller('AuthController', ["$scope","$window","AuthService","USER_TYPES",
 	$scope.redirectToAdminPage = function () {
 		$window.location.href = "/#admin/home";
 	};
-	
+
 	$scope.redirectToFarmerSignUp = function () {
 		$window.location.href = "/#farmers/signup";
 	};

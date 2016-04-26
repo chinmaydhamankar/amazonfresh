@@ -75,7 +75,6 @@ exports.listallproducts = function () {
                 productList = productList.concat(doc);
             }
             else {
-                console.log(productList);
                 deferred.resolve(productList);
             }
         });
