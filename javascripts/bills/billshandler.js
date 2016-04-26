@@ -75,7 +75,6 @@ exports.searchbill = function (billId) {
  * searches all bills with given customer id.
  */
 exports.getallbills = function (customerId) {
-    console.log("handeler")
     var deferred = Q.defer();
     var result = {};
     var getJoinPromise = Mysql.executeQuery("SELECT * FROM bill, item Where bill.customer_id = '" + customerId + "' AND bill.bill_id = item.bill_id;");

@@ -1,19 +1,47 @@
 /**
  * Created by pratiksanglikar on 25/04/16.
  */
-angular.module("amazonfresh").controller("TripsController",["$scope","$routeParams","TripsService",
-	function ($scope,$routeParams, TripsService) {
+angular.module("amazonfresh").controller("TripsController", ["$scope", "$routeParams", "TripsService",
+	function ($scope, $routeParams, TripsService) {
 		$scope.param = $routeParams.tripId;
-		$scope.tripID = "01d03e5c2dd78e2477e332c0794ee442df3de202";
-
+		$scope.tripID = "7651a8eb0fdae239ae1aef422a0a83ed88a97b44";
+		$scope.customMarkers = [];
 		init = function () {
 			var promise = TripsService.getTripDetails($scope.tripID);
 			promise.then(function (tripDetails) {
 				$scope.tripDetails = tripDetails;
 				calculateDeliveryStatus(tripDetails);
+				calculateCustomMarkers(tripDetails);
 			}).catch(function (error) {
 				alert("Error: " + error);
 			});
+		}
+
+		calculateCustomMarkers = function (tripDetails) {
+			var truckLocation = null;
+			if(tripDetails.deliveryTime >= new Date().getTime()) {
+				var random = Math.floor(Math.random() * (tripDetails.deliverySteps.length - 0 + 1)) + 0;
+				truckLocation = tripDetails.deliverySteps[random].location;
+			} else {
+				truckLocation = tripDetails.customerLocation;
+			}
+			$scope.customMarkers = [
+				{
+					address: tripDetails.origin,
+					name: tripDetails.farmerFirstName + " " + tripDetails.farmerLastName,
+					title: "Farmer"
+				},
+				{
+					address: truckLocation,
+					name: tripDetails.driverFirstName + " " + tripDetails.driverLastName,
+					title: "Truck"
+				},
+				{
+					address: tripDetails.destination,
+					name: tripDetails.customerFirstName + " " + tripDetails.customerLastName,
+					title: "Customer"
+				}
+			]
 		}
 
 		calculateDeliveryStatus = function (tripDetails) {
@@ -23,9 +51,9 @@ angular.module("amazonfresh").controller("TripsController",["$scope","$routePara
 		}
 
 		calculateDateString = function (date) {
-			var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+			var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 			var string = "";
-			if(isNaN(date)) {
+			if (isNaN(date)) {
 				date = Number(date);
 			}
 			date = new Date(date);
@@ -35,10 +63,10 @@ angular.module("amazonfresh").controller("TripsController",["$scope","$routePara
 		}
 
 		getDeliveryStatus = function (date) {
-			if(isNaN(date)) {
+			if (isNaN(date)) {
 				date = Number(date);
 			}
-			if(date >= new Date().getTime()) {
+			if (date >= new Date().getTime()) {
 				return "In Transit";
 			} else {
 				return "Delivered!";

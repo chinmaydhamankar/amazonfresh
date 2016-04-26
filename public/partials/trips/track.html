@@ -2,7 +2,21 @@
     <div class="container">
         <h3 class="trip-details-heading">Track Your Package</h3>
         <div class="google-maps-wrapper-div col-md-8">
-            <map ng-transclude class='google-map'> </map>
+            <ng-map zoom="14" class='google-map' center={{tripDetails.origin}}>
+                <directions
+                        draggable="true"
+                        travel-mode="DRIVING"
+                        origin="{{tripDetails.origin}}"
+                        destination="{{tripDetails.destination}}">
+                </directions>
+                <custom-marker ng-repeat="cm in customMarkers" position="{{cm.address}}">
+                    <div class="google-maps-custom-marker">
+                        <div> {{cm.title}}</div>
+                        <div> {{cm.name}}</div>
+                        <div> {{cm.address}}</div>
+                    </div>
+                </custom-marker>
+            </ng-map>
         </div>
         <div class="trip-details-wrapper-div col-md-3" ng-show="tripDetails">
             <div class="container trip-details-container-div">

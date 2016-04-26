@@ -681,3 +681,12 @@ Shruti's classes.
     text-align: center;
     padding-top: 0.5rem;
 }
+
+.google-maps-custom-marker {
+    background-color: snow;
+    opacity: 0.8;
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.25rem 0.25rem 0.25rem;
+    width: 15rem;
+    height: 8rem;
+}

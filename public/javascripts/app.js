@@ -2,7 +2,7 @@
  * Created by pratiksanglikar on 12/04/16.
  */
 
-var app = angular.module("amazonfresh", ["ngRoute","kendo.directives","ngMaps"]);
+var app = angular.module("amazonfresh", ["ngRoute","kendo.directives","ngMap"]);
 
 app.config(function ($routeProvider, $locationProvider) {
 	$routeProvider.when("/index", {
