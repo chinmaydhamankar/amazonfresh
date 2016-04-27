@@ -61,9 +61,70 @@ angular.module("amazonfresh").factory("ProductService", ["$http","$q", function 
 			});
 
 			return def.promise;
-		}
+		},
 
-		
+		addToCart: function (productId) {
+			var deferred = $q.defer();
+			$http({
+				url: "http://localhost:3000/products/cart",
+				method: "POST",
+				data: {
+					productID: productId
+				}
+			}).then(function (result) {
+				deferred.resolve(result.data.data);
+			}).catch(function (error) {
+				deferred.reject(error);
+			})
+			return deferred.promise;
+		},
+
+		updateCart: function (productId, quantity) {
+			var deferred = $q.defer();
+			$http({
+				url: "http://localhost:3000/products/cart",
+				method: "PUT",
+				data:{
+					productID: productId,
+					quantity: quantity
+				}
+			}).then(function (result) {
+				deferred.resolve(result.data.data);
+			}).catch(function (error) {
+				deferred.reject(error);
+			});
+			return deferred.promise;
+		},
+
+		deleteFromCart: function (productId) {
+			var deferred = $q.defer();
+			$http({
+				url: "http://localhost:3000/products/cart/" + productId,
+				method: "DELETE"
+			}).then(function () {
+				deferred.resolve();
+			}).catch(function (error) {
+				deferred.reject(error);
+			});
+			return deferred.promise;
+		},
+
+		getCart: function () {
+			var deferred = $q.defer();
+			$http({
+				url: "http://localhost:3000/products/cart",
+				method: "GET"
+			}).then(function (data) {
+				if(data.data.success) {
+					deferred.resolve(data.data.data);
+				} else {
+					deferred.reject(data.data.error);
+				}
+			}).catch(function (error) {
+				deferred.reject(error);
+			});
+			return deferred.promise;
+		}
 	};
 	return ProductService;
 }]);

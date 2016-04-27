@@ -54,6 +54,7 @@ app.controller('BillsController',["$scope","$window","BillService",function ($sc
     }
 
     $scope.trackPackage = function(tripId){
+        alert(tripId);
         var url = "/#trips/track/" + tripId;
         $window.location.href = url;
     }
@@ -66,7 +67,6 @@ app.controller('BillsController',["$scope","$window","BillService",function ($sc
             for(var i=0;i<items.length;i++) {
                 var item = items[i];
                 if(item.expected_delivery_date > currentDate) {
-                    //alert(item.expected_delivery_date)
                     item.expectedDeliveryDate =  formatDate(item.expected_delivery_date);
                 } else {
                     item.expectedDeliveryDate = "Delivered!";

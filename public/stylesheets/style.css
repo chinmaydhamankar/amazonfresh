@@ -707,3 +707,50 @@ Shruti's classes.
     /* background: rgba(0,132,180,.8); */
     border-radius: 5px;
 }
+
+.products-list-cart {
+    background: snow;
+    -webkit-border-radius: ;
+    -moz-border-radius: ;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    border-radius: 1rem;
+    min-height: 50rem !important;
+    margin-top: 3rem;
+    margin-left: 3rem;
+    opacity: 0.8;
+    padding: 0 !important;
+    width: 30% !important;
+}
+
+.product-list-cart-cart-heading {
+    text-align: center;
+}
+
+.product-list-cart-hr {
+    border-top: 1px solid #888 !important;
+}
+
+.product-list-single-item {
+    width: 100% !important;
+}
+
+.product-list-single-item input{
+    width: 100% !important;
+    background: transparent;
+    background-color: transparent;
+    border-radius: 0.5rem;
+}
+
+.product-list-individual-namune{
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+}
+
+.end-list {
+    overflow: hidden !important;
+}
+
+.product-cart-checkout-button {
+    text-align: center;
+}

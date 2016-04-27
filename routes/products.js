@@ -3,6 +3,7 @@ var express = require("express");
 var Auth = require("./authentication");
 var router = express.Router();
 var ProductHandler = require("../javascripts/products/productshandler");
+var UserTypes = require("../javascripts/commons/constants").usertypes;
 
 /**
  * function to create a product into the system.
@@ -68,7 +69,7 @@ router.get("/", Auth.requireLogin, function (req, res) {
 /**
  * function to get a product from the system.
  */
-router.get("/:productID", Auth.requireLogin, function (req, res) {
+router.get("/id/:productID", Auth.requireLogin, function (req, res) {
 	var productID = req.params.productID;
 	console.log(productID);
 	var promise = ProductHandler.getproductinfo(productID);
@@ -87,6 +88,130 @@ router.get("/:productID", Auth.requireLogin, function (req, res) {
 			});
 	});
 });
+
+/**
+ * Adds a product to the cart.
+ */
+router.post("/cart/", Auth.requireLogin, function (req, res) {
+	var productID = req.body.productID;
+	console.log(productID);
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.CUSTOMER) {
+		res.status(500)
+			.send({
+				success: false,
+				error: "Only customer can access this functionality!",
+				data: null
+			});
+	} else {
+		if(!req.session.cart) {
+			req.session.cart = [];
+		}
+		req.session.cart.push({
+			productID: productID,
+			quantity: 1
+		});
+		res.send({
+			success: true,
+			error: null,
+			data: req.session.cart
+		});
+	}
+});
+
+router.put("/cart/", Auth.requireLogin, function (req, res) {
+	var productID = req.body.productID;
+	var quantity = req.body.quantity;
+	console.log(productID);
+	console.log(quantity);
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.CUSTOMER) {
+		res.status(500)
+			.send({
+				success: false,
+				error: "Only customer can access this functionality!",
+				data: null
+			});
+	} else {
+		if(!req.session.cart) {
+			req.session.cart = [];
+		}
+		var cart = req.session.cart;
+		for(var i = 0 ; i < cart.length; i++) {
+			if(cart[i].productID === productID) {
+				cart[i].quantity = quantity;
+				break;
+			}
+		}
+		req.session.cart = cart;
+		res.send({
+			success: true,
+			error: null,
+			data: req.session.cart
+		});
+	}
+});
+
+router.get("/cart/", Auth.requireLogin, function (req, res) {
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.CUSTOMER) {
+		res.status(500)
+			.send({
+				success: false,
+				error: "Only customer can access this functionality!",
+				data: null
+			});
+	} else {
+		if(!req.session.cart) {
+			req.session.cart = [];
+		}
+		res.send({
+			success: true,
+			error: null,
+			data: req.session.cart
+		});
+	}
+});
+
+router.delete("/cart/:productID", Auth.requireLogin, function (req, res) {
+	var productID = req.params.productID;
+	console.log(productID);
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.CUSTOMER) {
+		res.status(500)
+			.send({
+				success: false,
+				error: "Only customer can access this functionality!",
+				data: null
+			});
+	} else {
+		if(!req.session.cart) {
+			res.send({
+				success: true,
+				error: null,
+				data: req.session.cart
+			});
+			return;
+		}
+		var cart = req.session.cart;
+		var index = 0;
+		for(var i = 0 ; i < cart.length ; i++) {
+			if(cart[i].productID === productID) {
+				index = i;
+				break;
+			}
+		}
+		cart.splice(index, 1);
+		req.session.cart = cart;
+		res.send({
+			success: true,
+			error: null,
+			data: req.session.cart
+		});
+	}
+});
+
+
 router.post("/searchproduct", Auth.requireLogin, function (req, res) {
 	var productName = req.body.productName;
 
