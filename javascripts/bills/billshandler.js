@@ -7,10 +7,12 @@ var TripHandler = require("../trips/tripshandler");
 var Mysql = require("../commons/mysqlhandler");
 
 
-exports.generatebill = function (info) {
+exports.generatebill = function (info,customerSSN) {
     var deferred = Q.defer();
+    //var customer_id = ;
     var sqlQuery = "INSERT INTO bill (order_date, total_amount, customer_id) " +
-        "VALUES (sysdate(), " + info.total_amount + ", '" + info.customer_id + "');";
+        "VALUES (sysdate(), " + info.total_amount + ", '" + customerSSN + "');";
+    console.log(sqlQuery)
     var insertInBillPromise = Mysql.executeQuery(sqlQuery);
     var getTripIdPromise = [];
     var insertInItemPromise = [];
@@ -23,20 +25,22 @@ exports.generatebill = function (info) {
             var tempPromise;
             for (var key in info.product_details) {
                 var product_id = info.product_details[key].product_id;
-                tempPromise = TripHandler.generateTrip(info.customer_id, info.product_details[key].farmer_id, product_id);
+                tempPromise = TripHandler.generateTrip(customerSSN, info.product_details[key].farmer_id, product_id);
                 getTripIdPromise.push(tempPromise);
 
             }
-
             var tripResult = [];
             Q.all(getTripIdPromise).done(function (tripResult) {
                 for (var i=0; i<tripResult.length; i++) {
                     tripId = tripResult[i].tripID;
                     //expectedDeliveryDate = new Date(tripResult.deliveryTime).toISOString().slice(0, 19).replace('T', ' ');
                     expectedDeliveryDate = tripResult[i].deliveryTime;
+                    console.log("***********************************"+info.product_details[i].product_image_url)
                     sqlQuery = "INSERT INTO item" +
-                        " ( bill_id, product_id, quantity, price_per_unit, trip_id, expected_delivery_date ) " +
-                        "VALUES (" + billId + ", '" + product_id + "', " + info.product_details[i].quantity + ", " + info.product_details[i].price_per_unit + ",'" + tripId + "', '" + expectedDeliveryDate + "');";
+                        " ( bill_id, product_id, quantity, price_per_unit, trip_id, expected_delivery_date, product_name, product_image_url ) " +
+                        "VALUES (" + billId + ", '" + product_id + "', " + info.product_details[i].quantity + ", " + info.product_details[i].price_per_unit + ",'" + tripId + "', '" + expectedDeliveryDate + "','" + info.product_details[i].product_name + "', '" + info.product_details[i].product_image_url + "');";
+                    console.log(sqlQuery)
+                    //sqlQuery = "INSERT INTO item ( bill_id, product_id, quantity, price_per_unit, trip_id, expected_delivery_date, product_name ) VALUES (14, '2c07429444b3bcc71b7b7cadf90f999537a581ad', 1, 5,'fb2589be6d9aae01efaeea104f41035464330e83', '1461748542953','Peanuts');"
                     tempPromise = Mysql.executeQuery(sqlQuery);
                     insertInItemPromise.push(tempPromise);
                 }
@@ -46,15 +50,16 @@ exports.generatebill = function (info) {
         }, function (error) {
             deferred.reject(error);
         })
+        Q.all(insertInItemPromise).done(function () {
+            deferred.resolve()
+        }, function (error) {
+            deferred.reject(error);
+        })
     }, function (error) {
         deferred.reject(error);
     })
 
-    Q.all(insertInItemPromise).done(function () {
-        deferred.resolve()
-    }, function (error) {
-        deferred.reject(error);
-    })
+    //
 
     return deferred.promise;
 }
@@ -89,7 +94,7 @@ exports.searchbill = function (billId) {
 exports.getallbills = function (customerId) {
     var deferred = Q.defer();
     var result = {};
-    var getJoinPromise = Mysql.executeQuery("SELECT * FROM bill, item Where bill.customer_id = '" + customerId + "' AND bill.bill_id = item.bill_id;");
+    var getJoinPromise = Mysql.executeQuery("SELECT * FROM bill, item Where bill.customer_id = '" + customerId + "' AND bill.bill_id = item.bill_id ;");
     getJoinPromise.done(function(joinResult){
         for(var i=0 ; i < joinResult.length ; i++){
             if(!result[joinResult[i].bill_id]) {
@@ -105,7 +110,9 @@ exports.getallbills = function (customerId) {
                 "quantity" : joinResult[i].quantity,
                 "price_per_unit" : joinResult[i].price_per_unit,
                 "trip_id" : joinResult[i].trip_id,
-                "expected_delivery_date" : joinResult[i].expected_delivery_date
+                "expected_delivery_date" : joinResult[i].expected_delivery_date,
+                "product_name" : joinResult[i].product_name,
+                "product_image_url" : joinResult[i].product_image_url
             });
         }
         deferred.resolve(result);

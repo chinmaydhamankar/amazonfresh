@@ -40,10 +40,10 @@ exports.findTripsByDriver = function (driverID) {
 		driverSSN: driverID
 	});
 	cursor.each(function (error, doc) {
-		if(error){
+		if (error) {
 			deferred.reject(error);
 		}
-		if(doc != null) {
+		if (doc != null) {
 			trips.push(doc);
 		} else {
 			deferred.resolve(trips);
@@ -64,10 +64,10 @@ exports.findTripsByCustomer = function (customerID) {
 		customerSSN: customerID
 	});
 	cursor.each(function (error, doc) {
-		if(error){
+		if (error) {
 			deferred.reject(error);
 		}
-		if(doc != null) {
+		if (doc != null) {
 			trips.push(doc);
 		} else {
 			deferred.resolve(trips);
@@ -89,10 +89,10 @@ exports.findTripsByDeliveryCity = function (city) {
 		customerCity: city
 	});
 	cursor.each(function (error, doc) {
-		if(error){
+		if (error) {
 			deferred.reject(error);
 		}
-		if(doc != null) {
+		if (doc != null) {
 			trips.push(doc);
 		} else {
 			deferred.resolve(trips);
@@ -114,13 +114,13 @@ exports.findTripById = function (tripID) {
 	});
 
 	cursor.each(function (error, doc) {
-		if(error) {
+		if (error) {
 			deferred.reject(error);
 		}
-		if(doc != null) {
+		if (doc != null) {
 			trip = doc;
 		} else {
-			if(trip === null) {
+			if (trip === null) {
 				deferred.reject("Trip with given ID not found!");
 			} else {
 				deferred.resolve(trip);
@@ -139,10 +139,10 @@ exports.getAllTrips = function () {
 	var cursor = MongoDB.collection("trips").find();
 	var trips = [];
 	cursor.each(function (error, doc) {
-		if(error) {
+		if (error) {
 			deferred.reject(error);
 		}
-		if(doc === null) {
+		if (doc === null) {
 			deferred.resolve(trips);
 		} else {
 			trips.push(doc);
@@ -163,7 +163,7 @@ exports.generateTrip = function (customerID, farmerID, productID) {
 	var farmerPromise = FarmerHandler.getFarmerInfo(farmerID);
 	var productPromise = ProductHandler.getproductinfo(productID);
 
-	q.all([customerPromise, farmerPromise, productPromise]).done( function (values) {
+	q.all([customerPromise, farmerPromise, productPromise]).done(function (values) {
 		var customer = values[0],
 			farmer = values[1],
 			product = values[2];
@@ -209,7 +209,7 @@ _constructTripDetails = function (customer, farmer, product, journeyDetails, dri
 		customerAddress = customer.address + " , " + customer.city + " , " + customer.state + " , " + customer.zipCode,
 		farmerAddress = farmer.address + " , " + farmer.city + " , " + farmer.state + " , " + farmer.zipCode,
 		orderTime = new Date().getTime(),
-		deliveryTime = orderTime /*+ (journeyDetails.timeRequired * 100)*/,
+		deliveryTime = orderTime + (journeyDetails.timeRequired * 100),
 		deliverySteps = journeyDetails.steps;
 
 	var tripDetails = {
@@ -264,5 +264,19 @@ _findFreeDriver = function () {
 			}
 		}
 	});
+	return deferred.promise;
+}
+
+
+exports.getTripsByDriver = function () {
+	var deferred = q.defer();
+	var cursor = MongoDB.collection("trips").group(['driverFirstName','driverLastName'],{},{"total":0},"function(obj, prev) {prev.total++;}", function(error, results){
+		if(error) {
+			deferred.reject(error);
+		} else {
+			deferred.resolve(results);
+		}
+	});
+	// [], {}, {"count":0}, "function (obj, prev) { prev.count++; }", function(err, results) {
 	return deferred.promise;
 }
