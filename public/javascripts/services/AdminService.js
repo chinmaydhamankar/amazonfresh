@@ -294,6 +294,27 @@ angular.module("amazonfresh").factory("AdminService",["$http","$q", function ($h
             return def.promise;
         },
 
+        getBillInformation : function(){
+            var url = "http://localhost:3000/bills/getallbillsadmin";
+            var def = $q.defer();
+            $http({
+                method: 'GET',
+                url: url,
+                data: {
+                }
+            }).then(function (data) {
+                if (data) {
+                    def.resolve(data);
+                } else {
+                    def.reject(data.data.error);
+                }
+            }, function (error) {
+                def.reject(error);
+            });
+            return def.promise;
+
+
+        },
         tripsInfo : function()
         {
             alert("in service trips info");

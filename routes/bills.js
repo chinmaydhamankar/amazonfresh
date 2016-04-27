@@ -90,6 +90,24 @@ router.get("/getallbills/", Auth.requireLogin, function (req, res) {
     });
 });
 
+router.get("/getallbillsadmin/", Auth.requireLogin, function (req, res) {
+    var promise = BillHandler.getallbillsadmin();
+    promise.done(function (result) {
+        res.send({
+            success: true,
+            error: null,
+            data: result
+        });
+    }, function (error) {
+        res.status(500)
+            .send({
+                success: false,
+                error: error,
+                data: null
+            });
+    });
+});
+
 router.get("/revenue", Auth.requireLogin, function (req, res) {
     var promise = BillHandler.revenue();
     promise.done(function (result) {

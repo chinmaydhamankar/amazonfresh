@@ -313,13 +313,25 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 		});
 	}
 
+	$scope.getBillInfo = function(){
+		var promise = AdminService.getBillInformation();
+		promise.then(function(result){
+			alert("Data came here");
+			$scope.data = result.data.data;
+			$rootScope.variable = 10;
+
+		},function(error){
+			alert("Error - " + error);
+		});
+	}
+
 	$scope.getTripsInfo = function(){
 		alert("In get trips info");
 		var promise = AdminService.tripsInfo();
 		promise.then(function (result) {
 			$scope.data = result.data.data;
-			$scope.abcd = 2;
-			$scope.variable = 9;
+			/*$scope.abcd = 2;*/
+			$rootScope.variable = 9;
 			for(var i = 0 ; i < $scope.data.length ; i++) {
 				$scope.data[i].orderTimeString = new Date($scope.data[i].orderTime).toLocaleDateString();
 				$scope.data[i].deliveryTimeString = new Date($scope.data[i].deliveryTime).toLocaleDateString();

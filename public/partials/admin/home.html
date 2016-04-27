@@ -23,6 +23,9 @@
         </a><span class="notification">{{trucklength}}</span></li>
         <li><a ng-click="getTripsInfo()">Trips &nbsp <img src="https://cdn2.iconfinder.com/data/icons/vehicles-7/24/vehicles-11-24.png" />
         </a><span class="notification">{{tripslength}}</span></li>
+        <li><a ng-click="getBillInfo()">Bills &nbsp <img src="https://cdn2.iconfinder.com/data/icons/vehicles-7/24/vehicles-11-24.png" />
+        </a><span class="notification">{{billslength}}</span></li>
+
         <li><a href="#">Charts &nbsp <img src="https://cdn0.iconfinder.com/data/icons/free-misc-icon-set-2/512/graph_up_arrow-24.png" />
         </a></li>
     </ul>
@@ -242,6 +245,18 @@
 </div>
 
 
+<div class="pending-request-wrapper col-md-8 col-md-offset-4" ng-show = "variable == 10">
+    <div  class = "pending-request-row container col-md-8" ng-repeat = "value in data">
+        <div class="col-sm-8">
+            <label style="font-size: 2rem; color: floralwhite;margin-top: 3.5rem;"> {{ value.order_date}} {{value.total_amount}}</label>
+        </div>
+    </div>
+</div>
+
+
+
+
+
 
 <div class="pending-request-wrapper col-md-8 col-md-offset-4" ng-show = "variable == 9">
     <div  class = "pending-request-row trip-list container col-md-8" ng-repeat = "value in data">
@@ -284,7 +299,7 @@
             </div>
         </div>
         <div class="row delivery-string-wrapper  trip-list-row">
-            <label class="delivery-string">{{value.deliveryString}}<label>
+            <label class="delivery-string">{{value.deliveryString}}</label>
         </div>
     </div>
 </div>
