@@ -56,6 +56,9 @@ app.config(function ($routeProvider, $locationProvider) {
 	}).when("/admin/trucksearch", {
 		templateUrl: "partials/admin/trucksearch.html",
 		controller: "AdminController"
+	}).when("/analytics/tripspercustomer", {
+		templateUrl: "partials/analytics/tripspercustomer.html",
+		controller: "TripPerCustomerController"
 	}).otherwise({
 		redirectTo: "/index"
 	});

@@ -280,3 +280,16 @@ exports.getTripsByDriver = function () {
 	// [], {}, {"count":0}, "function (obj, prev) { prev.count++; }", function(err, results) {
 	return deferred.promise;
 }
+
+exports.getTripsByCustomer = function () {
+	var deferred = q.defer();
+	MongoDB.collection("trips").group(['customerFirstName','customerLastName'],{},{"total":0},"function(obj, prev) {prev.total++;}", function(error, results) {
+		if(error) {
+			deferred.reject(error);
+		} else {
+			deferred.resolve(results);
+		}
+	});
+	// [], {}, {"count":0}, "function (obj, prev) { prev.count++; }", function(err, results) {
+	return deferred.promise;
+}

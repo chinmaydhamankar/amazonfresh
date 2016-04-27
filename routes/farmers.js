@@ -92,7 +92,8 @@ router.get("/listfarmers", Auth.requireLogin, function (req, res) {
 
 
 router.get("/:ssn", Auth.requireLogin, function (req, res) {
-    var ssn = req.params.ssn;
+    var ssn = req.session.user.ssn;
+    console.log("Session is" + ssn);
     var promise = FarmerHandler.getFarmerInfo(ssn);
     promise.done(function (farmerinfo) {
         res.send({
