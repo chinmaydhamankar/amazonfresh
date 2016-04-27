@@ -7,21 +7,32 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 	$scope.Customers = true;
 	$scope.Farmers = true;
 	$scope.Products = true;
+	$scope.Trucks = true;
 
 	$scope.$watch('type', function( val ) {
 		if( val === 'Customers' ) {
 			$scope.Customers = false;
 			$scope.Farmers = true;
 			$scope.Products = true;
+			$scope.Trucks = true;
 		} else if(val == 'Farmers'){
 			$scope.Farmers = false;
 			$scope.Customers = true;
 			$scope.Products = true;
+			$scope.Trucks = true;
 		}
 		else if(val == 'Products'){
 			$scope.Products = false;
 			$scope.Farmers = true;
 			$scope.Customers = true;
+			$scope.Trucks = true;
+		}
+		else if(val == 'Trucks')
+		{
+			$scope.Trucks = false;
+			$scope.Farmers = true;
+			$scope.Customers = true;
+			$scope.Products = true;
 		}
 	});
 
@@ -32,6 +43,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			$scope.getPendingCustomers();
 			$scope.getPendingFarmers();
 			$scope.getPendingProducts();
+			$scope.getPendingTrucks();
 			$rootScope.variable = 1;
 		}
 	}
@@ -125,6 +137,20 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 		});
 	};
 
+	$scope.getPendingTrucks = function(){
+		var promise = AdminService.getPendingTrucks();
+		promise.then(function (result) {
+			alert("IN controller after result");
+			$scope.data = result.data;
+			$scope.abcd = 2;
+			$rootScope.trucklength = result.data.data.length;
+			$rootScope.variable = 7;
+
+		}, function (error) {
+			alert("Error - " + error);
+		});
+	}
+
 	$scope.getPendingProducts = function () {
 		var promise = AdminService.getPendingProducts();
 		promise.then(function (result) {
@@ -163,6 +189,28 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			$rootScope.farmerResult = result.data.data;
 			$rootScope.variable = 4;
 			$window.location.href = "/#admin/farmersearch";
+		},function(err){
+			alert("Error -"+err);
+		});
+	}
+
+	$scope.advancedSearchTrucks = function(){
+
+		var info = {
+			"firstName" : $scope.firstName,
+			"lastName" : $scope.lastName,
+			"truckManufacturer" : $scope.truckManufacturer,
+			"truckModel" : $scope.truckModel,
+			"email" : $scope.email,
+			"ssn" : $scope.ssn
+		}
+		var promise = AdminService.getTrucksByAdvancedSearch(info);
+		promise.then(function(result){
+
+			$scope.result = result.data.data;
+			$rootScope.truckResult = result.data.data;
+			$rootScope.variable = 8;
+			$window.location.href = "/#admin/trucksearch";
 		},function(err){
 			alert("Error -"+err);
 		});
@@ -236,6 +284,52 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 
 	}
 
+	$scope.updateInfoTruck = function(){
+		var info = {
+			"firstName": $scope.res.firstName,
+			"lastName": $scope.res.lastName,
+			"email": $scope.res.email,
+			"password" : $scope.res.password,
+			"phoneNumber": $scope.res.phoneNumber,
+			"ssn": $scope.res.ssn,
+			"address": $scope.res.address,
+			"state": $scope.res.state,
+			"city": $scope.res.city,
+			"zipCode": $scope.res.zipCode,
+			"isApproved" : $scope.res.isApproved,
+			"usertype" : $scope.res.usertype,
+			"location" : $scope.res.location,
+			"truckManufacturer" : $scope.res.truckManufacturer,
+			"truckModel" : $scope.res.truckModel,
+			"freeFrom" : $scope.res.freeFrom
+		}
+		var promise = AdminService.updateTruckInfo(info);
+		promise.then(function (result) {
+			$scope.data = result.data.data;
+			$scope.abcd = 2;
+			$window.location.href = "/#admin/home"
+		}, function (error) {
+			alert("Error - " + error);
+		});
+	}
+
+	$scope.getTripsInfo = function(){
+		alert("In get trips info");
+		var promise = AdminService.tripsInfo();
+		promise.then(function (result) {
+			$scope.data = result.data.data;
+			$scope.abcd = 2;
+			$scope.variable = 9;
+			for(var i = 0 ; i < $scope.data.length ; i++) {
+				$scope.data[i].orderTimeString = new Date($scope.data[i].orderTime).toLocaleDateString();
+				$scope.data[i].deliveryTimeString = new Date($scope.data[i].deliveryTime).toLocaleDateString();
+				$scope.data[i].deliveryString = (new Date().getTime() > new Date($scope.data[i].deliveryTime))? "Delivered!": "In transit";
+			}
+		}, function (error) {
+			alert("Error - " + error);
+		});
+	}
+
 	$scope.updateInfoCustomer = function (){
 
 		var info =
@@ -286,6 +380,19 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			"productID" : productid
 		}
 		var promise = AdminService.productViewInfo(info);
+		promise.then(function(res){
+			$scope.res = res.data.data;
+		},function(err){
+			alert("Error -"+err);
+		});
+
+	}
+
+	$scope.viewTruckInfo = function(ssn){
+		var info = {
+			"ssn" : ssn
+		}
+		var promise = AdminService.truckViewInfo(info);
 		promise.then(function(res){
 			$scope.res = res.data.data;
 		},function(err){

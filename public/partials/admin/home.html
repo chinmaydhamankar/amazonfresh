@@ -19,6 +19,10 @@
         </a><span style="margin-left: 11.2rem" class="notification">{{prodlength }}</span></li>
         <li><a ng-click="getPendingFarmers()">Farmers &nbsp <img src="https://cdn3.iconfinder.com/data/icons/mobipeople/512/farmer_remove_volume_vector_icons-24.png" />
         </a><span class="notification">{{farmlength}}</span></li>
+        <li><a ng-click="getPendingTrucks()">Trucks &nbsp <img src="https://cdn2.iconfinder.com/data/icons/vehicles-7/24/vehicles-11-24.png" />
+        </a><span class="notification">{{trucklength}}</span></li>
+        <li><a ng-click="getTripsInfo()">Trips &nbsp <img src="https://cdn2.iconfinder.com/data/icons/vehicles-7/24/vehicles-11-24.png" />
+        </a><span class="notification">{{tripslength}}</span></li>
         <li><a href="#">Charts &nbsp <img src="https://cdn0.iconfinder.com/data/icons/free-misc-icon-set-2/512/graph_up_arrow-24.png" />
         </a></li>
     </ul>
@@ -42,6 +46,7 @@
                 <option oi-options value = "Products">Products</option>
                 <option oi-options value = "Customers">Customers</option>
                 <option oi-options value = "Trips">Trips</option>
+                <option oi-options value = "Trucks">Trucks</option>
             </select>
         </div>
     </div>
@@ -161,6 +166,54 @@
     </div>
 
 
+    <div id = "Trucks" ng-hide='Trucks'>
+        <form>
+            <div class="container admin-advanced-search-window-container">
+
+                <div class="col-sm-5">
+                    <input style="width: 24rem" type="text" name="firstName" ng-model="firstName" class="form-control" placeholder="First Name"
+                           title="First Name" />
+                </div>
+                <div class="col-sm-5">
+                    <input style="width: 24rem" type="text" name="lastName" ng-model="lastName" class="form-control" placeholder="Last Name"
+                           title="Last Name" />
+                </div>
+
+            </div>
+            <div class="container admin-advanced-search-window-container">
+
+                <div class="col-sm-5">
+                    <input style="width: 24rem" type="text" name="truckManufacturer" ng-model="truckManufacturer" class="form-control" placeholder="Truck Manufacturer"
+                           title="Truck Manufacturer" />
+                </div>
+                <div class="col-sm-5">
+                    <input style="width: 24rem" type="text" name="truckModel" ng-model="truckModel" class="form-control" placeholder="Truck Model"
+                           title="Trcuk Model" />
+                </div>
+            </div>
+
+            <div class="container admin-advanced-search-window-container">
+
+                <div class="col-sm-5">
+                    <input style="width: 24rem" type="text" name="email" ng-model="email" class="form-control" placeholder="Email"
+                           title="Email" />
+                </div>
+                <div class="col-sm-5">
+                    <input style="width: 24rem" type="text" name="ssn" ng-model="ssn" class="form-control" placeholder="SSN"
+                           title="SSN" />
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-3">
+                <button class="advanced-search-button btn btn-primary" type="button" ng-click = "advancedSearchTrucks()">Search</button>
+            </div>
+        </form>
+    </div>
+
+
+
 
 
 
@@ -173,7 +226,7 @@
 
 
 
-<div class="pending-request-wrapper col-md-8 col-md-offset-4" ng-show = "variable == 1 || variable == 2 || variable == 3">
+<div class="pending-request-wrapper col-md-8 col-md-offset-4" ng-show = "variable == 1 || variable == 2 || variable == 3 || variable == 7">
     <div  class = "pending-request-row container col-md-8" ng-repeat = "value in data.data">
         <div class="col-sm-8">
             <label style="font-size: 2rem; color: floralwhite;margin-top: 3.5rem;" ng-show = "abcd == 2"> {{ value.firstName}} {{value.lastName}}</label>
@@ -184,6 +237,54 @@
         </div>
         <div class="col-sm-2">
             <button id="deleteButton" type="button" class="btn btn-danger" ng-click = "declineReq(value.ssn,value.productName,value.usertype)">Decline</button>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="pending-request-wrapper col-md-8 col-md-offset-4" ng-show = "variable == 9">
+    <div  class = "pending-request-row trip-list container col-md-8" ng-repeat = "value in data">
+        <div class="row trip-list-row">
+            <div class="col-md-5">
+                <p>Customer</p>
+                <label> {{ value.customerFirstName}} {{value.customerLastName}}</label>
+            </div>
+            <div class="col-md-5">
+                <p>Farmer</p>
+                <label>{{value.farmerFirstName}} {{value.farmerLastName}}</label>
+            </div>
+        </div>
+        <div class="row trip-list-row">
+            <div class="col-md-5">
+                <p>Destination</p>
+                <label>{{value.destination}}</label>
+            </div>
+            <div class="col-md-5">
+                <p>Origin</p>
+                <label>{{value.origin}}</label>
+            </div>
+        </div>
+        <div class="row  trip-list-row">
+            <div class="col-md-4">
+                <p>Driver</p>
+                <label>{{value.driverFirstName}} {{value.driverLastName}}</label>
+            </div>
+            <div class="col-md-3">
+                <p>
+                    Order Date
+                </p>
+                <label>{{value.orderTimeString}}</label>
+            </div>
+            <div class="col-md-4">
+                <p>
+                    Expected Delivery Date
+                </p>
+                <label>{{value.deliveryTimeString}}</label>
+            </div>
+        </div>
+        <div class="row delivery-string-wrapper  trip-list-row">
+            <label class="delivery-string">{{value.deliveryString}}<label>
         </div>
     </div>
 </div>

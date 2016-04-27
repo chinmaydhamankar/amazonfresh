@@ -49,6 +49,32 @@ angular.module("amazonfresh").factory("AdminService",["$http","$q", function ($h
             return def.promise;
         },
 
+         getPendingTrucks : function () {
+             alert("In trucks");
+             var url = "http://localhost:3000/trucks/pending";
+             var def = $q.defer();
+             $http({
+                 method: 'GET',
+                 url: url,
+                 data: {
+
+                 }
+             }).then(function (data) {
+                 if (data) {
+                     def.resolve(data);
+                 } else {
+                     def.reject(data.data.error);
+                 }
+             }, function (error) {
+                 if(error.status=== 302)
+                 {
+                     $window.location.href="http://localhost:3000/#auth/login";
+                 }
+                 def.reject(error);
+             });
+             return def.promise;
+         },
+
         declineReq: function (ssn,productName) {
             var url,x;
             if (productName === undefined) {
@@ -86,6 +112,30 @@ angular.module("amazonfresh").factory("AdminService",["$http","$q", function ($h
 
         getFarmersByAdvancedSearch :function(info){
             var url = "http://localhost:3000/admin/getFarmersByAdvancedSearch";
+            var def = $q.defer();
+            $http({
+                "method" : 'POST',
+                "url" : url,
+                "data" : info
+
+            }).then(function(data){
+                if(data)
+                {
+                    def.resolve(data);
+                }
+                else
+                {
+                    def.reject(data.data.error);
+                }
+            },function(err){
+                def.reject(error);
+            });
+            return def.promise;
+        },
+
+        getTrucksByAdvancedSearch : function(info){
+            alert("In getrucks by sreach ");
+            var url = "http://localhost:3000/trucks/search";
             var def = $q.defer();
             $http({
                 "method" : 'POST',
@@ -222,6 +272,51 @@ angular.module("amazonfresh").factory("AdminService",["$http","$q", function ($h
         },
 
 
+        updateTruckInfo : function(info){
+            var url = "http://localhost:3000/trucks/"+info.ssn;
+            var def = $q.defer();
+            $http({
+                method: 'PUT',
+                url: url,
+                data: {
+
+                    "info" : info
+                }
+            }).then(function (data) {
+                if (data) {
+                    def.resolve(data);
+                } else {
+                    def.reject(data.data.error);
+                }
+            }, function (error) {
+                def.reject(error);
+            });
+            return def.promise;
+        },
+
+        tripsInfo : function()
+        {
+            alert("in service trips info");
+            var url = "http://localhost:3000/trips";
+            var def = $q.defer();
+            $http({
+                method: 'GET',
+                url: url,
+                data: {
+                }
+            }).then(function (data) {
+                if (data) {
+                    def.resolve(data);
+                } else {
+                    def.reject(data.data.error);
+                }
+            }, function (error) {
+                def.reject(error);
+            });
+            return def.promise;
+
+        },
+
         updateFarmerInfo: function(info){
             var url = "http://localhost:3000/farmers/updateFarmer";
             var def = $q.defer();
@@ -269,7 +364,31 @@ angular.module("amazonfresh").factory("AdminService",["$http","$q", function ($h
             return def.promise;
         },
 
+        truckViewInfo : function(info)
+        {
+            var url = "http://localhost:3000/trucks/id/"+info.ssn;
+            var def = $q.defer();
+            $http({
+                "method" : 'GET',
+                "url" : url,
+                "data" : {
 
+                }
+
+            }).then(function(data){
+                if(data)
+                {
+                    def.resolve(data);
+                }
+                else
+                {
+                    def.reject(data.data.error);
+                }
+            },function(err){
+                def.reject(error);
+            });
+            return def.promise;
+        },
 
 
         getCustomersByAdvancedSearch :function(info){

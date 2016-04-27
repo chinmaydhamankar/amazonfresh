@@ -59,6 +59,64 @@ exports.signuptruck = function (info) {
 };
 
 /**
+ * returns the searched users from all attributes.
+ * @param info
+ * @returns {*|promise}
+ */
+
+
+exports.searchByAnyAttributes = function(info){
+
+	var deferred = Q.defer();
+	var searchQuery = JSON.parse(info);
+		searchQuery = _sanitizeForTruckUpdate(searchQuery);
+	var truckList = [];
+	var cursor = MongoDB.collection("users").find(searchQuery);
+	if(cursor != null)
+	{
+		cursor.each(function (err, doc) {
+			if (err) {
+				deferred.reject(err);
+			}
+			if (doc != null) {
+				truckList.push(doc);
+			} else {
+				deferred.resolve(truckList);
+			}
+		});
+	}
+	else
+	{
+		deferred.reject("There are no Advanced Search Records for Trucks");
+	}
+
+	return deferred.promise;
+
+}
+/*
+exports.searchByAnyAttributes = function (data) {
+	var deferred = Q.defer();
+	var users = [];
+	var data = JSON.parse(data);
+	console.log("data is ::"+data);
+	var info = _sanitizeForTruckUpdate(data);
+	info.usertype = UserTypes.DRIVER;
+	var cursor = MongoDB.collection("users").find(info);
+	cursor.each(function (error, doc) {
+		if(error) {
+			deferred.reject(error);
+		}
+		if(doc === null) {
+			deferred.resolve(users);
+		} else {
+			users.push(doc);
+		}
+	});
+	return deferred.promise;
+}
+*/
+
+/**
  * deletes a driver with given ssn from the system.
  * @param ssn
  * @returns {*|promise}
@@ -76,6 +134,29 @@ exports.delete = function (ssn) {
 			deferred.resolve();
 		} else {
 			deferred.reject("Driver with given SSN not found in system!");
+		}
+	});
+	return deferred.promise;
+}
+
+exports.getTruck = function(ssn) {
+	var deferred = Q.defer();
+	var user = null;
+	var cursor = MongoDB.collection("users").find({
+		ssn: ssn
+	});
+	cursor.each(function (error, doc) {
+		if(error) {
+			deferred.reject(error);
+		}
+		if(doc == null) {
+			if(user == null) {
+				deferred.reject("Truck Driver not found!");
+			} else {
+				deferred.resolve(user);
+			}
+		} else {
+			user = doc;
 		}
 	});
 	return deferred.promise;
@@ -119,11 +200,11 @@ _sanitizeTrucksInfo = function (info) {
  * function to update the truck driver.
  * @param info
  */
-exports.updateTruckDriver = function (truckId, info) {
+exports.updateTruckDriver = function (info) {
 	var deferred = Q.defer();
 	info = _sanitizeForTruckUpdate(info);
 	var cursor = MongoDB.collection("users").update({
-		ssn: truckId
+		ssn: info.ssn
 	},info);
 	cursor.then(function (result) {
 		deferred.resolve(result);

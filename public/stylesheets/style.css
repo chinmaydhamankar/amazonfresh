@@ -901,3 +901,19 @@ Shruti's classes.
     width: 80%;
     height: 45rem;
 }
+
+.delivery-string-wrapper{
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+}
+
+.trip-list {
+    height: initial !important;
+    color: snow;
+}
+
+.trip-list-row {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}

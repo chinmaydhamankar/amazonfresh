@@ -10,8 +10,11 @@ var Auth = require("./authentication");
 var TripHandler = require("../javascripts/trips/tripshandler");
 
 router.get("/", Auth.requireLogin, function (req, res) {
+
+
 	var promise = TripHandler.getAllTrips();
 	promise.done(function (result) {
+		console.log("In trips.js");
 		res.send({
 			success: true,
 			error: null,
