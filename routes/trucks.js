@@ -28,6 +28,29 @@ router.get("/", Auth.requireLogin, function (req, res) {
 });
 
 /**
+ * function to update the truck driver.
+ */
+router.put("/:truckId", Auth.requireLogin, function (req, res) {
+	var info = req.body.info;
+	var truckID = req.params.truckId;
+	var promise = TruckHandler.updateTruckDriver(truckID, info);
+	promise.done(function (result) {
+		res.send({
+			success: true,
+			error: null,
+			data: result
+		});
+	}).catch(function (error) {
+		res.status(500)
+			.send({
+				success: false,
+				error: error,
+				data: null
+			});
+	});
+});
+
+/**
  * function to register a truck driver into the system.
  */
 router.post("/", function (req, res) {

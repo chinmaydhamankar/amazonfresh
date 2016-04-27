@@ -7,7 +7,8 @@
 var app = angular.module("amazonfresh");
 
 
-angular.module("amazonfresh").controller("ProductController", ["$scope", "$window", "ProductService", function ($scope, $window, ProductService) {
+angular.module("amazonfresh").controller("ProductController", ["$scope", "$window", "ProductService",
+	function ($scope, $window, ProductService) {
 	$scope.createproduct = function () {
 
 		var info = {
