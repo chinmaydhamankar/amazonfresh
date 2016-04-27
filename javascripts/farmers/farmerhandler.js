@@ -70,7 +70,8 @@ exports.delete = function (ssn) {
 
 
     exports.getFarmerInfo = function(ssn)
-    {    console.log("Here reachsqqqq" + ssn);
+    {
+        console.log("Here reachsqqqq" + ssn);
         var deferred = Q.defer();
         var cursor = MongoDB.collection("users").find({"ssn": ssn});
         var farmerList = null;
@@ -257,5 +258,42 @@ _validateFarmerInfo1 = function (info) {
             deferred.resolve();
         }
     };
+    return deferred.promise;
+}
+
+_validateFarmerInfo = function (info) {
+    var deferred = Q.defer();
+    var promise = Utilities.validateEmail(info.email);
+     var promise1 = Utilities.validateSSN(info.ssn);
+     Q.all([promise, promise1]).done(function () {
+   // promise.done(function () {
+        if( Utilities.isEmpty(info.ssn)		 	||
+            Utilities.isEmpty(info.firstName) 	||
+            Utilities.isEmpty(info.lastName) 	||
+            Utilities.isEmpty(info.address)	 	||
+            Utilities.isEmpty(info.city) 		||
+            Utilities.isEmpty(info.state) 		||
+            Utilities.isEmpty(info.zipCode) 	||
+            Utilities.isEmpty(info.phoneNumber) ||
+            Utilities.isEmpty(info.password) 	||
+            Utilities.isEmpty(info.email))
+        {
+            console.log("error from here");
+            deferred.reject("All values must be provided! ");
+        } else {
+            if(!Utilities.validateState(info.state)) {
+                console.log("invalid sate");
+                deferred.reject("Invalid state!");
+            } else
+            if(!Utilities.validateZipCode(info.zipCode)) {
+                console.log("invalid zip codd");
+                deferred.reject("Invalid zip code!");
+            } else {
+                deferred.resolve();
+            }
+        }
+    }, function (error) {
+        deferred.reject(error);
+    });
     return deferred.promise;
 }
