@@ -93,10 +93,10 @@ function _getPool() {
 	if (pool == undefined) {
 		pool = _createPool({
 			host: 'sql3.freemysqlhosting.net',
-			user: 'sql3115969',
-			password: 'B5vNhVft2U',
-			database: 'sql3115969',
-			poolsize: 100
+			user: 'sql3117040',
+			password: '5eHPZkWr6h',
+			database: 'sql3117040',
+			poolsize: 10
 		});
 	}
 	return pool;

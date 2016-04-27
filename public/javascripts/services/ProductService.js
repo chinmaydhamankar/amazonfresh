@@ -144,7 +144,9 @@ angular.module("amazonfresh").factory("ProductService", ["$http", "$q", function
 					"product_id": cartList[i].productID,
 					"quantity": cartList[i].quantity,
 					"price_per_unit": cartList[i].productPrice,
-					"farmer_id": cartList[i].farmerSSN
+					"farmer_id": cartList[i].farmerSSN,
+					"product_name": cartList[i].productName,
+					"product_image_url": cartList[i].productImage
 				});
 			}
 

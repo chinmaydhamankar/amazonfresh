@@ -47,8 +47,8 @@ app.controller('BillsController',["$scope","$window","BillService",function ($sc
         });
     }
 
-    $scope.getallbills = function (customerId) {
-        var promise = BillService.getallbills(customerId);
+    $scope.getallbills = function () {
+        var promise = BillService.getallbills();
         promise.then(function (result) {
             $scope.result = result;
             calculateExpectedDeliveryDates();

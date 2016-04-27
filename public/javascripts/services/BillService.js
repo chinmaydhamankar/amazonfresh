@@ -75,9 +75,9 @@ angular.module("amazonfresh").factory("BillService",["$http","$q","$window", fun
             return def.promise;
         },
 
-        getallbills: function (customerId) {
-            var url = "http://localhost:3000/bills/getallbills/"+customerId;
-            alert("url is"+url)
+        getallbills: function () {
+            alert();
+            var url = "http://localhost:3000/bills/getallbills/";
             var def = $q.defer();
             $http({
                 method: 'GET',

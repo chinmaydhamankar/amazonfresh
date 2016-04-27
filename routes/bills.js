@@ -12,7 +12,8 @@ var Auth = require("./authentication");
  * generates the bill.
  */
 router.post("/generatebill", Auth.requireLogin, function (req, res) {
-    var promise = BillHandler.generatebill(req.body.info);
+    var customerSSN = req.session.user.ssn;
+    var promise = BillHandler.generatebill(req.body.info,customerSSN);
     promise.done(function () {
         res.send({
             success: true,
@@ -70,8 +71,9 @@ router.get("/searchbill/:billId", Auth.requireLogin, function (req, res) {
 /**
  * searches all bills with given customer id.
  */
-router.get("/getallbills/:customerId", Auth.requireLogin, function (req, res) {
-    var promise = BillHandler.getallbills(req.params.customerId);
+router.get("/getallbills/", Auth.requireLogin, function (req, res) {
+    var customerSSN = req.session.user.ssn;
+    var promise = BillHandler.getallbills(customerSSN);
     promise.done(function (result) {
         res.send({
             success: true,
