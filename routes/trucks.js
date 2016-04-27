@@ -28,6 +28,26 @@ router.get("/", Auth.requireLogin, function (req, res) {
 });
 
 /**
+ * get pending requests of drivers.
+ */
+router.get("/pending", Auth.requireLogin, function (req, res) {
+	var promise  =TruckHandler.getPendingTrucks();
+	promise.done(function (data) {
+		res.send({
+			success: true,
+			error: null,
+			data: data
+		});
+	}, function (error) {
+		res.status(500).send({
+			success: false,
+			error: error,
+			data: null
+		});
+	});
+});
+
+/**
  * function to update the truck driver.
  */
 router.put("/:truckId", Auth.requireLogin, function (req, res) {
