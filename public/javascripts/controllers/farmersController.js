@@ -42,8 +42,14 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
     }
 
 
+    $scope.regProduct = function ()
+    {
+        $scope.vari = 2;
+    }
+
 
     $scope.getMyProfile = function () {
+        $scope.vari = 1;
         var promise = FarmerService.getMyProfile();
         promise.then(function (result) {
             alert(result.data.data.password);
@@ -96,7 +102,7 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
 
 
     $scope.createproduct = function () {
-           alert("seleeee");
+           $scope.vari = 2;
         var info = {
             "productName": $scope.productName,
             "productPrice": $scope.productPrice,
