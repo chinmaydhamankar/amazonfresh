@@ -1,4 +1,4 @@
-<button ng-click="getallbills(10)">search</button>
+<button ng-click="getallbills('986-55-7845')">search</button>
 <div id="bill-order" ng-repeat="value in result">
     <div id="bill-orderinfo" class="row" >
         <div id="bill-orderPlaced" class="left col-sm-4">
@@ -32,7 +32,8 @@
         </div>
         <div id="bill-expectedDeliveryDate" class="midright col-sm-3">
             <div>
-                {{items.expectedDeliveryDate}}
+                <!--{{items.expectedDeliveryDate}}-->
+                {{isDelivered}}
             </div>
 
         </div>
