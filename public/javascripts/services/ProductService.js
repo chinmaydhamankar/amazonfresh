@@ -20,6 +20,10 @@ angular.module("amazonfresh").factory("ProductService", ["$http", "$q", function
 					def.reject(data.data.error);
 				}
 			}, function (error) {
+				if(error.status=== 302)
+				{
+					$window.location.href="http://localhost:3000/#auth/login";
+				}
 				def.reject(error);
 			});
 			return def.promise;
@@ -38,6 +42,10 @@ angular.module("amazonfresh").factory("ProductService", ["$http", "$q", function
 					def.reject(data.data.error);
 				}
 			}, function (error) {
+				if(error.status=== 302)
+				{
+					$window.location.href="http://localhost:3000/#auth/login";
+				}
 				def.reject(error);
 			});
 
@@ -57,6 +65,10 @@ angular.module("amazonfresh").factory("ProductService", ["$http", "$q", function
 					def.reject(data.error);
 				}
 			}, function (error) {
+				if(error.status=== 302)
+				{
+					$window.location.href="http://localhost:3000/#auth/login";
+				}
 				def.reject(error);
 			});
 
@@ -74,6 +86,10 @@ angular.module("amazonfresh").factory("ProductService", ["$http", "$q", function
 			}).then(function (result) {
 				deferred.resolve(result.data.data);
 			}).catch(function (error) {
+				if(error.status=== 302)
+				{
+					$window.location.href="http://localhost:3000/#auth/login";
+				}
 				deferred.reject(error);
 			})
 			return deferred.promise;
@@ -91,6 +107,10 @@ angular.module("amazonfresh").factory("ProductService", ["$http", "$q", function
 			}).then(function (result) {
 				deferred.resolve(result.data.data);
 			}).catch(function (error) {
+				if(error.status=== 302)
+				{
+					$window.location.href="http://localhost:3000/#auth/login";
+				}
 				deferred.reject(error);
 			});
 			return deferred.promise;
@@ -104,6 +124,10 @@ angular.module("amazonfresh").factory("ProductService", ["$http", "$q", function
 			}).then(function () {
 				deferred.resolve();
 			}).catch(function (error) {
+				if(error.status=== 302)
+				{
+					$window.location.href="http://localhost:3000/#auth/login";
+				}
 				deferred.reject(error);
 			});
 			return deferred.promise;
@@ -136,6 +160,10 @@ angular.module("amazonfresh").factory("ProductService", ["$http", "$q", function
 			}).then(function (result) {
 				deferred.resolve(result);
 			}).catch(function (error) {
+				if(error.status=== 302)
+				{
+					$window.location.href="http://localhost:3000/#auth/login";
+				}
 				deferred.reject(error);
 			});
 			return deferred.promise;
@@ -153,6 +181,10 @@ angular.module("amazonfresh").factory("ProductService", ["$http", "$q", function
 					deferred.reject(data.data.error);
 				}
 			}).catch(function (error) {
+				if(error.status=== 302)
+				{
+					$window.location.href="http://localhost:3000/#auth/login";
+				}
 				deferred.reject(error);
 			});
 			return deferred.promise;

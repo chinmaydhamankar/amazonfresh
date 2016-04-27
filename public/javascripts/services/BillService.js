@@ -3,7 +3,7 @@
  */
 
 
-angular.module("amazonfresh").factory("BillService",["$http","$q", function ($http, $q) {
+angular.module("amazonfresh").factory("BillService",["$http","$q","$window", function ($http, $q, $window) {
     var BillService = {
         generatebill: function (info) {
             var url = "http://localhost:3000/bills/generatebill";
@@ -21,6 +21,10 @@ angular.module("amazonfresh").factory("BillService",["$http","$q", function ($ht
                     def.reject(data.data.error);
                 }
             }, function (error) {
+                if(error.status=== 302)
+                {
+                    $window.location.href="http://localhost:3000/#auth/login";
+                }
                 def.reject(error);
             });
             return def.promise;
@@ -40,6 +44,10 @@ angular.module("amazonfresh").factory("BillService",["$http","$q", function ($ht
                     def.reject(data.data.error);
                 }
             }, function (error) {
+                if(error.status=== 302)
+                {
+                    $window.location.href="http://localhost:3000/#auth/login";
+                }
                 def.reject(error);
             });
             return def.promise;
@@ -58,6 +66,10 @@ angular.module("amazonfresh").factory("BillService",["$http","$q", function ($ht
                     def.reject(data.data.error);
                 }
             }, function (error) {
+                if(error.status=== 302)
+                {
+                    $window.location.href="http://localhost:3000/#auth/login";
+                }
                 def.reject(error);
             });
             return def.promise;
@@ -77,6 +89,10 @@ angular.module("amazonfresh").factory("BillService",["$http","$q", function ($ht
                     def.reject(data.data.error);
                 }
             }, function (error) {
+                if(error.status=== 302)
+                {
+                    $window.location.href="http://localhost:3000/#auth/login";
+                }
                 def.reject(error);
             });
             return def.promise;
@@ -95,6 +111,10 @@ angular.module("amazonfresh").factory("BillService",["$http","$q", function ($ht
                     def.reject(data.data.error);
                 }
             }, function (error) {
+                if(error.status=== 302)
+                {
+                    $window.location.href="http://localhost:3000/#auth/login";
+                }
                 def.reject(error);
             });
             return def.promise;

@@ -63,7 +63,9 @@ router.get('/logout', function (req, res) {
  */
 router.requireLogin = function (req, res, next) {
 	if (!req.session.user) {
-	 	res.redirect('/auth/login');
+	 	res.status(302).send({
+			url:"/auth/login"
+		});
 	 } else {
 	 	next();
 	 }
