@@ -5,6 +5,7 @@
 angular.module("amazonfresh").factory("ProductService", ["$http", "$q", function ($http, $q) {
 	var ProductService = {
 		createproduct: function (info) {
+			alert("called this");
 			var url = "http://localhost:3000/products";
 			var def = $q.defer();
 			$http({

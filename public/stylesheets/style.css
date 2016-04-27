@@ -119,6 +119,28 @@ h1 {
     margin-left: 200rem;
 }
 
+.productarea {
+    background-image: url(https://images-na.ssl-images-amazon.com/images/G/01/omaha/images/categorypages/gradcx/seamless-white-line-unit-2._V383736962_.png);
+    border-radius: 1rem !important;
+    margin-left: 15rem !important;
+    -moz-border-radius: 5rem !important;
+    box-shadow: 0px 1px 5px rgba(50, 50, 50, 0.5) !important;
+    -webkit-box-shadow: 0px 1px 100px rgba(50, 50, 50, 0.5) !important;
+    -moz-box-shadow: 0px 1px 5px rgba(50, 50, 50, 0.5) !important;
+    display: inline-block !important;
+    margin-left: 20rem !important;
+    margin-right: auto !important;
+    margin-bottom: 1rem !important;
+    padding: 5rem !important;
+    padding-bottom: 50rem !important;
+    text-align: left !important;
+    width: 80rem !important;
+    margin-top: 0rem;
+    height: 1rem !important;
+    padding-bottom: 45rem;
+    margin-left: 200rem;
+}
+
 /*.customer-text,.customer-email,.customer-password,.customer-address,.customer-cvc,.customer-expiry,.customer-cardName,.customer-cardNumber,.customer-state,.customer-city,.customer-number,.customer-ssn,.customer-zipcode{
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif !important;
     -webkit-appearance: textfield !important;

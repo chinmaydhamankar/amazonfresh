@@ -14,8 +14,10 @@ var Crypto = require("crypto");
  * @returns {*|promise}
  */
 exports.createproduct = function (info, user) {
+    console.log("creating product");
     var productID = Crypto.createHash('sha1').update(info.productName + user.ssn).digest('hex');
     info.productID = productID;
+    console.log(info);
     var deferred = Q.defer();
     if(UserTypes.FARMER == user.usertype){
     var isValid = _validateProductInfo(info);
@@ -287,7 +289,6 @@ _validateProductInfo = function (info) {
 
 
         if( Utilities.isEmpty(info.productID)	 	||
-            Utilities.isEmpty(info.farmerSSN)		||
             Utilities.isEmpty(info.productName) 	||
             Utilities.isEmpty(info.productPrice) 	||
             Utilities.isEmpty(info.description))

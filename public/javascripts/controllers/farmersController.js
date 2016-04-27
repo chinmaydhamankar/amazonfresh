@@ -3,7 +3,8 @@
  */
 
 var app = angular.module("amazonfresh");
-app.controller('FarmersController',["$scope","US_STATES","FarmerService",function ($scope, US_STATES, FarmerService) {
+app.controller('FarmersController',["$scope","US_STATES","FarmerService","ProductService",function ($scope, US_STATES, FarmerService,ProductService) {
+    /*
     function init(){
         new Card({
             form: document.querySelector('form'),
@@ -11,6 +12,7 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService",functio
         });
     }
     init();
+    */
 
     $scope.USStatesOptions = {
         dataSource: US_STATES,
@@ -91,6 +93,25 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService",functio
         });
 
     };
+
+
+    $scope.createproduct = function () {
+           alert("seleeee");
+        var info = {
+            "productName": $scope.productName,
+            "productPrice": $scope.productPrice,
+            "description": $scope.description,
+            "productImage": $scope.productImage
+
+        }
+        var promise = ProductService.createproduct(info);
+        promise.then(function (result) {
+            alert("Success!");
+        }, function (error) {
+            alert("Error - " + error);
+        });
+    }
+
 
 
 

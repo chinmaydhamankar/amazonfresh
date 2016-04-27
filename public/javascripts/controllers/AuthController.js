@@ -20,7 +20,7 @@ app.controller('AuthController', ["$scope","$window","AuthService","USER_TYPES",
 	};
 
 	$scope.redirectToFarmerHome = function () {
-		$window.location.href = "/#farmers/home";
+		$window.location.href = "/#farmers/homepage";
 	}
 
 	$scope.redirectToCustomerHome = function () {
