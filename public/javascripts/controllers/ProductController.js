@@ -72,6 +72,15 @@ angular.module("amazonfresh").controller("ProductController", ["$scope", "Produc
 		});
 	}
 
+	$scope.checkout = function () {
+		var promise = ProductService.checkout($scope.cartList);
+		promise.then(function (result) {
+			$window.location.href = "http://localhost:3000/#bills/orders";
+		}).catch(function (error) {
+			alert("Oops! Something went wrong! " + error);
+		});
+	}
+
 	init = function () {
 		$scope.cart = [];
 		var promise = ProductService.listproducts();
