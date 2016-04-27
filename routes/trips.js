@@ -70,6 +70,23 @@ router.get("/id/:tripID", Auth.requireLogin, function (req, res) {
 	});
 });
 
+router.get("/analytics/bydriver", function (req, res) {
+	var promise = TripHandler.getTripsByDriver();
+	promise.done(function (result) {
+		res.send({
+			success: true,
+			error: null,
+			data: result
+		});
+	}, function (error) {
+		res.send({
+			success: false,
+			error: error,
+			data: null
+		});
+	});
+});
+
 
 /**
  * finds a trip with given driver ID.
