@@ -9,6 +9,31 @@ var UserTypes = require("../commons/constants").usertypes;
 var GoogleMaps = require("../commons/googlemapshandler");
 
 /**
+ * gets pending requests for the trucks.
+ * @returns {*}
+ */
+exports.getPendingTrucks = function () {
+	var deferred = Q.defer();
+	var data = [];
+	var cursor = MongoDB.collection("users").find({
+		usertype: UserTypes.DRIVER,
+		isApproved: false
+	});
+
+	cursor.each(function (error, doc) {
+		if(error) {
+			deferred.reject(error);
+		}
+		if(doc != null) {
+			data.push(doc);
+		} else {
+			deferred.resolve(data);
+		}
+	});
+	return deferred.promise;
+}
+
+/**
  * function to sign up the new truck driver.
  * @param info
  * @returns {*|promise}
