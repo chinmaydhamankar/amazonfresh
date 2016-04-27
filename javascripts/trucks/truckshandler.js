@@ -184,10 +184,26 @@ _sanitizeTrucksInfo = function (info) {
  */
 exports.updateTruckDriver = function (info) {
 	var deferred = Q.defer();
-	info = _sanitizeForTruckUpdate(info);
-	var cursor = MongoDB.collection("users").update({
-		ssn: info.ssn
-	},info);
+	console.log("Information in trucksHandler :"+ info.ssn);
+	var cursor = MongoDB.collection("users").update({"ssn" : info.ssn},
+		{
+			"firstName" : info.firstName,
+			"lastName" : info.lastName,
+			"email" : info.email,
+			"password" : info.password,
+			"phoneNumber" : info.phoneNumber,
+			"ssn" : info.ssn,
+			"address" : info.address,
+			"state" : info.state,
+			"city" : info.city,
+			"zipCode" : info.zipCode,
+			"isApproved" : info.isApproved,
+			"usertype" : info.usertype,
+			"location" : info.location,
+			"truckManufacturer" : info.truckManufacturer,
+			"truckModel" : info.truckModel,
+			"freeFrom" : info.freeFrom
+		});
 	cursor.then(function (result) {
 		deferred.resolve(result);
 	}).catch(function (error) {

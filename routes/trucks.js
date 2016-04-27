@@ -89,8 +89,11 @@ router.get("/id/:ssn", Auth.requireLogin, function (req, res) {
 /**
  * function to update the truck driver.
  */
-router.put("/:truckId", Auth.requireLogin, function (req, res) {
-    var promise = TruckHandler.updateTruckDriver( req.body.info);
+router.put("/updateTruck", Auth.requireLogin, function (req, res) {
+    console.log("in truck.js");
+    var info = req.body.info;
+    console.log(info);
+    var promise = TruckHandler.updateTruckDriver(info);
     promise.done(function (result) {
         console.log("Success");
         res.send({

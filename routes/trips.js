@@ -8,6 +8,7 @@ var express = require("express");
 var router = express.Router();
 var Auth = require("./authentication");
 var TripHandler = require("../javascripts/trips/tripshandler");
+var UserTypes = require("../javascripts/commons/constants").usertypes;
 
 router.get("/", Auth.requireLogin, function (req, res) {
 	var promise = TripHandler.getAllTrips();

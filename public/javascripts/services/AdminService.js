@@ -273,7 +273,8 @@ angular.module("amazonfresh").factory("AdminService",["$http","$q", function ($h
 
 
         updateTruckInfo : function(info){
-            var url = "http://localhost:3000/trucks/"+info.ssn;
+            alert("URL is http://localhost:3000/trucks/updateTruck");
+            var url = "http://localhost:3000/trucks/updateTruck";
             var def = $q.defer();
             $http({
                 method: 'PUT',
