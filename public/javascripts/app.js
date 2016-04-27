@@ -29,6 +29,9 @@ app.config(function ($routeProvider, $locationProvider) {
 	}).when("/farmers/home", {
 		templateUrl: "partials/products/createproduct.html",
 		controller: "ProductController"
+	}).when("/farmers/homepage", {
+		templateUrl: "partials/farmers/homepage.html",
+		controller: "FarmersController"
 	}).when("/bills/cart", {
 		templateUrl: "partials/bills/cart.html",
 		controller: "BillsController"

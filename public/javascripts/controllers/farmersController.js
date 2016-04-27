@@ -39,6 +39,61 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService",functio
         });
     }
 
+
+
+    $scope.getMyProfile = function () {
+        var promise = FarmerService.getMyProfile();
+        promise.then(function (result) {
+            alert(result.data.data.password);
+            $scope.data = result.data.data;
+            $scope.abcd = 2;
+            $scope.farmlength = result.data.data.length;
+            for(var i = 0 ; i < US_STATES.length; i++ ) {
+                if(US_STATES[i].abbreviation === $scope.data.state) {
+                    $scope.stateDropDownList.select(i);
+                    break;
+                }
+            }
+
+
+        }, function (error) {
+            alert("Error - " + error);
+        });
+    }
+
+    $scope.updateFarmerProfile = function () {
+        var info =
+        {
+            "firstName": $scope.data.firstName,
+            "lastName": $scope.data.lastName,
+            "email": $scope.data.email,
+            "password" : $scope.data.password,
+            "phoneNumber": $scope.data.phoneNumber,
+            "ssn": $scope.data.ssn,
+            "address": $scope.data.address,
+            "state": $scope.state,
+            "city": $scope.data.city,
+            "zipCode": $scope.data.zipCode,
+            "usertype" : $scope.data.usertype,
+            "rating" : $scope.data.rating,
+            "reviews" : $scope.data.reviews,
+            "location" : $scope.data.location
+        }
+        var promise = FarmerService.updateFarmerProfile(info);
+        promise.then(function (result) {
+            $scope.data = result.data.data;
+            $scope.abcd = 2;
+
+
+
+        }, function (error) {
+            alert("Error - " + error);
+        });
+
+    };
+
+
+
 }]);
 
 

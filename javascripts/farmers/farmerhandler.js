@@ -70,9 +70,9 @@ exports.delete = function (ssn) {
 
 
     exports.getFarmerInfo = function(ssn)
-    {
+    {    console.log("Here reachsqqqq" + ssn);
         var deferred = Q.defer();
-        var cursor = MongoDB.collection("users").find({"ssn": ssn,"isApproved" : true});
+        var cursor = MongoDB.collection("users").find({"ssn": ssn});
         var farmerList = null;
         cursor.each(function (err, doc) {
             if (err) {
