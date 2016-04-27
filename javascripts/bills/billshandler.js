@@ -10,42 +10,54 @@ var Mysql = require("../commons/mysqlhandler");
 exports.generatebill = function (info) {
     var deferred = Q.defer();
     var sqlQuery = "INSERT INTO bill (order_date, total_amount, customer_id) " +
-                    "VALUES (sysdate(), " + info.total_amount + ", " + info.customer_id + ");";
+        "VALUES (sysdate(), " + info.total_amount + ", '" + info.customer_id + "');";
     var insertInBillPromise = Mysql.executeQuery(sqlQuery);
+    var getTripIdPromise = [];
+    var insertInItemPromise = [];
     insertInBillPromise.done(function () {
         var getBillIdPromise = Mysql.executeQuery("SELECT max(bill_id) as max_bill_id from bill;");
         var billId;
-        getBillIdPromise.done( function(rows){
+        getBillIdPromise.done(function (rows) {
             billId = rows[0].max_bill_id;
-        });
-        var getTripIdPromise = TripHandler.generateTrip("111-11-1222","111-11-8008","211294ebbe0a46ca55fa307737e1e4e68676c92c");
-        var tripId;
-        var expectedDeliveryDate;
-        getTripIdPromise.done( function(tripResult){
-            tripId = tripResult.tripID;
-            //expectedDeliveryDate = new Date(tripResult.deliveryTime).toISOString().slice(0, 19).replace('T', ' ');
-            expectedDeliveryDate = tripResult.deliveryTime;
-        });
-        Q.all([getBillIdPromise, getTripIdPromise]).done(function () {
-            sqlQuery =  "INSERT INTO item" +
+
+            var tempPromise;
+            for (var key in info.product_details) {
+                var product_id = info.product_details[key].product_id;
+                tempPromise = TripHandler.generateTrip(info.customer_id, info.product_details[key].farmer_id, product_id);
+                getTripIdPromise.push(tempPromise);
+
+            }
+
+            var tripResult = [];
+            Q.all(getTripIdPromise).done(function (tripResult) {
+                for (var i=0; i<tripResult.length; i++) {
+                    tripId = tripResult[i].tripID;
+                    //expectedDeliveryDate = new Date(tripResult.deliveryTime).toISOString().slice(0, 19).replace('T', ' ');
+                    expectedDeliveryDate = tripResult[i].deliveryTime;
+                    sqlQuery = "INSERT INTO item" +
                         " ( bill_id, product_id, quantity, price_per_unit, trip_id, expected_delivery_date ) " +
-                        "VALUES (" + billId + ", 19, 19, 19,'" + tripId +"', '" + expectedDeliveryDate + "');";
-            console.log(sqlQuery)
-            var insertInItemPromise = Mysql.executeQuery(sqlQuery);
-            insertInItemPromise.done( function(){
-                deferred.resolve()
+                        "VALUES (" + billId + ", '" + product_id + "', " + info.product_details[i].quantity + ", " + info.product_details[i].price_per_unit + ",'" + tripId + "', '" + expectedDeliveryDate + "');";
+                    tempPromise = Mysql.executeQuery(sqlQuery);
+                    insertInItemPromise.push(tempPromise);
+                }
             }, function (error) {
                 deferred.reject(error);
-            });
+            })
         }, function (error) {
             deferred.reject(error);
-        });
+        })
     }, function (error) {
         deferred.reject(error);
-    });
-    return deferred.promise;
-};
+    })
 
+    Q.all(insertInItemPromise).done(function () {
+        deferred.resolve()
+    }, function (error) {
+        deferred.reject(error);
+    })
+
+    return deferred.promise;
+}
 exports.delete = function (billId) {
     var deferred = Q.defer();
     var promise = Mysql.executeQuery("DELETE FROM bill WHERE bill_id=" + billId + ";");
@@ -108,7 +120,7 @@ exports.revenue = function () {
     console.log("itha ala")
     var deferred = Q.defer();
     var sqlQuery = "SELECT order_date as date, SUM(total_amount) as revenue " +
-                    "FROM bill GROUP BY CAST(order_date AS DATE);";
+        "FROM bill GROUP BY CAST(order_date AS DATE);";
     var promise = Mysql.executeQuery(sqlQuery);
     promise.done( function(rows){
         deferred.resolve(rows);

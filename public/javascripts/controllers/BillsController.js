@@ -5,10 +5,22 @@
 var app = angular.module("amazonfresh");
 app.controller('BillsController',["$scope","$window","BillService",function ($scope, $window, BillService) {
     $scope.generatebill = function () {
-        var info = {
-            "total_amount":10,
-            "customer_id":10
-        }
+        var info =  {
+                        "total_amount": 10,
+                        "customer_id": "986-55-7845",
+                        "product_details": [{
+                                            "farmer_id" : '111-11-8000',
+                                            "product_id": '211294ebbe0a46ca55fa307737e1e4e68676c92c',
+                                            "quantity": 3,
+                                            "price_per_unit": 19.99
+                                        },
+                                        {
+                                            "farmer_id" : '111-11-9910',
+                                            "product_id": '323e5e13ac8bbfbdd3a5e306a76bac65f30076e4',
+                                            "quantity": 2,
+                                            "price_per_unit": 29.99
+                                        }]
+                    }
         var promise = BillService.generatebill(info);
         promise.then(function (result) {
             alert("Success!");
@@ -29,7 +41,7 @@ app.controller('BillsController',["$scope","$window","BillService",function ($sc
     $scope.searchbill = function (billId) {
         var promise = BillService.searchbill(billId);
         promise.then(function (result) {
-            $scope.result = result.data.data;
+            $scope.result = result;
         }, function (error) {
             alert("Error - " + error);
         });
@@ -38,7 +50,7 @@ app.controller('BillsController',["$scope","$window","BillService",function ($sc
     $scope.getallbills = function (customerId) {
         var promise = BillService.getallbills(customerId);
         promise.then(function (result) {
-            $scope.result = result.data.data;
+            $scope.result = result;
             calculateExpectedDeliveryDates();
         }, function (error) {
             alert("Error - " + error);
@@ -68,7 +80,9 @@ app.controller('BillsController',["$scope","$window","BillService",function ($sc
                 var item = items[i];
                 if(item.expected_delivery_date > currentDate) {
                     item.expectedDeliveryDate =  formatDate(item.expected_delivery_date);
+                    items.push({})
                 } else {
+                    $scope.isDelivered = "true";
                     item.expectedDeliveryDate = "Delivered!";
                 }
             }
