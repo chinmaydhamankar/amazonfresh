@@ -67,10 +67,8 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			$scope.abcd = 2;
 			$rootScope.farmlength = result.data.data.length;
 			$rootScope.variable = 1;
-			/*$window.location.href = "/#admin/home";*/
-
 		}, function (error) {
-			alert("Error - " + error);
+			alert("Error - " + error.data.error);
 		});
 	};
 
@@ -98,7 +96,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			//$scope.abcd = 2;
 
 		}, function (error) {
-			alert("Error - " + error);
+			alert("Error - " + error.data.error);
 		});
 	};
 
@@ -128,7 +126,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			//$scope.abcd = 2;
 
 		}, function (error) {
-			alert("Error - " + error);
+			alert("Error - " + error.data.error);
 		});
 	};
 
@@ -143,7 +141,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			/*$window.location.href = "/#admin/home";*/
 
 		}, function (error) {
-			alert("Error - " + error);
+			alert("Error - " + error.data.error);
 		});
 	};
 
@@ -157,7 +155,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			$rootScope.variable = 7;
 
 		}, function (error) {
-			alert("Error - " + error);
+			alert("Error - " + error.data.error);
 		});
 	}
 
@@ -171,7 +169,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			/*$window.location.href = "/#admin/home";*/
 
 		}, function (error) {
-			alert("Error - " + error);
+			alert("Error - " + error.data.error);
 		});
 	};
 
@@ -200,7 +198,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			$rootScope.variable = 4;
 			$window.location.href = "/#admin/farmersearch";
 		},function(err){
-			alert("Error -"+err);
+			alert("Error -" + err.data.error);
 		});
 	}
 
@@ -222,7 +220,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			$rootScope.variable = 8;
 			$window.location.href = "/#admin/trucksearch";
 		},function(err){
-			alert("Error -"+err);
+			alert("Error -" + err.data.error);
 		});
 	}
 
@@ -235,9 +233,8 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 		promise.then(function(res){
 			$scope.res = res.data.data;
 		},function(err){
-			alert("Error -"+err);
+			alert("Error - " + err.data.error);
 		});
-
 	}
 
 	$scope.updateInfoFarmer = function () {
@@ -265,7 +262,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			$scope.abcd = 2;
 			$window.location.href = "/#admin/home"
 		}, function (error) {
-			alert("Error - " + error);
+			alert("Error - " + error.data.error);
 		});
 	}
 
@@ -288,10 +285,8 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			$scope.abcd = 1;
 			$window.location.href = "/#admin/home"
 		}, function (error) {
-			alert("Error - " + error);
+			alert("Error - " + error.data.error);
 		});
-
-
 	}
 
 	$scope.updateInfoTruck = function(){
@@ -312,14 +307,14 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			"truckManufacturer" : $scope.res.truckManufacturer,
 			"truckModel" : $scope.res.truckModel,
 			"freeFrom" : $scope.res.freeFrom
-		}
+		};
 		var promise = AdminService.updateTruckInfo(info);
 		promise.then(function (result) {
 			$scope.data = result.data.data;
 			$scope.abcd = 2;
 			$window.location.href = "/#admin/home"
 		}, function (error) {
-			alert("Error - " + error);
+			alert("Error - " + error.data.error);
 		});
 	}
 
@@ -343,21 +338,17 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 	$scope.getBillInfo = function(){
 		var promise = AdminService.getBillInformation();
 		promise.then(function(result){
-			alert("Data came here");
 			$scope.data = result.data.data;
 			$rootScope.variable = 10;
-
 		},function(error){
-			alert("Error - " + error);
+			alert("Error - " + error.data.error);
 		});
 	}
 
 	$scope.getTripsInfo = function(){
-		alert("In get trips info");
 		var promise = AdminService.tripsInfo();
 		promise.then(function (result) {
 			$scope.data = result.data.data;
-			/*$scope.abcd = 2;*/
 			$rootScope.variable = 9;
 			for(var i = 0 ; i < $scope.data.length ; i++) {
 				$scope.data[i].orderTimeString = new Date($scope.data[i].orderTime).toLocaleDateString();
@@ -365,12 +356,11 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 				$scope.data[i].deliveryString = (new Date().getTime() > new Date($scope.data[i].deliveryTime))? "Delivered!": "In transit";
 			}
 		}, function (error) {
-			alert("Error - " + error);
+			alert("Error - " + error.data.error);
 		});
 	}
 
 	$scope.updateInfoCustomer = function (){
-
 		var info =
 		{
 			"firstName": $scope.res.firstName,
@@ -396,7 +386,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			$scope.abcd = 2;
 			$window.location.href = "/#admin/home"
 		}, function (error) {
-			alert("Error - " + error);
+			alert("Error - " + error.data.error);
 		});
 	}
 
@@ -409,9 +399,8 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 		promise.then(function(res){
 			$scope.res = res.data.data;
 		},function(err){
-			alert("Error -"+err);
+			alert("Error -"+err.data.error);
 		});
-
 	}
 
 	$scope.viewProductInfo = function(productid){
@@ -422,7 +411,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 		promise.then(function(res){
 			$scope.res = res.data.data;
 		},function(err){
-			alert("Error -"+err);
+			alert("Error -"+err.data.error);
 		});
 
 	}
@@ -435,7 +424,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 		promise.then(function(res){
 			$scope.res = res.data.data;
 		},function(err){
-			alert("Error -"+err);
+			alert("Error -" + err.data.error);
 		});
 
 	}
@@ -454,7 +443,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			$rootScope.variable = 5;
 			$window.location.href = "/#admin/customersearch";
 		},function(err){
-			alert("Error -"+err);
+			alert("Error -" + err.data.error);
 		});
 	}
 
@@ -475,7 +464,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			$rootScope.variable = 6;
 			$window.location.href = "/#admin/productsearch";
 		},function(err){
-			alert("Error -"+err);
+			alert("Error: " + err.data.error);
 		});
 	}
 	init();

@@ -50,9 +50,9 @@ body {
 }
 
 .sign-up-prompt-span {
-    font-weight: normal;
-!important;
-    font-size: small;
+    font-weight: 400;
+    color: midnightblue;
+    margin-top: 1rem;
 }
 
 h1 {
@@ -966,4 +966,9 @@ Shruti's classes.
 #viewItem
 {
     margin-left: 1rem;
+}
+
+.auth-error {
+    color: red;
+    text-align: center;
 }

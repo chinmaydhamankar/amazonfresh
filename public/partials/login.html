@@ -13,6 +13,7 @@
                 <div class="form-group sign-in-button-wrapper">
                     <button type="submit" ng-click="login()" class="btn btn-success sign-in-button">Sign In</button>
                 </div>
+                <span class="auth-error">{{error}}</span>
             </form>
             <span class="sign-up-prompt-span">
                 New Amazon.com customer?
@@ -20,10 +21,10 @@
             </span>
         </div>
         <div class="login-footer">
-            <span class="sign-up-prompt-span" ng-click="redirectToFarmerSignUp()">
+            <span class="sign-up-prompt-span pull-left"  ng-click="redirectToFarmerSignUp()">
                 Sell with Amazon.com
             </span>
-            <span class="sign-up-prompt-span" ng-click="redirectToDriverSignUp()">
+            <span class="sign-up-prompt-span pull-right" ng-click="redirectToDriverSignUp()">
                 Drive for Amazon.com
             </span>
         </div>

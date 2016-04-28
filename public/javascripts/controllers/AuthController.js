@@ -4,6 +4,7 @@
 var app = angular.module("amazonfresh");
 
 app.controller('AuthController', ["$scope","$window","AuthService","USER_TYPES", function ($scope, $window, AuthService, UserTypes) {
+	$scope.error = null;
 	$scope.login = function () {
 		var promise = AuthService.login($scope.email, $scope.password);
 		promise.then(function (user) {
@@ -14,8 +15,8 @@ app.controller('AuthController', ["$scope","$window","AuthService","USER_TYPES",
 			} else if(user.usertype === UserTypes.FARMER) {
 				$scope.redirectToFarmerHome();
 			}
-		}, function () {
-			alert("Invalid!");
+		}, function (error) {
+			$scope.error = error;
 		});
 	};
 

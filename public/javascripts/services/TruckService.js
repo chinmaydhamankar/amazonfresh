@@ -19,8 +19,8 @@ angular.module("amazonfresh").factory("TruckService",["$window","$http","$q", fu
 					def.reject(data.data.error);
 				}
 			}, function (error) {
-				if(error.status === 302) {
-					$window.location.href = "http://localhost:3000/#auth/login";
+				if(error.status === 403) {
+					$window.location.href = "http://localhost:3000/#/auth/login";
 				}
 				def.reject(error.data.error);
 			});

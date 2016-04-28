@@ -20,8 +20,8 @@ angular.module("amazonfresh").factory("CustomerService",["$window","$http","$q",
                     def.reject(data.data.error);
                 }
             }, function (error) {
-                if(error.status=== 302) {
-                    $window.location.href = "http://localhost:3000/#auth/login";
+                if(error.status=== 403) {
+                    $window.location.href = "http://localhost:3000/#/auth/login";
                 } else {
                     def.reject(error);
                 }

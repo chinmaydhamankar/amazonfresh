@@ -17,9 +17,9 @@ angular.module("amazonfresh").factory("TripsService",["$window","$http", "$q", f
 				}
 			}).catch(function (error) {
 
-				if(error.status=== 302)
+				if(error.status=== 403)
 				{
-					$window.location.href="http://localhost:3000/#auth/login";
+					$window.location.href="http://localhost:3000/#/auth/login";
 				}
 				deferred.reject(error.data.error);
 			});
