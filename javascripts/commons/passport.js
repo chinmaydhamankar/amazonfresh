@@ -16,9 +16,12 @@ module.exports = function (passport) {
 					email: email
 				}, function (error, doc) {
 					if (error) {
-						return done(error);
+						return done(error, false);
 					}
 					if (doc) {
+						if(!doc.isApproved) {
+							return done("User not approved!", false);
+						}
 						if (doc.password === PasswordManager.encryptPassword(password)) {
 							return done(null, doc);
 						} else {
