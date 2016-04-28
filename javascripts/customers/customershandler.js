@@ -285,6 +285,8 @@ _sanitizeCustomerSearchInput = function(info){
     if ( Utilities.isEmpty(info.cardNumber))
         delete info.cardNumber;
 
+    info.usertype = "CUSTOMER";
+
     return info;
 
 }

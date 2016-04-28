@@ -75,16 +75,20 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 	};
 
 
-	$scope.declineReq = function (ssn,productName,usertype) {
-		var promise = AdminService.declineReq(ssn,productName);
+	$scope.declineReq = function (ssn,productID,usertype) {
+		var promise = AdminService.declineReq(ssn,productID);
 		promise.then(function (result) {
 			if (result == "f") {
 				if (usertype == "FARMER") {
 					$scope.getPendingFarmers();
 				}
-				else
+				else if (usertype == "CUSTOMER")
 				{
 					$scope.getPendingCustomers();
+				}
+				else
+				{
+					$scope.getPendingTrucks();
 				}
 			}
 			else
@@ -99,16 +103,22 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 	};
 
 
-	$scope.approveReq = function (ssn,productName,usertype) {
-		var promise = AdminService.approveReq(ssn,productName);
+	$scope.approveReq = function (ssn,productID,usertype) {
+		alert(productID);
+		var promise = AdminService.approveReq(ssn,productID);
 		promise.then(function (result) {
 			if (result == "f") {
 				if (usertype == "FARMER") {
+
 					$scope.getPendingFarmers();
+				}
+				else if (usertype == "CUSTOMER")
+				{
+					$scope.getPendingCustomers();
 				}
 				else
 				{
-					$scope.getPendingCustomers();
+					$scope.getPendingTrucks();
 				}
 			}
 			else

@@ -236,10 +236,10 @@
             <label style="font-size: 2rem; color: floralwhite;margin-top: 3.5rem;" ng-show = "abcd == 1"> {{ value.productName}}</label>
         </div>
         <div class="col-sm-2">
-            <button id="confirmButton" type="button" class="btn btn-primary" ng-click = "approveReq(value.ssn,value.productName,value.usertype)">Confirm</button>
+            <button id="confirmButton" type="button" class="btn btn-primary" ng-click = "approveReq(value.ssn,value.productID,value.usertype)">Confirm</button>
         </div>
         <div class="col-sm-2">
-            <button id="deleteButton" type="button" class="btn btn-danger" ng-click = "declineReq(value.ssn,value.productName,value.usertype)">Decline</button>
+            <button id="deleteButton" type="button" class="btn btn-danger" ng-click = "declineReq(value.ssn,value.productID,value.usertype)">Decline</button>
         </div>
     </div>
 </div>

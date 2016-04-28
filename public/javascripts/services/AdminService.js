@@ -75,9 +75,9 @@ angular.module("amazonfresh").factory("AdminService",["$http","$q", function ($h
              return def.promise;
          },
 
-        declineReq: function (ssn,productName) {
+        declineReq: function (ssn,productID) {
             var url,x;
-            if (productName === undefined) {
+            if (productID === undefined) {
                  url = "http://localhost:3000/admin/declinefarmer";
                 x = "f";
             }
@@ -92,7 +92,7 @@ angular.module("amazonfresh").factory("AdminService",["$http","$q", function ($h
                 url: url,
                 data: {
                   "ssn" : ssn,
-                    "productName" : productName
+                    "productID" : productID
                 }
             }).then(function (data) {
                 if (data) {
@@ -438,9 +438,10 @@ angular.module("amazonfresh").factory("AdminService",["$http","$q", function ($h
 
 
 
-        approveReq: function (ssn,productName) {
+        approveReq: function (ssn,productID) {
             var url,x;
-            if (productName == undefined) {
+            if (productID === undefined) {
+                alert("Shim Add Code");
                 url = "http://localhost:3000/admin/approvefarmer";
                 x = "f";
             }
@@ -455,7 +456,7 @@ angular.module("amazonfresh").factory("AdminService",["$http","$q", function ($h
                 url: url,
                 data: {
                     "ssn" : ssn,
-                    "productName" : productName
+                    "productID" : productID
                 }
             }).then(function (data) {
                 if (data) {

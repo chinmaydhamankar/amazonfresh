@@ -222,6 +222,7 @@ _validateSearchInput = function (info)
 
     if ( Utilities.isEmpty(info.email))
         delete info.email;
+    info.usertype = "FARMER";
 
     return info;
 

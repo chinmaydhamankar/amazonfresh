@@ -8,7 +8,7 @@ var productHandler = require("../javascripts/products/productshandler");
 /**
  * Approves a farmer.
  */
-router.post("/", Auth.requireLogin, function (req, res) {
+router.post("/approvefarmer", Auth.requireLogin, function (req, res) {
 	req.body.isApproved = true;
 	var data = req.body;
 	data = JSON.stringify(data);

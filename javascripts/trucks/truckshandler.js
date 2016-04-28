@@ -242,6 +242,8 @@ _sanitizeForTruckUpdate = function (info) {
 	if(!Utilities.isEmpty(info.phoneNumber)) {
 		newInfo.phoneNumber = info.phoneNumber;
 	}
+	newInfo.usertype = "DRIVER";
+
 	return newInfo;
 }
 
