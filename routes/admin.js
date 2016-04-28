@@ -137,7 +137,6 @@ router.post("/approveproduct", function (req, res) {
 	}
     var data = req.body;
     data = JSON.stringify(data);
-    console.log("Data to be confirmed is :"+data);
     var promise = adminHandler.approveproduct(data);
     promise.done(function () {
         res.send({

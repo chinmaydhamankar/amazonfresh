@@ -19,10 +19,8 @@ exports.approvecreatefarmer = function (info) {
 };
 
 exports.declinefarmer = function (info) {
-    console.log("idhr aama");
     var deferred = Q.defer();
     var searchQuery = JSON.parse(info);
-    console.log(searchQuery);
     var cursor = MongoDB.collection("users").remove({"ssn" : searchQuery.ssn});
     cursor.then(function (user) {
         deferred.resolve(user);
@@ -36,7 +34,6 @@ exports.declinefarmer = function (info) {
 exports.declineproduct = function (info) {
     var deferred = Q.defer();
     var searchQuery = JSON.parse(info);
-    console.log(searchQuery);
     var cursor = MongoDB.collection("products").remove({"productID" : searchQuery.productID});
     cursor.then(function (user) {
         deferred.resolve(user);
@@ -49,7 +46,7 @@ exports.declineproduct = function (info) {
 
 
 
-exports.approveproduct = function () {
+exports.approveproduct = function (info) {
     var deferred = Q.defer();
     var searchQuery = JSON.parse(info);
     var cursor = MongoDB.collection("products").update({"productID" : searchQuery.productID},{$set : { "isApproved" : true }});
