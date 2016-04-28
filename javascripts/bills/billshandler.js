@@ -9,10 +9,7 @@ var ProductHandler = require("../products/productshandler");
 
 
 exports.generatebill = function (info,customerSSN) {
-    var dynamicPricingPromise = Mysql.executeQuery( "SELECT count(*) as count,  product_id,product_name, price_per_unit from item group by product_id");
-    dynamicPricingPromise.done( function (rows){
-        ProductHandler.adjustDynamicPrice(rows);
-    })
+    var dynamicPricingPromise = [];
     var deferred = Q.defer();
     //var customer_id = ;
     var sqlQuery = "INSERT INTO bill (order_date, total_amount, customer_id) " +
@@ -40,7 +37,9 @@ exports.generatebill = function (info,customerSSN) {
                     tripId = tripResult[i].tripID;
                     //expectedDeliveryDate = new Date(tripResult.deliveryTime).toISOString().slice(0, 19).replace('T', ' ');
                     expectedDeliveryDate = tripResult[i].deliveryTime;
+                    sqlQuery = "select count(*) as count,  product_id,product_name, price_per_unit from item where product_id = '" + info.product_details[i].product_id + "' group by product_id";
                     tempPromise = Mysql.executeQuery(sqlQuery);
+                    dynamicPricingPromise.push(tempPromise);
                     sqlQuery = "INSERT INTO item" +
                         " ( bill_id, product_id, customer_id, quantity, price_per_unit, trip_id, expected_delivery_date, product_name, product_image_url ) " +
                         "VALUES (" + billId + ", '" + info.product_details[i].product_id + "', '" + customerSSN + "', " + info.product_details[i].quantity + ", " + info.product_details[i].price_per_unit + ",'" + tripId + "', '" + expectedDeliveryDate + "','" + info.product_details[i].product_name + "', '" + info.product_details[i].product_image_url + "');";
@@ -49,6 +48,11 @@ exports.generatebill = function (info,customerSSN) {
                     tempPromise = Mysql.executeQuery(sqlQuery);
                     insertInItemPromise.push(tempPromise);
                 }
+                Q.all(dynamicPricingPromise).done( function (dynamicPricingResult){
+                    for (var i=0; i<dynamicPricingResult.length; i++) {
+                        ProductHandler.adjustDynamicPrice(dynamicPricingResult[i].product_id, dynamicPricingResult[i].count, dynamicPricingResult[i].price_per_unit);
+                    }
+                })
             }, function (error) {
                 deferred.reject(error);
             })
