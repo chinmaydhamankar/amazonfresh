@@ -855,6 +855,8 @@ Shruti's classes.
     -moz-border-radius:1rem ;
     -webkit-border-radius: 1rem;
     -moz-border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
     border-radius: 1rem;
     min-height: 50rem !important;
     margin-top: 3rem;
@@ -928,4 +930,13 @@ Shruti's classes.
 .trip-list-row {
     margin-top: 2rem;
     margin-bottom: 1rem;
+}
+/* Style for Admin module farmers search*/
+#updateItem
+{
+    margin-top: 4rem !important;
+}
+#viewItem
+{
+    margin-left: 1rem;
 }
