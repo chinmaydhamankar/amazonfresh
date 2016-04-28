@@ -4,8 +4,8 @@
 
 var express = require('express');
 var router = express.Router();
-var Auth = require("../javascripts/authentication/authentication");
 var passport = require("passport");
+
 /**
  * returns the login page
  */
@@ -33,7 +33,6 @@ router.post('/login', function (req, res, next) {
 			if (err) {
 				return next(err);
 			}
-
 			delete user.password;
 			req.user = user;
 			req.session.user = user;
@@ -69,17 +68,6 @@ router.requireLogin = function (req, res, next) {
 	 } else {
 	 	next();
 	 }
-};
-
-router.fakeEndHack = function (req, res, next) {
-	next();
-	/*res._originalEnd = res.end;
-	res.end = function() {
-		var url = res.get('Location');
-		res.end = res._originalEnd;
-		res.status(200).send(url);
-	};
-	next(null);*/
 };
 
 module.exports = router;

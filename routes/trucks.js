@@ -28,12 +28,10 @@ router.get("/", Auth.requireLogin, function (req, res) {
 });
 
 router.post("/search", Auth.requireLogin, function (req, res) {
-    console.log("In trucks.js");
     var data = req.body;
     data = JSON.stringify(data);
     var promise = TruckHandler.searchByAnyAttributes(data);
     promise.done(function (truckdata) {
-        console.log("Here in trucks.js");
         res.send({
             success: true,
             error: null,

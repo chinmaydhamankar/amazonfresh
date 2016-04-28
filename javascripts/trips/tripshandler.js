@@ -26,7 +26,7 @@ exports.deleteTrip = function (tripID) {
 		deferred.reject(error);
 	});
 	return deferred.promise;
-}
+};
 
 /**
  * searches all trips by certain driver.
@@ -50,7 +50,7 @@ exports.findTripsByDriver = function (driverID) {
 		}
 	});
 	return deferred.promise;
-}
+};
 
 /**
  * searches all trips by certain customer.
@@ -74,7 +74,7 @@ exports.findTripsByCustomer = function (customerID) {
 		}
 	});
 	return deferred.promise;
-}
+};
 
 
 /**
@@ -99,7 +99,7 @@ exports.findTripsByDeliveryCity = function (city) {
 		}
 	});
 	return deferred.promise;
-}
+};
 
 /**
  * finds a trip with given ID.
@@ -128,7 +128,7 @@ exports.findTripById = function (tripID) {
 		}
 	});
 	return deferred.promise;
-}
+};
 
 /**
  * returns all trips registered in the system.
@@ -149,7 +149,7 @@ exports.getAllTrips = function () {
 		}
 	});
 	return deferred.promise;
-}
+};
 
 /**
  * creates a new trip with given details.
@@ -193,7 +193,7 @@ exports.generateTrip = function (customerID, farmerID, productID) {
 		deferred.reject(error);
 	});
 	return deferred.promise;
-}
+};
 
 /**
  * constructs the trip details object from given information.
@@ -234,7 +234,7 @@ _constructTripDetails = function (customer, farmer, product, journeyDetails, dri
 		deliverySteps: deliverySteps
 	};
 	return tripDetails;
-}
+};
 
 
 /**
@@ -265,7 +265,7 @@ _findFreeDriver = function () {
 		}
 	});
 	return deferred.promise;
-}
+};
 
 
 exports.getTripsByDriver = function () {
@@ -277,9 +277,8 @@ exports.getTripsByDriver = function () {
 			deferred.resolve(results);
 		}
 	});
-	// [], {}, {"count":0}, "function (obj, prev) { prev.count++; }", function(err, results) {
 	return deferred.promise;
-}
+};
 
 exports.getTripsByCustomer = function () {
 	var deferred = q.defer();
@@ -290,6 +289,5 @@ exports.getTripsByCustomer = function () {
 			deferred.resolve(results);
 		}
 	});
-	// [], {}, {"count":0}, "function (obj, prev) { prev.count++; }", function(err, results) {
 	return deferred.promise;
-}
+};

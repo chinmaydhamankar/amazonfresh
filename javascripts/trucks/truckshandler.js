@@ -19,7 +19,6 @@ exports.getPendingTrucks = function () {
 		usertype: UserTypes.DRIVER,
 		isApproved: false
 	});
-
 	cursor.each(function (error, doc) {
 		if(error) {
 			deferred.reject(error);
@@ -31,7 +30,7 @@ exports.getPendingTrucks = function () {
 		}
 	});
 	return deferred.promise;
-}
+};
 
 /**
  * function to sign up the new truck driver.
@@ -63,10 +62,7 @@ exports.signuptruck = function (info) {
  * @param info
  * @returns {*|promise}
  */
-
-
 exports.searchByAnyAttributes = function(info){
-
 	var deferred = Q.defer();
 	var searchQuery = JSON.parse(info);
 		searchQuery = _sanitizeForTruckUpdate(searchQuery);
@@ -89,32 +85,8 @@ exports.searchByAnyAttributes = function(info){
 	{
 		deferred.reject("There are no Advanced Search Records for Trucks");
 	}
-
 	return deferred.promise;
-
-}
-/*
-exports.searchByAnyAttributes = function (data) {
-	var deferred = Q.defer();
-	var users = [];
-	var data = JSON.parse(data);
-	console.log("data is ::"+data);
-	var info = _sanitizeForTruckUpdate(data);
-	info.usertype = UserTypes.DRIVER;
-	var cursor = MongoDB.collection("users").find(info);
-	cursor.each(function (error, doc) {
-		if(error) {
-			deferred.reject(error);
-		}
-		if(doc === null) {
-			deferred.resolve(users);
-		} else {
-			users.push(doc);
-		}
-	});
-	return deferred.promise;
-}
-*/
+};
 
 /**
  * deletes a driver with given ssn from the system.
@@ -122,10 +94,10 @@ exports.searchByAnyAttributes = function (data) {
  * @returns {*|promise}
  */
 exports.delete = function (ssn) {
-	ssn = Number(ssn);
 	var deferred = Q.defer();
 	MongoDB.collection("users").remove({
-		"ssn": ssn
+		"ssn": ssn,
+		 usertype: UserTypes.DRIVER
 	}, function (err, numberOfRemoved) {
 		if (err) {
 			deferred.reject(err);
@@ -137,13 +109,20 @@ exports.delete = function (ssn) {
 		}
 	});
 	return deferred.promise;
-}
+};
 
+/**
+ * returns a truck with given SSN.
+ * @param ssn
+ * @returns {*|promise}
+ */
 exports.getTruck = function(ssn) {
 	var deferred = Q.defer();
 	var user = null;
 	var cursor = MongoDB.collection("users").find({
-		ssn: ssn
+		ssn: ssn,
+		isApproved: true,
+		usertype: UserTypes.DRIVER
 	});
 	cursor.each(function (error, doc) {
 		if(error) {
@@ -160,7 +139,7 @@ exports.getTruck = function(ssn) {
 		}
 	});
 	return deferred.promise;
-}
+};
 
 /**
  * returns the all the trucks in the system.
@@ -168,7 +147,10 @@ exports.getTruck = function(ssn) {
  */
 exports.getAllTrucks = function () {
 	var deferred = Q.defer();
-	var cursor = MongoDB.collection("users").find();
+	var cursor = MongoDB.collection("users").find({
+		isApproved: true,
+		usertype: UserTypes.DRIVER
+	});
 	var trucks = [];
 	cursor.each(function (error, doc) {
 		if (error) {
@@ -181,7 +163,7 @@ exports.getAllTrucks = function () {
 		}
 	});
 	return deferred.promise;
-}
+};
 
 /**
  * function to sanitize the provided input.
@@ -194,7 +176,7 @@ _sanitizeTrucksInfo = function (info) {
 	info.isApproved = false;
 	info.freeFrom = new Date().getTime();
 	return info;
-}
+};
 
 /**
  * function to update the truck driver.
@@ -212,7 +194,7 @@ exports.updateTruckDriver = function (info) {
 		deferred.reject(error);
 	});
 	return deferred.promise;
-}
+};
 
 /**
  * function that sanitizes the information provided through UI.
@@ -243,7 +225,7 @@ _sanitizeForTruckUpdate = function (info) {
 		newInfo.phoneNumber = info.phoneNumber;
 	}
 	return newInfo;
-}
+};
 
 /**
  * function to validate the given input.
@@ -283,62 +265,4 @@ _validateTrucksInfo = function (info) {
 		deferred.reject(error);
 	});
 	return deferred.promise;
-}
-
-/**
- *
- ssn
- Number
- Required
- Unique ID of the driver who drives the truck
-
- firstName
- String
- Required
- Driver’s first name
-
- lastName
- String
- Required
- Driver’s last name
-
- address
- String
- Required
- Address where the truckis located.
-
- city
- String
- Required
- City where the truck islocated.
-
- state
- String
- Required
- State where the truck is located.
-
- zipCode
- Number
- Required
- Zip Code of the location where the truck is located.
-
- phoneNumber
- tel
- Required
- Telephone number of the
- driver
-
- Email
- Required
- Email ID of the truck driver
-
- truckManufacturer
- String
- Optional
- Manufacturer of the truck
-
- truckModel
- String
- Optional
- Model of the truck
- * ***/
+};

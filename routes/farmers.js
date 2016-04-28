@@ -7,14 +7,6 @@ var router = express.Router();
 var FarmerHandler = require("../javascripts/farmers/farmerhandler");
 
 /**
- * function that shows the home page for the truck driver.
- */
-/*
-router.get("/home", function(req, res) {
-    res.render("farmers", { title: "farmers" });
-});
-*/
-/**
  * function to register a truck driver into the system.
  */
 router.post("/", function (req, res) {
