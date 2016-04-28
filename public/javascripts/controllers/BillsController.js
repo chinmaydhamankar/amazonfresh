@@ -4,6 +4,9 @@
 
 var app = angular.module("amazonfresh");
 app.controller('BillsController',["$scope","$window","BillService",function ($scope, $window, BillService) {
+
+ $scope.rating = {"rating1" : 5 };
+
     $scope.generatebill = function () {
         var info =  {
                         "total_amount": 10,
@@ -48,6 +51,7 @@ app.controller('BillsController',["$scope","$window","BillService",function ($sc
     }
 
     $scope.getallbills = function () {
+        alert("")
         var promise = BillService.getallbills();
         promise.then(function (result) {
             $scope.result = result;
@@ -63,6 +67,10 @@ app.controller('BillsController',["$scope","$window","BillService",function ($sc
         }, function (error) {
             alert("Error - " + error);
         });
+    }
+
+    $scope.rating.rateFunction = function(rating){
+        console.log("rating***************************************************");
     }
 
     $scope.trackPackage = function(tripId){

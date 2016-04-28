@@ -1,5 +1,5 @@
 <div ng-init="getallbills()"></div>
-<div id="bill-order" ng-repeat="value in result | orderBy:'-'">
+<div id="bill-order" ng-repeat="value in result">
     <div id="bill-orderinfo" class="row" >
         <div id="bill-orderPlaced" class="left col-sm-4">
             ORDER PLACED
@@ -19,7 +19,7 @@
     </div >
     <div id="bill-iteminfo" ng-repeat="items in value.item_details"  class="row">
         <!--<div id="bill-itemImage"  >-->
-            <img id="bill-itemImage" src="{{items.product_image_url}}" class="left col-sm-2">
+        <img id="bill-itemImage" src="{{items.product_image_url}}" class="left col-sm-2">
         <!--</div>-->
         <div id="bill-item" class="midleft col-sm-5">
             <div id="bill-productId" >

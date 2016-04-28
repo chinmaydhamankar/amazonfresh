@@ -7,6 +7,13 @@ var Q = require("q");
 var UserTypes = require("../commons/constants").usertypes;
 var Crypto = require("crypto");
 
+
+exports.adjustDynamicPrice = function (productId, count, productPrice) {
+    var deferred = Q.defer();
+    deferred.resolve();
+    return deferred.promise;
+}
+
 /**
  * function to create product.
  * @param info
