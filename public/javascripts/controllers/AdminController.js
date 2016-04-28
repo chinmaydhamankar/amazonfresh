@@ -180,7 +180,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 		visible: false,
 		modal: true,
 		width: "660",
-		height: "400"
+		height: "450"
 	}
 
 
