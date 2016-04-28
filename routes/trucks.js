@@ -28,12 +28,10 @@ router.get("/", Auth.requireLogin, function (req, res) {
 });
 
 router.post("/search", Auth.requireLogin, function (req, res) {
-    console.log("In trucks.js");
     var data = req.body;
     data = JSON.stringify(data);
     var promise = TruckHandler.searchByAnyAttributes(data);
     promise.done(function (truckdata) {
-        console.log("Here in trucks.js");
         res.send({
             success: true,
             error: null,
@@ -91,11 +89,11 @@ router.get("/id/:ssn", Auth.requireLogin, function (req, res) {
 /**
  * function to update the truck driver.
  */
-router.put("/:truckId", Auth.requireLogin, function (req, res) {
-    var ssn = req.params.truckId;
+router.put("/updateTruck", Auth.requireLogin, function (req, res) {
+    console.log("in truck.js");
     var info = req.body.info;
-    info.ssn = ssn;
-    var promise = TruckHandler.updateTruckDriver( req.body.info);
+    console.log(info);
+    var promise = TruckHandler.updateTruckDriver(info);
     promise.done(function (result) {
         console.log("Success");
         res.send({

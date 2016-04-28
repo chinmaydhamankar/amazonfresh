@@ -5,8 +5,8 @@
 var express = require("express");
 var router = express.Router();
 var BillHandler = require("../javascripts/bills/billshandler");
-var TruckHandler = require("../javascripts/trucks/truckshandler");
 var Auth = require("./authentication");
+var UserTypes = require("../javascripts/commons/constants").usertypes;
 
 /**
  * generates the bill.
@@ -52,7 +52,6 @@ router.delete("/:billId", Auth.requireLogin, function (req, res) {
 router.get("/searchbill/:billId", Auth.requireLogin, function (req, res) {
     var promise = BillHandler.searchbill(req.params.billId);
     promise.done(function (result) {
-        //console.log("back"+result.billResult[0].bill_id)
         res.send({
             success: true,
             error: null,
@@ -72,6 +71,14 @@ router.get("/searchbill/:billId", Auth.requireLogin, function (req, res) {
  * searches all bills with given customer id.
  */
 router.get("/getallbills/", Auth.requireLogin, function (req, res) {
+    var user = req.session.user;
+    if(user.usertype !== UserTypes.ADMIN) {
+        res.status(403).send({
+            success: false,
+            error: "Unauthorized!",
+            data: null
+        });
+    }
     var customerSSN = req.session.user.ssn;
     var promise = BillHandler.getallbills(customerSSN);
     promise.done(function (result) {
@@ -91,6 +98,14 @@ router.get("/getallbills/", Auth.requireLogin, function (req, res) {
 });
 
 router.get("/getallbillsadmin/", Auth.requireLogin, function (req, res) {
+    var user = req.session.user;
+    if(user.usertype !== UserTypes.ADMIN) {
+        res.status(403).send({
+            success: false,
+            error: "Unauthorized!",
+            data: null
+        });
+    }
     var promise = BillHandler.getallbillsadmin();
     promise.done(function (result) {
         res.send({
@@ -109,6 +124,14 @@ router.get("/getallbillsadmin/", Auth.requireLogin, function (req, res) {
 });
 
 router.get("/revenue", Auth.requireLogin, function (req, res) {
+    var user = req.session.user;
+    if(user.usertype !== UserTypes.ADMIN) {
+        res.status(403).send({
+            success: false,
+            error: "Unauthorized!",
+            data: null
+        });
+    }
     var promise = BillHandler.revenue();
     promise.done(function (result) {
         res.send({

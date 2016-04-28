@@ -5,10 +5,20 @@ var adminHandler = require("../javascripts/admin/adminhandler");
 var farmerHandler = require("../javascripts/farmers/farmerhandler");
 var customerHandler = require("../javascripts/customers/customershandler");
 var productHandler = require("../javascripts/products/productshandler");
+var UserTypes = require("../javascripts/commons/constants").usertypes;
+
 /**
  * Approves a farmer.
  */
 router.post("/approvefarmer", Auth.requireLogin, function (req, res) {
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.ADMIN) {
+		res.status(403).send({
+			success: false,
+			error: "Unauthorized!",
+			data: null
+		});
+	}
 	req.body.isApproved = true;
 	var data = req.body;
 	data = JSON.stringify(data);
@@ -33,6 +43,14 @@ router.post("/approvefarmer", Auth.requireLogin, function (req, res) {
  * returns the list of un-approved farmers.
  */
 router.get("/listunapprovedfarmers", Auth.requireLogin, function (req, res) {
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.ADMIN) {
+		res.status(403).send({
+			success: false,
+			error: "Unauthorized!",
+			data: null
+		});
+	}
 	var promise = adminHandler.getAllUnApprovedFarmers();
 	promise.done(function (unapprovedfarmers) {
 		res.send({
@@ -50,12 +68,18 @@ router.get("/listunapprovedfarmers", Auth.requireLogin, function (req, res) {
 	});
 });
 
-
-
 /**
  * returns the list of un-approved products.
  */
 router.get("/listunapprovedproducts", Auth.requireLogin, function (req, res) {
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.ADMIN) {
+		res.status(403).send({
+			success: false,
+			error: "Unauthorized!",
+			data: null
+		});
+	}
 	var promise = adminHandler.getAllUnApprovedProducts();
 	promise.done(function (unapprovedproducts) {
 		res.send({
@@ -77,6 +101,14 @@ router.get("/listunapprovedproducts", Auth.requireLogin, function (req, res) {
  * returns the list of un-approved customers.
  */
 router.get("/listunapprovedcustomers", Auth.requireLogin, function (req, res) {
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.ADMIN) {
+		res.status(403).send({
+			success: false,
+			error: "Unauthorized!",
+			data: null
+		});
+	}
 	var promise = adminHandler.getAllUnApprovedCustomers();
 	promise.done(function (unapprovedcustomers) {
 		res.send({
@@ -95,7 +127,14 @@ router.get("/listunapprovedcustomers", Auth.requireLogin, function (req, res) {
 });
 
 router.post("/approveproduct", function (req, res) {
-    console.log("In server part admin.js");
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.ADMIN) {
+		res.status(403).send({
+			success: false,
+			error: "Unauthorized!",
+			data: null
+		});
+	}
     var data = req.body;
     data = JSON.stringify(data);
     console.log("Data to be confirmed is :"+data);
@@ -117,6 +156,14 @@ router.post("/approveproduct", function (req, res) {
 });
 
 router.post("/farmerViewInfo",function(req,res){
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.ADMIN) {
+		res.status(403).send({
+			success: false,
+			error: "Unauthorized!",
+			data: null
+		});
+	}
     var data = req.body;
     data = JSON.stringify(data);
     console.log("SSNSNSNSNSNSNSN------"+data);
@@ -138,6 +185,14 @@ router.post("/farmerViewInfo",function(req,res){
 });
 
 router.post("/customerViewInfo",function(req,res){
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.ADMIN) {
+		res.status(403).send({
+			success: false,
+			error: "Unauthorized!",
+			data: null
+		});
+	}
     var data = req.body;
     data = JSON.stringify(data);
     var promise = customerHandler.customerViewInfo(data);
@@ -160,6 +215,14 @@ router.post("/customerViewInfo",function(req,res){
 
 
 router.post("/productViewInfo",function(req,res){
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.ADMIN) {
+		res.status(403).send({
+			success: false,
+			error: "Unauthorized!",
+			data: null
+		});
+	}
     var data = req.body;
     data = JSON.stringify(data);
     var promise = productHandler.searchByProductId(data);
@@ -180,6 +243,14 @@ router.post("/productViewInfo",function(req,res){
 });
 
 router.post("/getFarmersByAdvancedSearch",function(req,res){
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.ADMIN) {
+		res.status(403).send({
+			success: false,
+			error: "Unauthorized!",
+			data: null
+		});
+	}
     var data = req.body;
     data = JSON.stringify(data);
     var promise = farmerHandler.searchFarmerInfo(data);
@@ -200,6 +271,14 @@ router.post("/getFarmersByAdvancedSearch",function(req,res){
 });
 
 router.post("/getProductsByAdvancedSearch",function(req,res){
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.ADMIN) {
+		res.status(403).send({
+			success: false,
+			error: "Unauthorized!",
+			data: null
+		});
+	}
     var data = req.body;
     data = JSON.stringify(data);
     var promise = productHandler.searchProductInfo(data);
@@ -222,6 +301,14 @@ router.post("/getProductsByAdvancedSearch",function(req,res){
 
 
 router.post("/getCustomersByAdvancedSearch",function(req,res){
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.ADMIN) {
+		res.status(403).send({
+			success: false,
+			error: "Unauthorized!",
+			data: null
+		});
+	}
     var data = req.body;
     data = JSON.stringify(data);
     var promise = customerHandler.searchCustomerInfo(data);
@@ -246,6 +333,14 @@ router.post("/getCustomersByAdvancedSearch",function(req,res){
 
 
 router.post("/declinefarmer", function (req, res) {
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.ADMIN) {
+		res.status(403).send({
+			success: false,
+			error: "Unauthorized!",
+			data: null
+		});
+	}
     var data = req.body;
     data = JSON.stringify(data);
     console.log(data);
@@ -268,7 +363,14 @@ router.post("/declinefarmer", function (req, res) {
 
 
 router.post("/declineproduct", function (req, res) {
-    console.log("COMING decline prod");
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.ADMIN) {
+		res.status(403).send({
+			success: false,
+			error: "Unauthorized!",
+			data: null
+		});
+	}
     var data = req.body;
     data = JSON.stringify(data);
     console.log(data);
@@ -289,12 +391,15 @@ router.post("/declineproduct", function (req, res) {
     });
 });
 
-
-
-
-
-
 router.post("/approveproduct", function (req, res) {
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.ADMIN) {
+		res.status(403).send({
+			success: false,
+			error: "Unauthorized!",
+			data: null
+		});
+	}
     var data = req.body;
     data = JSON.stringify(data);
     var promise = adminHandler.approveproduct(data);
@@ -317,6 +422,14 @@ router.post("/approveproduct", function (req, res) {
 
 
 router.post("/approvecustomer", function (req, res) {
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.ADMIN) {
+		res.status(403).send({
+			success: false,
+			error: "Unauthorized!",
+			data: null
+		});
+	}
     var data = req.body;
     data = JSON.stringify(data);
     var promise = adminHandler.approvecustomer(data);

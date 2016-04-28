@@ -6,10 +6,6 @@ var router = express.Router();
 var CustomersHandler = require("../javascripts/customers/customershandler");
 var Auth = require("./authentication");
 
-router.get("/home", Auth.requireLogin, function(req, res) {
-    res.render("home", { title: "Welcome | AmazonFresh" });
-});
-
 router.post("/",function (req, res) {
     var promise = CustomersHandler.signup(req.body.info);
     promise.done(function () {
@@ -32,10 +28,8 @@ router.post("/",function (req, res) {
  * function to get List of all customer from the system.
  */
 router.get("/", Auth.requireLogin, function(req,res) {
-    console.log("In get Customer list");
     var promise = CustomersHandler.getCustomersList();
     promise.done(function (data) {
-        console.log("Data is - "+data);
         res.send({
             success: true,
             error: null,
@@ -53,7 +47,6 @@ router.get("/", Auth.requireLogin, function(req,res) {
 
 
 router.put("/updateCustomer", Auth.requireLogin, function (req, res) {
-    console.log("In customer.js");
     var promise = CustomersHandler.updateCustomer(req.body.info);
     promise.done(function () {
         res.send({

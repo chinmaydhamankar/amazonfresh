@@ -1,4 +1,4 @@
-<div id = "AdminSidePanel">
+<div id = "AdminSidePanel" style="margin-top: -16rem !important;">
     <div id = "userbox">
         <img style="margin-left: 2rem; margin-top: 4rem" src="https://cdn3.iconfinder.com/data/icons/basic-interface/100/user_man-64.png" />
         <span id = "admin-name">
@@ -47,7 +47,7 @@
 
 <div class="pending-request-wrapper col-md-8 col-md-offset-4" ng-show = "variable == 4">
     <div  class = "pending-request-row container col-md-8" ng-repeat = "value in farmerResult">
-        <div class="col-sm-8">
+        <div class="col-sm-5">
             <label style="font-size: 2rem; color: floralwhite;margin-top: 3.5rem;"> {{ value.firstName}} {{value.lastName}}</label>
         </div>
         <div class="col-sm-2">
@@ -57,33 +57,101 @@
             <button id="viewItem" type="button" class="btn btn-primary" ng-click = "farmerpopup.center().open()" ng-show="!popupvisible">View</button>
         </div>
         <div class="col-sm-2">
-            <button id="deleteButton" type="button" class="btn btn-danger" ng-click = "declineReq(value.ssn,value.productName,value.usertype)">Decline</button>
+            <button id="deleteButton" type="button" class="btn btn-danger" ng-click = "declineReq(value.ssn,value.productName,value.usertype)">Delete</button>
         </div>
-        <div kendo-window = "farmerpopup" k-options="advancedSearchWindowOptions" k-on-open = "popupvisible = true; viewFarmerInfo(value.ssn);" k-on-close="popupvisible = false">
 
-            <label>First Name</label><label> {{ res.firstName}}</label>
-            <label>Last Name</label><label>{{ res.lastName}}</label>
-            <label>Email</label><label>{{res.email }}</label>
-            <label>Phone Number</label><label>{{res.phoneNumber }}</label>
-            <label>Social Security Number</label><label>{{ res.ssn}}</label>
-            <label>Address</label><label>{{ res.address}}</label>
-            <label>City</label><label>{{res.city }}</label>
-            <label>State</label><label>{{ res.state}}</label>
-            <label>Zip code</label><label>{{ res.zipCode}}</label>
+        <div kendo-window = "farmerpopup" k-options="advancedSearchWindowOptions" k-on-open = "popupvisible = true; viewFarmerInfo(value.ssn);" k-on-close="popupvisible = false">
+        <div class="row">
+           <div class="col-md-4 col-sm-4"> <label>First Name</label></div>
+            <div class="col-md-1 col-sm-1"><label> {{ res.firstName}}</label></div>
+        </div>
+            <div class="row">
+
+                <div class="col-md-4 col-sm-4"><label>Last Name</label></div>
+                <div class="col-md-1 col-sm-1"> <label>{{ res.lastName}}</label></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-4"><label>Email</label></div>
+                <div class="col-md-1 col-sm-1"><label>{{res.email }}</label></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-4"><label>Phone Number</label></div>
+                <div class="col-md-1 col-sm-1"> <label>{{res.phoneNumber }}</label></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 col-sm-4"><label>Social Security Number</label></div>
+                <div class="col-md-3 col-sm-3"><label>{{ res.ssn}}</label></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 col-sm-4"><label>Address</label></div>
+                <div class="col-md-2 col-sm-2"><label>{{ res.address}}</label></div>
+              </div>
+
+            <div class="row">
+                <div class="col-md-4 col-sm-4"><label>City</label></div>
+                <div class="col-md-2 col-sm-2"><label>{{res.city }}</label></div>
+            </div>
+
+               <div class="row">
+                   <div class="col-md-4 col-sm-4"><label>State</label></div>
+                   <div class="col-md-1 col-sm-1"><label>{{ res.state}}</label></div>
+              </div>
+
+              <div class="row">
+                   <div class="col-md-4 col-sm-4"><label>Zip code</label></div>
+                   <div class="col-md-1 col-sm-1"><label>{{ res.zipCode}}</label></div>
+              </div>
         </div>
 
         <div kendo-window = "farmerupdatepopup" k-options="advancedSearchWindowOptions" k-on-open = "popupvisible = true; viewFarmerInfo(value.ssn);" k-on-close="popupvisible = false">
+          <div class="container" style="width: 100%">
+            <div class="row">
+              <div class="col-sm-4 col-md-4"><label>First Name</label></div>
+                  <div class="col-sm-1 col-md-1"><input name = "firstName" ng-model= res.firstName /></div>
 
-            <label>First Name</label><input name = "firstName" ng-model= res.firstName /><br>
-            <label>Last Name</label><input name = "lastName" ng-model= res.lastName /><br>
-            <label>Email</label><input name = "email" ng-model= res.email /><br>
-            <label>Phone Number</label><input name = "phoneNumber" ng-model= res.phoneNumber /><br>
-            <label>Social Security Number</label><input name = "ssn" ng-model= res.ssn /><br>
-            <label>Address</label><input name = "address" ng-model= res.address /><br>
-            <label>City</label><input name = "city" ng-model= res.city /><br>
-            <label>State</label><input name = "state" ng-model= res.state /><br>
-            <label>Zip code</label><input name = "zipCode" ng-model= res.zipCode /><br>
-            <button id="updatebutton" type="button" class="btn btn-primary" ng-click = "updateInfoFarmer()">Update</button>
+            </div>
+            <div class="row">
+                  <div class="col-sm-4 col-md-4" ><label>Last Name</label></div>
+                  <div class="col-sm-1 col-md-1"><input name = "lastName" ng-model= res.lastName /></div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-md-4"><label>Email</label></div>
+                    <div class="col-sm-1 col-md-1">    <input name = "email" ng-model= res.email  /></div>
+           </div>
+
+                <div class="row">
+                <div class="col-sm-4 col-md-4"><label>Phone Number</label></div>
+                    <div class="col-sm-1 col-md-1"> <input name = "phoneNumber" ng-model= res.phoneNumber /></div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4 col-md-4"><label>Social Security Number</label></div>
+                        <div class="col-sm-1 col-md-1"> <input name = "ssn" ng-model= res.ssn /></div>
+                </div>
+                <div class="row">
+                        <div class="col-sm-4 col-md-4"><label>Address</label></div>
+                    <div class="col-sm-1 col-md-1">  <input name = "address" ng-model= res.address /></div>
+                </div>
+                <div class="row">
+                            <div class="col-sm-4 col-md-4"><label>City</label></div>
+                    <div class="col-sm-1 col-md-1"><input name = "city" ng-model= res.city /></div>
+                </div>
+                <div class="row">
+                                <div class="col-sm-4 col-md-4"> <label>State</label></div>
+                    <div class="col-sm-1 col-md-1"><input name = "state" ng-model= res.state /></div>
+                </div>
+                <div class="row">
+                                    <div class="col-sm-4 col-md-4"> <label>Zip code</label></div>
+                    <div class="col-sm-1 col-md-1"><input name = "zipCode" ng-model= res.zipCode /></div>
+                    </div>
+            <div class="row">
+            <div><button id="updatebutton" type="button" class="btn btn-primary" ng-click = "updateInfoFarmer()" style="margin-left: 50rem !important">Update</button></div>
+            </div>
+        </div>
         </div>
 
 

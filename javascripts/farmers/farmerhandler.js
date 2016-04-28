@@ -45,53 +45,45 @@ exports.delete = function (ssn) {
         }
     });
     return deferred.promise;
-}
+};
 
-    exports.getAllFarmers = function()
-    {
-       var deferred = Q.defer();
-        var cursor = MongoDB.collection("users").find({"usertype" : "FARMER","isApproved" : true});
-        var farmerList = [];
-        cursor.each(function (err, doc) {
-            if (err) {
-                deferred.reject(err);
-            }
-            if (doc != null) {
-                farmerList.push(doc);
-                console.log(farmerList);
-            } else {
+exports.getAllFarmers = function () {
+    var deferred = Q.defer();
+    var cursor = MongoDB.collection("users").find({"usertype": "FARMER", "isApproved": true});
+    var farmerList = [];
+    cursor.each(function (err, doc) {
+        if (err) {
+            deferred.reject(err);
+        }
+        if (doc != null) {
+            farmerList.push(doc);
+        } else {
+            deferred.resolve(farmerList);
+        }
+    });
+    return deferred.promise;
+};
+
+exports.getFarmerInfo = function (ssn) {
+    var deferred = Q.defer();
+    var cursor = MongoDB.collection("users").find({"ssn": ssn});
+    var farmerList = null;
+    cursor.each(function (err, doc) {
+        if (err) {
+            deferred.reject(err);
+        }
+        if (doc != null) {
+            farmerList = doc;
+        } else {
+            if (farmerList) {
                 deferred.resolve(farmerList);
-            }
-        });
-
-        return deferred.promise;
-
-    };
-
-
-    exports.getFarmerInfo = function(ssn)
-    {
-        console.log("Here reachsqqqq" + ssn);
-        var deferred = Q.defer();
-        var cursor = MongoDB.collection("users").find({"ssn": ssn});
-        var farmerList = null;
-        cursor.each(function (err, doc) {
-            if (err) {
-                deferred.reject(err);
-            }
-            if (doc != null) {
-                farmerList = doc;
             } else {
-                if(farmerList) {
-                    deferred.resolve(farmerList);
-                } else {
-                    deferred.reject("Farmer not found!");
-                }
+                deferred.reject("Farmer not found!");
             }
-        });
-        return deferred.promise;
-
-    };
+        }
+    });
+    return deferred.promise;
+};
 
 exports.farmerViewInfo = function(info)
 {
@@ -106,19 +98,14 @@ exports.farmerViewInfo = function(info)
         if (doc != null) {
             farmerList = doc;
         } else {
-            console.log(farmerList);
             deferred.resolve(farmerList);
         }
     });
     return deferred.promise;
-
 };
-
-
 
 exports.searchFarmerInfo = function(info)
 {
-
     var deferred = Q.defer();
     var searchQuery = JSON.parse(info);
     var searchQuery = _validateSearchInput(searchQuery);
@@ -141,20 +128,13 @@ exports.searchFarmerInfo = function(info)
     {
         deferred.reject("There are no Advanced Search Records for Farmers");
     }
-
     return deferred.promise;
-
 };
-
-
-
 
 exports.updateFarmer = function (info) {
     var deferred = Q.defer();
-    console.log(info);
     var promise = _validateFarmerInfo1(info);
     promise.done(function () {
-        console.log("Repeater");
         var cursor = MongoDB.collection("users").update({"ssn": info.ssn,"usertype" : "FARMER"},
             {
                 "ssn": info.ssn,
@@ -184,7 +164,6 @@ exports.updateFarmer = function (info) {
     return deferred.promise;
 };
 
-
 _sanitizeFarmerInfo = function (info) {
     info.password = PasswordManager.encryptPassword(info.password);
     info.usertype = UserTypes.FARMER;
@@ -192,7 +171,7 @@ _sanitizeFarmerInfo = function (info) {
     info.rating = 0;
     info.reviews = [];
     return info;
-}
+};
 
 _validateSearchInput = function (info)
 {
@@ -225,14 +204,11 @@ _validateSearchInput = function (info)
     info.usertype = "FARMER";
 
     return info;
-
-}
+};
 
 
 _validateFarmerInfo1 = function (info) {
     var deferred = Q.defer();
-    // var promise1 = Utilities.validateSSN(info.ssn);
-    // Q.all([promise, promise1]).done(function () {
     if( Utilities.isEmpty(info.ssn)		 	||
         Utilities.isEmpty(info.firstName) 	||
         Utilities.isEmpty(info.lastName) 	||
@@ -244,30 +220,26 @@ _validateFarmerInfo1 = function (info) {
         Utilities.isEmpty(info.password) 	||
         Utilities.isEmpty(info.email))
     {
-        console.log("error from here");
         deferred.reject("All values must be provided! ");
     } else {
         if(!Utilities.validateState(info.state)) {
-            console.log("invalid sate");
             deferred.reject("Invalid state!");
         } else
         if(!Utilities.validateZipCode(info.zipCode)) {
-            console.log("invalid zip codd");
             deferred.reject("Invalid zip code!");
         } else
         {
             deferred.resolve();
         }
-    };
+    }
     return deferred.promise;
-}
+};
 
 _validateFarmerInfo = function (info) {
     var deferred = Q.defer();
     var promise = Utilities.validateEmail(info.email);
      var promise1 = Utilities.validateSSN(info.ssn);
      Q.all([promise, promise1]).done(function () {
-   // promise.done(function () {
         if( Utilities.isEmpty(info.ssn)		 	||
             Utilities.isEmpty(info.firstName) 	||
             Utilities.isEmpty(info.lastName) 	||
@@ -279,15 +251,12 @@ _validateFarmerInfo = function (info) {
             Utilities.isEmpty(info.password) 	||
             Utilities.isEmpty(info.email))
         {
-            console.log("error from here");
             deferred.reject("All values must be provided! ");
         } else {
             if(!Utilities.validateState(info.state)) {
-                console.log("invalid sate");
                 deferred.reject("Invalid state!");
             } else
             if(!Utilities.validateZipCode(info.zipCode)) {
-                console.log("invalid zip codd");
                 deferred.reject("Invalid zip code!");
             } else {
                 deferred.resolve();
@@ -297,4 +266,4 @@ _validateFarmerInfo = function (info) {
         deferred.reject(error);
     });
     return deferred.promise;
-}
+};

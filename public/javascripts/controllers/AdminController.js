@@ -323,6 +323,23 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 		});
 	}
 
+	$scope.goToRevenuePerDay = function(){
+		$window.location.href = "http://localhost:3000/#analytics/revenue";
+	}
+	$scope.goToTripsPerCustomer = function(){
+		$window.location.href =  "http://localhost:3000/#analytics/tripspercustomer";
+	}
+
+	$scope.goToTripsPerDriver = function(){
+		$window.location.href = "http://localhost:3000/#analytics/tripsperdriver";
+	}
+
+	$scope.goToTripsAnalyticsMap = function(){
+		$window.location.href = "http://localhost:3000/#analytics/tripsanalysismap";
+	}
+
+
+
 	$scope.getBillInfo = function(){
 		var promise = AdminService.getBillInformation();
 		promise.then(function(result){

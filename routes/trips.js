@@ -8,10 +8,9 @@ var express = require("express");
 var router = express.Router();
 var Auth = require("./authentication");
 var TripHandler = require("../javascripts/trips/tripshandler");
+var UserTypes = require("../javascripts/commons/constants").usertypes;
 
 router.get("/", Auth.requireLogin, function (req, res) {
-
-
 	var promise = TripHandler.getAllTrips();
 	promise.done(function (result) {
 		console.log("In trips.js");
@@ -74,6 +73,14 @@ router.get("/id/:tripID", Auth.requireLogin, function (req, res) {
 });
 
 router.get("/analytics/bydriver", function (req, res) {
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.ADMIN) {
+		res.status(403).send({
+			success: false,
+			error: "Unauthorized!",
+			data: null
+		});
+	}
 	var promise = TripHandler.getTripsByDriver();
 	promise.done(function (result) {
 		res.send({
@@ -91,6 +98,14 @@ router.get("/analytics/bydriver", function (req, res) {
 });
 
 router.get("/analytics/bycustomer", function (req, res) {
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.ADMIN) {
+		res.status(403).send({
+			success: false,
+			error: "Unauthorized!",
+			data: null
+		});
+	}
 	var promise = TripHandler.getTripsByCustomer();
 	promise.done(function (result) {
 		res.send({

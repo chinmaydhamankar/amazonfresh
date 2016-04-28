@@ -28,7 +28,6 @@ exports.signup = function(info)
         deferred.reject(error);
     });
     return deferred.promise;
-
 };
 
 /**
@@ -37,7 +36,6 @@ exports.signup = function(info)
  * @returns {*|promise}
  */
 exports.deleteCustomer = function (ssn) {
-
     var deferred = Q.defer();
     MongoDB.collection("users").remove({
         "ssn": ssn
@@ -52,7 +50,7 @@ exports.deleteCustomer = function (ssn) {
         }
     });
     return deferred.promise;
-}
+};
 
 /**
  * Get list of all the customer with given ssn from the system.
@@ -86,7 +84,7 @@ exports.getCustomersList = function()
         deferred.reject("There are no Records for Customers");
     }
     return deferred.promise;
-}
+};
 
 /**
  * finds a customer with given ssn.
@@ -113,7 +111,7 @@ exports.getCustomer = function (ssn) {
 		}
 	});
 	return deferred.promise;
-}
+};
 
 _validateCustomerInfo = function (info) {
     var deferred = Q.defer();
@@ -151,7 +149,7 @@ _validateCustomerInfo = function (info) {
         deferred.reject(error);
     });
     return deferred.promise;
-}
+};
 
 _sanitizeCustomerInfo = function (info) {
     console.log("In cust sanitize");
@@ -159,7 +157,7 @@ _sanitizeCustomerInfo = function (info) {
     info.usertype = UserTypes.CUSTOMER;
 	info.isApproved = false;
     return info;
-}
+};
 
 exports.customerViewInfo = function(info)
 {
@@ -218,7 +216,7 @@ exports.updateCustomer = function(info)
         deferred.reject(error);
     });
     return deferred.promise;
-}
+};
 
 
 exports.searchCustomerInfo = function(info)
@@ -248,7 +246,7 @@ exports.searchCustomerInfo = function(info)
     }
 
     return deferred.promise;
-}
+};
 
 _sanitizeCustomerSearchInput = function(info){
 
@@ -289,7 +287,7 @@ _sanitizeCustomerSearchInput = function(info){
 
     return info;
 
-}
+};
 
 _validateCustomerInfo1 = function(info)
 {
@@ -319,6 +317,6 @@ _validateCustomerInfo1 = function(info)
         {
             deferred.resolve();
         }
-    };
+    }
     return deferred.promise;
-}
+};
