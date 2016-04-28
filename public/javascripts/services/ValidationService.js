@@ -59,6 +59,54 @@ app.factory("ValidationService", ["$http","$q","$window", function ($http, $q, $
 			return true;
 		},
 
+		validatePassword : function(password){
+			if(this.isEmpty(password))
+			{
+				return false;
+			}
+			var regex = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$/;
+			if(!regex.test(password))
+			{
+				return false
+			}
+			return true
+		},
+
+		validatePhoneNumber: function(number){
+			if(this.isEmpty(number))
+			{
+				return false;
+			}
+			var regex =/^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$/;
+
+			if(!regex.test(number))
+			{
+				return false
+			}
+			return true
+		},
+
+		validateCreditCardExpiry: function(expiry){
+			if (expiry) {
+				var regex = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;
+				if(regex.test(expiry)) return true;
+			}
+			return false;
+		},
+
+		validateCharacters : function (name){
+			if(this.isEmpty(name))
+			{
+				return false;
+			}
+			var regex = /^[a-zA-Z]+$/;
+			if(!regex.test(name))
+			{
+				return false
+			}
+			return true
+		},
+
 		/**
 		 * checks if the provided value is empty.
 		 * @param value

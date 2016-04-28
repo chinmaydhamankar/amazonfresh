@@ -1,7 +1,7 @@
 <div id = "content" class = "container">
-    <div id = "registration" class = "area">        <h1 style="font-size: 2.5rem">Create New Account</h1>
-
-             <div class="demo-section k-content">
+    <div id = "registration" class = "area">
+        <h1 style="font-size: 2.5rem">Create New Account</h1>
+         <div class="demo-section k-content">
                 <form data-toggle="validator">
                     <div kendo-tab-strip k-content-urls="[ null, null]">
                         <ul>
@@ -91,5 +91,9 @@
                     </div>
                 </form>
              </div>
+        <script id="notificationTemplate" type="text/x-kendo-template">
+            <p style="width: 16em; padding:1em;white-space:nowrap;color:white"> {{ngValue}} #= kValue # </p>
+        </script>
+        <span kendo-notification="errorNotification" k-options="notf1Options"></span>
     </div>
 </div>
