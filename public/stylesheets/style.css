@@ -902,6 +902,18 @@ Shruti's classes.
     height: 45rem;
 }
 
+.trip-analysis-map-wrapper {
+    width: 100%;
+    height: 45rem;
+    text-align: -webkit-center;
+}
+
+.trip-analysis-map {
+    width: 90%;
+    height: 45rem;
+    border:solid;
+}
+
 .delivery-string-wrapper{
     text-align: center;
     font-weight: bold;
