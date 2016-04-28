@@ -1,7 +1,7 @@
 /**
  * Created by pratiksanglikar on 19/04/16.
  */
-angular.module("amazonfresh").factory("TruckService",["$http","$q", function ($http, $q) {
+angular.module("amazonfresh").factory("TruckService",["$window","$http","$q", function ($window, $http, $q) {
 	var TruckService = {
 		signup: function (info) {
 			var url = "http://localhost:3000/trucks";
@@ -19,7 +19,10 @@ angular.module("amazonfresh").factory("TruckService",["$http","$q", function ($h
 					def.reject(data.data.error);
 				}
 			}, function (error) {
-				def.reject(error);
+				if(error.status === 302) {
+					$window.location.href = "http://localhost:3000/#auth/login";
+				}
+				def.reject(error.data.error);
 			});
 			return def.promise;
 		}

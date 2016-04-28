@@ -2,10 +2,9 @@
  * Created by pratiksanglikar on 24/04/16.
  */
 
-angular.module("amazonfresh").factory("ProductService", ["$http", "$q", function ($http, $q) {
+angular.module("amazonfresh").factory("ProductService", ["$window", "$http", "$q", function ($window, $http, $q) {
 	var ProductService = {
 		createproduct: function (info) {
-			alert("called this");
 			var url = "http://localhost:3000/products";
 			var def = $q.defer();
 			$http({
@@ -25,10 +24,12 @@ angular.module("amazonfresh").factory("ProductService", ["$http", "$q", function
 				{
 					$window.location.href="http://localhost:3000/#auth/login";
 				}
-				def.reject(error);
+				def.reject(error.data.error);
 			});
 			return def.promise;
 		},
+
+
 		listproducts: function () {
 			var url = "http://localhost:3000/products";
 			var def = $q.defer();
@@ -47,11 +48,13 @@ angular.module("amazonfresh").factory("ProductService", ["$http", "$q", function
 				{
 					$window.location.href="http://localhost:3000/#auth/login";
 				}
-				def.reject(error);
+				def.reject(error.data.error);
 			});
 
 			return def.promise;
 		},
+
+
 		deleteproduct: function (productID) {
 			var url = "http://localhost:3000/products/" + productID;
 			var def = $q.defer();
@@ -70,7 +73,7 @@ angular.module("amazonfresh").factory("ProductService", ["$http", "$q", function
 				{
 					$window.location.href="http://localhost:3000/#auth/login";
 				}
-				def.reject(error);
+				def.reject(error.data.error);
 			});
 
 			return def.promise;
@@ -91,8 +94,8 @@ angular.module("amazonfresh").factory("ProductService", ["$http", "$q", function
 				{
 					$window.location.href="http://localhost:3000/#auth/login";
 				}
-				deferred.reject(error);
-			})
+				deferred.reject(error.data.error);
+			});
 			return deferred.promise;
 		},
 
@@ -112,7 +115,7 @@ angular.module("amazonfresh").factory("ProductService", ["$http", "$q", function
 				{
 					$window.location.href="http://localhost:3000/#auth/login";
 				}
-				deferred.reject(error);
+				deferred.reject(error.data.error);
 			});
 			return deferred.promise;
 		},
@@ -129,7 +132,7 @@ angular.module("amazonfresh").factory("ProductService", ["$http", "$q", function
 				{
 					$window.location.href="http://localhost:3000/#auth/login";
 				}
-				deferred.reject(error);
+				deferred.reject(error.data.error);
 			});
 			return deferred.promise;
 		},
@@ -168,7 +171,7 @@ angular.module("amazonfresh").factory("ProductService", ["$http", "$q", function
 				{
 					$window.location.href="http://localhost:3000/#auth/login";
 				}
-				deferred.reject(error);
+				deferred.reject(error.data.error);
 			});
 			return deferred.promise;
 		},
@@ -189,7 +192,7 @@ angular.module("amazonfresh").factory("ProductService", ["$http", "$q", function
 				{
 					$window.location.href="http://localhost:3000/#auth/login";
 				}
-				deferred.reject(error);
+				deferred.reject(error.data.error);
 			});
 			return deferred.promise;
 		}

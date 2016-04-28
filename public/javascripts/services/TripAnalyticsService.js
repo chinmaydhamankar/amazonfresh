@@ -20,7 +20,10 @@ angular.module("amazonfresh").factory("TripAnalyticsService", ["$q","$window","$
 					deferred.reject(data.data.error);
 				}
 			}).catch(function (error) {
-				deferred.reject(error);
+				if(error.status === 302) {
+					$window.location.href = "http://localhost:3000/#auth/login";
+				}
+				deferred.reject(error.data.error);
 			});
 			return deferred.promise;
 		},
@@ -41,7 +44,10 @@ angular.module("amazonfresh").factory("TripAnalyticsService", ["$q","$window","$
 					deferred.reject(data.data.error);
 				}
 			}).catch(function (error) {
-				deferred.reject(error);
+				if(error.status === 302) {
+					$window.location.href = "http://localhost:3000/#auth/login";
+				}
+				deferred.reject(error.data.error);
 			});
 			return deferred.promise;
 		},
@@ -61,7 +67,10 @@ angular.module("amazonfresh").factory("TripAnalyticsService", ["$q","$window","$
 					deferred.reject(result.data.error);
 				}
 			}).catch(function (error) {
-				deferred.reject(error);
+				if(error.status === 302 ) {
+					$window.location.href = "http://localhost:3000/#auth/login";
+				}
+				deferred.reject(error.data.error);
 			});
 			return deferred.promise;
 		}

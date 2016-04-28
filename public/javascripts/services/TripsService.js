@@ -1,7 +1,7 @@
 /**
  * Created by pratiksanglikar on 25/04/16.
  */
-angular.module("amazonfresh").factory("TripsService",["$http", "$q", function ($http, $q) {
+angular.module("amazonfresh").factory("TripsService",["$window","$http", "$q", function ($window, $http, $q) {
 	var TripsService = {
 		getTripDetails: function (tripID) {
 			var deferred = $q.defer();
@@ -21,7 +21,7 @@ angular.module("amazonfresh").factory("TripsService",["$http", "$q", function ($
 				{
 					$window.location.href="http://localhost:3000/#auth/login";
 				}
-				deferred.reject(error);
+				deferred.reject(error.data.error);
 			});
 			return deferred.promise;
 		}

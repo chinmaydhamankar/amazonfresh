@@ -2,7 +2,7 @@
  * Created by SHAILESH-PC on 4/24/2016.
  */
 
-angular.module("amazonfresh").factory("AdminService",["$http","$q", function ($http, $q) {
+angular.module("amazonfresh").factory("AdminService",["$window","$http","$q", function ($window, $http, $q) {
     var AdminService = {
         signup: function () {
             var url = "http://localhost:3000/admin/listunapprovedfarmers";
@@ -20,6 +20,9 @@ angular.module("amazonfresh").factory("AdminService",["$http","$q", function ($h
                     def.reject(data.data.error);
                 }
             }, function (error) {
+                if(error.status === 302) {
+                    $window.location.href = "http://localhost:3000/#auth/login";
+                }
                 def.reject(error);
             });
             return def.promise;

@@ -1,5 +1,5 @@
 
-angular.module("amazonfresh").factory("FarmerService",["$http","$q", function ($http, $q) {
+angular.module("amazonfresh").factory("FarmerService",["$window","$http","$q", function ($window,$http, $q) {
     var FarmerService = {
 
         getMyProfile : function () {
@@ -19,12 +19,16 @@ angular.module("amazonfresh").factory("FarmerService",["$http","$q", function ($
                     def.reject(data.data.error);
                 }
             }, function (error) {
+                if(error.status === 302) {
+                    $window.location.href = "http://localhost:3000/#auth/login";
+                }
                 def.reject(error);
             });
             return def.promise;
         },
+
+
         updateFarmerProfile : function (info) {
-            alert("Reached Her1111e");
             var url = "http://localhost:3000/farmers/updateFarmer";
             var def = $q.defer();
             $http({
@@ -40,10 +44,15 @@ angular.module("amazonfresh").factory("FarmerService",["$http","$q", function ($
                     def.reject(data.data.error);
                 }
             }, function (error) {
+                if(error.status === 302)
+                {
+                    $window.location.href = "http://localhost:3000/#auth/login";
+                }
                 def.reject(error);
             });
             return def.promise;
         },
+
         signup: function (info) {
             var url = "http://localhost:3000/farmers";
             var def = $q.defer();
@@ -55,13 +64,13 @@ angular.module("amazonfresh").factory("FarmerService",["$http","$q", function ($
                 }
             }).then(function (data) {
                 if (data.data.success) {
+                    $window.location.href = "http://localhost:3000/#auth/login";
                     def.resolve();
                 } else {
                     def.reject(data.data.error);
                 }
             }, function (error) {
-                if(error.status=== 302)
-                 def.reject(error);
+                def.reject(error.data.error);
             });
             return def.promise;
         }
