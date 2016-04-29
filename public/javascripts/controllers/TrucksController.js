@@ -94,11 +94,11 @@ app.controller("TrucksController", ["$scope","TruckService", "US_STATES","Valida
 			errors.push("City can not be empty!");
 		}if(ValidationService.isEmpty(info.zipCode)) {
 			errors.push("Zip Code can not be empty!");
-		}if(ValidationService.validateEmail(info.email)){
+		}if(!ValidationService.validateEmail(info.email)){
 			errors.push("Email not valid.");
-		}if(ValidationService.validateSSN(info.ssn)){
+		}if(!ValidationService.validateSSN(info.ssn)){
 			errors.push("SSN not valid.");
-		}if(ValidationService.validateZipCode(info.zipCode)){
+		}if(!ValidationService.validateZipCode(info.zipCode)){
 			errors.push("Zip code not valid.");
 		}
 		return errors;
