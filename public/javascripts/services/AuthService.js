@@ -4,7 +4,7 @@
 angular.module("amazonfresh").factory("AuthService",["$http","$q", function ($http, $q) {
 	var AuthService = {
 		login: function (email, password) {
-			var url = "http://farmerhelp.mybluemix.net/#/auth/login";
+			var url = "http://localhost:3000/auth/login";
 			var def = $q.defer();
 			$http({
 				method: "POST",
