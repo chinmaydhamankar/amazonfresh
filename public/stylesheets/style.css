@@ -393,7 +393,7 @@ input[name = farmer1-password] {
     margin-top: -3rem;
     position: fixed;
     width: 30rem;
-    height: 100rem;
+    height: 100%;
     overflow-y: auto;
     background: #303030;
     -webkit-transition: all 0.5s ease;
@@ -437,6 +437,8 @@ input[name = farmer1-password] {
 
 .sidebar-nav {
     margin-top: 2rem;
+    overflow: auto;
+    height: 80%;
 }
 
 .notification {
