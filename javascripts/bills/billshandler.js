@@ -106,6 +106,7 @@ exports.getallbills = function (customerId) {
     var getJoinPromise = Mysql.executeQuery("SELECT * FROM bill, item Where bill.customer_id = '" + customerId + "' AND bill.bill_id = item.bill_id ;");
     getJoinPromise.done(function(joinResult){
         for(var i=0 ; i < joinResult.length ; i++){
+            console.log("===============================================================")
             if(!result[joinResult[i].bill_id]) {
                 result[joinResult[i].bill_id] = {};
                 result[joinResult[i].bill_id].bill_id = joinResult[i].bill_id;
@@ -118,7 +119,7 @@ exports.getallbills = function (customerId) {
                 "product_id" : joinResult[i].product_id,
                 "quantity" : joinResult[i].quantity,
                 "price_per_unit" : joinResult[i].price_per_unit,
-                "trip_id" : joinResult[i].trip_id,
+                // "trip_id" : joinResult[i].trip_id,
                 "expected_delivery_date" : joinResult[i].expected_delivery_date,
                 "product_name" : joinResult[i].product_name,
                 "product_image_url" : joinResult[i].product_image_url

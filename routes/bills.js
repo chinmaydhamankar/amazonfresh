@@ -71,14 +71,6 @@ router.get("/searchbill/:billId", Auth.requireLogin, function (req, res) {
  * searches all bills with given customer id.
  */
 router.get("/getallbills/", Auth.requireLogin, function (req, res) {
-    var user = req.session.user;
-    if(user.usertype !== UserTypes.ADMIN) {
-        res.status(403).send({
-            success: false,
-            error: "Unauthorized!",
-            data: null
-        });
-    }
     var customerSSN = req.session.user.ssn;
     var promise = BillHandler.getallbills(customerSSN);
     promise.done(function (result) {
