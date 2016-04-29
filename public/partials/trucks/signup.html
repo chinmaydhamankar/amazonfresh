@@ -29,8 +29,9 @@
                             <span class="form-group truck-email">
                                  <input id="truck-email" type="email" name="email" ng-model="email"
                                         class="driver-sign-up-input form-control" placeholder="E-mail Address"
-                                        title="E-mail Address" required/>
+                                        title="E-mail Address" required ng-change="emailChanged()"/>
                             </span>
+                            <span class="sign-up-errors" ng-show="emailError">{{emailError}}</span>
                               <span class="form-group truck-password">
                                   <input type="password" name="password" id="password" ng-model="credentials.password"
                                          ng-model="password" ng-model-options="{allowInvalid: true}"

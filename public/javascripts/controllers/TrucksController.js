@@ -3,14 +3,23 @@
  */
 var app = angular.module("amazonfresh");
 
-app.controller("TrucksController", ["$scope","TruckService", "US_STATES",function ($scope, TruckService, US_STATES) {
+app.controller("TrucksController", ["$scope","TruckService", "US_STATES","ValidationService", function ($scope, TruckService, US_STATES, ValidationService) {
 
 	$scope.credentials = {};
+	$scope.emailError = null;
 	$scope.USStatesOptions = {
 		dataSource: US_STATES,
 		dataTextField: "name",
 		dataValueField: "abbreviation"
 	};
+
+	$scope.emailChanged = function () {
+		if(!ValidationService.validateEmail($scope.email)) {
+			$scope.emailError = "Email not valid!";
+		} else {
+			$scope.emailError = null;
+		}
+	}
 
 	$scope.nextTab = function () {
 		$scope.trucksTabStrip.select(1);
@@ -64,27 +73,33 @@ app.controller("TrucksController", ["$scope","TruckService", "US_STATES",functio
 
 	_getErrors = function (info) {
 		var errors = [];
-		if(!info.firstName) {
+		if(ValidationService.isEmpty(info.firstName)) {
 			errors.push("First Name can not be empty!");
 		}
-		if(!info.lastName) {
+		if(ValidationService.isEmpty(info.lastName)) {
 			errors.push("Last Name can not be empty!");
-		}if(!info.email) {
+		}if(ValidationService.isEmpty(info.email)) {
 			errors.push("Email can not be empty!");
-		}if(!info.password) {
+		}if(ValidationService.isEmpty(info.password)) {
 			errors.push("Password can not be empty!");
-		}if(!info.phoneNumber) {
+		}if(ValidationService.isEmpty(info.phoneNumber)) {
 			errors.push("Phone Number can not be empty!");
-		}if(!info.ssn) {
+		}if(ValidationService.isEmpty(info.ssn)) {
 			errors.push("SSN can not be empty!");
-		}if(!info.address) {
+		}if(ValidationService.isEmpty(info.address)) {
 			errors.push("Address can not be empty!");
-		}if(!info.state) {
+		}if(ValidationService.isEmpty(info.state)) {
 			errors.push("State can not be empty!");
-		}if(!info.city) {
+		}if(ValidationService.isEmpty(info.city)) {
 			errors.push("City can not be empty!");
-		}if(!info.zipCode) {
+		}if(ValidationService.isEmpty(info.zipCode)) {
 			errors.push("Zip Code can not be empty!");
+		}if(ValidationService.validateEmail(info.email)){
+			errors.push("Email not valid.");
+		}if(ValidationService.validateSSN(info.ssn)){
+			errors.push("SSN not valid.");
+		}if(ValidationService.validateZipCode(info.zipCode)){
+			errors.push("Zip code not valid.");
 		}
 		return errors;
 	}
