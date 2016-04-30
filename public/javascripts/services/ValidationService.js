@@ -64,7 +64,7 @@ app.factory("ValidationService", ["$http","$q","$window", function ($http, $q, $
 			{
 				return false;
 			}
-			var regex = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$/;
+			var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/;
 			if(!regex.test(password))
 			{
 				return false

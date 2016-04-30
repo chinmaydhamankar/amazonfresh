@@ -3,7 +3,8 @@
  */
 
 var app = angular.module("amazonfresh");
-app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminService","ValidationService",function ($scope, $window, $rootScope, AdminService, ValidationService) {
+app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminService","ValidationService",
+	function ($scope, $window, $rootScope, AdminService,ValidationService) {
 	$scope.Customers = true;
 	$scope.Farmers = true;
 	$scope.Products = true;
@@ -263,17 +264,63 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			"reviews" : $scope.res.reviews,
 			"location" : $scope.res.location
 		}
-		var promise = AdminService.updateFarmerInfo(info);
-		promise.then(function (result) {
-			$scope.data = result.data.data;
-			$scope.abcd = 2;
-			$window.location.href = "/#admin/home"
-		}, function (error) {
-			alert("Error - " + error.data.error);
-		});
+		var errors = _getUpdateFarmerValidationErrors(info);
+		if(errors.length > 0 ){
+			for(var i = 0 ; i < errors.length ; i++) {
+				$scope.errorNotification.show({
+					kValue: errors[i]
+				},"ngTemplate");
+			}
+		}
+		else {
+			var promise = AdminService.updateFarmerInfo(info);
+			promise.then(function (result) {
+				$scope.data = result.data.data;
+				$scope.abcd = 2;
+				$window.location.href = "/#admin/home"
+			}, function (error) {
+				alert("Error - " + error.data.error);
+			});
+		}
+
 	}
 
-	$scope.updateInfoProduct = function(){
+		_getUpdateFarmerValidationErrors = function (info) {
+			var errors = [];
+			if( ValidationService.isEmpty(info.firstName)) {
+				errors.push("First Name can not be empty or invalid!");
+			}
+
+			if(ValidationService.isEmpty(info.lastName)) {
+				errors.push("Last Name can not be empty or invalid!");
+			}
+
+
+			if( ValidationService.isEmpty(info.phoneNumber)) {
+				errors.push("Phone Number can not be empty or invalid!");
+			}
+
+			if( ValidationService.isEmpty(info.address)) {
+				errors.push("Address can not be empty!");
+			}
+
+			if( ValidationService.isEmpty(info.state)) {
+				errors.push("State can not be empty!");
+			}
+
+			if(ValidationService.isEmpty(info.city)) {
+				errors.push("City can not be empty!");
+			}
+
+			if(! ValidationService.validateZipCode(info.zipCode)) {
+				errors.push("Zip Code can not be empty or invalid!");
+			}
+
+			return errors;
+		}
+
+
+		$scope.updateInfoProduct = function(){
 		var info = {
 			"productName": $scope.res.productName,
 			"productPrice": $scope.res.productPrice,
@@ -286,17 +333,55 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			"reviews": $scope.res.reviews,
 			"isApproved": $scope.res.isApproved
 		}
-		var promise = AdminService.updateProductInfo(info);
-		promise.then(function (result) {
-			$scope.data = result.data.data;
-			$scope.abcd = 1;
-			$window.location.href = "/#admin/home"
-		}, function (error) {
-			alert("Error - " + error.data.error);
-		});
+			var errors = _getUpdateProductValidationErrors(info);
+			if(errors.length > 0) {
+				for(var i = 0; i < errors.length ; i++) {
+					$scope.errorNotification.show({
+						kValue: errors[i]
+					},"ngTemplate");
+				}
+			}
+			else {
+				var promise = AdminService.updateProductInfo(info);
+				promise.then(function (result) {
+					$scope.data = result.data.data;
+					$scope.abcd = 1;
+					$window.location.href = "/#admin/home"
+				}, function (error) {
+					alert("Error - " + error.data.error);
+				});
+			}
+
 	}
 
-	$scope.updateInfoTruck = function() {
+		_getUpdateProductValidationErrors = function (info) {
+			var errors = [];
+			if( ValidationService.isEmpty(info.productName)) {
+				errors.push("Product Name can not be empty!");
+			}
+
+			if(ValidationService.isEmpty(info.productPrice)) {
+				errors.push("Product Price can not be empty!");
+			}
+
+
+			if( ValidationService.isEmpty(info.description)) {
+				errors.push("Description can not be empty!");
+			}
+
+			if( ValidationService.isEmpty(info.farmerFirstName)) {
+				errors.push("Farmer First Name can not be empty!");
+			}
+
+			if( ValidationService.isEmpty(info.farmerLastName)) {
+				errors.push("Farmer Last Name can not be empty!");
+			}
+			return errors;
+		}
+
+
+
+		$scope.updateInfoTruck = function() {
 		var info = {
 			"firstName": $scope.res.firstName,
 			"lastName": $scope.res.lastName,
@@ -333,7 +418,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			});
 		}
 	}
-	
+
 	$scope.getValidateUpdateTruckErrors = function () {
 		var errors = [];
 
@@ -411,6 +496,8 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 		});
 	}
 
+
+
 	$scope.getTripsInfo = function(){
 		var promise = AdminService.tripsInfo();
 		promise.then(function (result) {
@@ -427,6 +514,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 	}
 
 	$scope.updateInfoCustomer = function (){
+
 		var info =
 		{
 			"firstName": $scope.res.firstName,
@@ -446,17 +534,63 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			"cardNumber" : $scope.res.cardNumber,
 			"expiry" : $scope.res.expiry
 		}
-		var promise = AdminService.updateCustomerInfo(info);
-		promise.then(function (result) {
-			$scope.data = result.data.data;
-			$scope.abcd = 2;
-			$window.location.href = "/#admin/home"
-		}, function (error) {
-			alert("Error - " + error.data.error);
-		});
+		var errors = _getUpdateCustomerValidationErrors(info);
+		if(errors.length > 0 ){
+			for(var i = 0 ; i < errors.length ; i++) {
+				$scope.errorNotification.show({
+					kValue: errors[i]
+				},"ngTemplate");
+			}
+		}
+		else {
+			var promise = AdminService.updateCustomerInfo(info);
+			promise.then(function (result) {
+				$scope.data = result.data.data;
+				$scope.abcd = 2;
+				$window.location.href = "/#admin/home"
+			}, function (error) {
+				alert("Error - " + error.data.error);
+			});
+		}
+
 	}
 
-	$scope.viewCustomerInfo = function(ssn){
+		_getUpdateCustomerValidationErrors = function (info) {
+			var errors = [];
+			if( ValidationService.isEmpty(info.firstName)) {
+				errors.push("First Name can not be empty or invalid!");
+			}
+
+			if(ValidationService.isEmpty(info.lastName)) {
+				errors.push("Last Name can not be empty or invalid!");
+			}
+
+
+			if( ValidationService.isEmpty(info.phoneNumber)) {
+				errors.push("Phone Number can not be empty or invalid!");
+			}
+
+			if( ValidationService.isEmpty(info.address)) {
+				errors.push("Address can not be empty!");
+			}
+
+			if( ValidationService.isEmpty(info.state)) {
+				errors.push("State can not be empty!");
+			}
+
+			if(ValidationService.isEmpty(info.city)) {
+				errors.push("City can not be empty!");
+			}
+
+			if(! ValidationService.validateZipCode(info.zipCode)) {
+				errors.push("Zip Code can not be empty or invalid!");
+			}
+
+			return errors;
+		}
+
+
+		$scope.viewCustomerInfo = function(ssn){
 		alert(ssn);
 		var info = {
 			"ssn" : ssn
@@ -475,6 +609,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 		}
 		var promise = AdminService.productViewInfo(info);
 		promise.then(function(res){
+			alert(res.data.data.productName);
 			$scope.res = res.data.data;
 		},function(err){
 			alert("Error -"+err.data.error);
@@ -534,5 +669,14 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 		});
 	}
 	init();
+
+	$scope.notf1Options = {
+		templates: [{
+			type: "ngTemplate",
+			template: $("#notificationTemplate").html()
+		}]
+	};
+
+
 
 }]);

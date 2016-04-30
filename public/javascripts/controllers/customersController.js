@@ -12,14 +12,16 @@ app.controller('CustomersController',["$scope","US_STATES","CustomerService","Va
         });
     }
     init();
+        $scope.credentials = {};
 
-    $scope.USStatesOptions = {
+        $scope.USStatesOptions = {
         dataSource: US_STATES,
         dataTextField: "name",
         dataValueField: "abbreviation"
     };
 
     $scope.signup = function () {
+
 
         if($scope.credentials.password !== $scope.verifyPassword){
             $scope.errorNotification.show({
@@ -84,7 +86,10 @@ app.controller('CustomersController',["$scope","US_STATES","CustomerService","Va
             errors.push("Email can not be empty or invalid!");
         }
 
-        if(! ValidationService.validatePassword(info.password)) {
+        if(ValidationService.isEmpty(info.password)) {
+            errors.push("Password can not be empty!");
+        }
+       if(! ValidationService.validatePassword(info.password)) {
             errors.push("Password should contain 8 characters " +
                 "1 uppercase character " +
                 "1 special character!" +
@@ -100,11 +105,11 @@ app.controller('CustomersController',["$scope","US_STATES","CustomerService","Va
             errors.push("SSN can not be empty or invalid!");
         }
 
-        if(! ValidationService.isEmpty(info.address)) {
+        if( ValidationService.isEmpty(info.address)) {
             errors.push("Address can not be empty!");
         }
 
-        if(! ValidationService.isEmpty(info.state)) {
+        if(ValidationService.isEmpty(info.state)) {
             errors.push("State can not be empty!");
         }
 

@@ -194,7 +194,7 @@ _sanitizeProductSearchInput = function (info) {
 exports.searchByProductId = function (info) {
 	var deferred = Q.defer();
 	var info = JSON.parse(info);
-	var cursor = MongoDB.collection("products").find({"productID": info.productID, isApproved: true});
+	var cursor = MongoDB.collection("products").find({"productID": info.productID});
 	var productList = {};
 	cursor.each(function (err, doc) {
 		if (err) {
