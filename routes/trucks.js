@@ -5,17 +5,22 @@ var express = require("express");
 var Auth = require("./authentication");
 var router = express.Router();
 var TruckHandler = require("../javascripts/trucks/truckshandler");
-
+var MQClient = require("../rpc/client");
+var QUEUE_NAME = "trucks_queue";
 /**
  * function to return all trucks in the system.
  */
 router.get("/", Auth.requireLogin, function (req, res) {
-    var promise = TruckHandler.getAllTrucks();
+    var payload = {
+        type: "get_all_trucks"
+    };
+    //var promise = TruckHandler.getAllTrucks();
+    var promise = MQClient.request(QUEUE_NAME, payload);
     promise.done(function (data) {
         res.send({
             success: true,
             error: null,
-            data: data
+            data: data.response
         });
     }, function (error) {
         res.status(500)
@@ -30,13 +35,23 @@ router.get("/", Auth.requireLogin, function (req, res) {
 router.post("/search", Auth.requireLogin, function (req, res) {
     var data = req.body;
     data = JSON.stringify(data);
-    var promise = TruckHandler.searchByAnyAttributes(data);
+    //var promise = TruckHandler.searchByAnyAttributes(data);
+	var promise = MQClient.request(QUEUE_NAME, {type: "search",data: data});
     promise.done(function (truckdata) {
-        res.send({
-            success: true,
-            error: null,
-            data: truckdata
-        });
+        if(truckdata.statusCode === 200){
+			res.send({
+				success: true,
+				error: null,
+				data: truckdata.response
+			});
+		} else {
+			res.send({
+				success: false,
+				error: "Some error occurred!",
+				data: null
+			});
+		}
+
     }, function (error) {
         res.send({
             success: false,
@@ -50,13 +65,23 @@ router.post("/search", Auth.requireLogin, function (req, res) {
  * get pending requests of drivers.
  */
 router.get("/pending", Auth.requireLogin, function (req, res) {
-    var promise = TruckHandler.getPendingTrucks();
+    //var promise = TruckHandler.getPendingTrucks();
+	var promise = MQClient.request(QUEUE_NAME, {type:"pending_trucks"});
     promise.done(function (data) {
-        res.send({
-            success: true,
-            error: null,
-            data: data
-        });
+		if(data.statusCode === 200){
+			res.send({
+				success: true,
+				error: null,
+				data: data.response
+			});
+		} else {
+			res.send({
+				success: false,
+				error: "Some error occurred",
+				data: null
+			});
+		}
+
     }, function (error) {
         res.status(500).send({
             success: false,
@@ -68,15 +93,25 @@ router.get("/pending", Auth.requireLogin, function (req, res) {
 
 router.get("/id/:ssn", Auth.requireLogin, function (req, res) {
     var ssn = req.params.ssn;
-    console.log("SSN is " + ssn);
-    var promise = TruckHandler.getTruck(ssn);
+    //var promise = TruckHandler.getTruck(ssn);
+	var promise = MQClient.request(QUEUE_NAME, {
+		type: "truck_by_id",
+		ssn: ssn
+	});
     promise.done(function (result) {
-        console.log("Success");
-        res.send({
-            success: true,
-            data: result,
-            error: null
-        });
+		if(result.statusCode === 200) {
+			res.send({
+				success: true,
+				data: result.response,
+				error: null
+			});
+		} else {
+			res.send({
+				success: true,
+				data: result.error,
+				error: null
+			});
+		}
     }, function (error) {
         res.send({
             success: false,
@@ -90,17 +125,28 @@ router.get("/id/:ssn", Auth.requireLogin, function (req, res) {
  * function to update the truck driver.
  */
 router.put("/updateTruck", Auth.requireLogin, function (req, res) {
-    console.log("in truck.js");
     var info = req.body.info;
-    console.log(info);
-    var promise = TruckHandler.updateTruckDriver(info);
+	var payload = {
+		type: "update_truck",
+		info: info
+	};
+    //var promise = TruckHandler.updateTruckDriver(info);
+	var promise = MQClient.request(QUEUE_NAME, payload);
     promise.done(function (result) {
-        console.log("Success");
-        res.send({
-            success: true,
-            data: result,
-            error: null
-        });
+		if(result.statusCode === 200) {
+			res.send({
+				success: true,
+				data: result,
+				error: null
+			});
+		} else {
+			res.send({
+				success: false,
+				error: result.error,
+				data: null
+			});
+		}
+
     }, function (error) {
         res.send({
             success: false,
@@ -114,14 +160,27 @@ router.put("/updateTruck", Auth.requireLogin, function (req, res) {
  * function to register a truck driver into the system.
  */
 router.post("/", function (req, res) {
-    console.log("info:" + req.body.info);
-    var promise = TruckHandler.signuptruck(req.body.info);
-    promise.done(function () {
-        res.send({
-            success: true,
-            error: null,
-            data: "Truck registered successfully!"
-        });
+	var payload = {
+		type: "sign_up_truck",
+		info: req.body.info
+	};
+    //var promise = TruckHandler.signuptruck(req.body.info);
+	var promise = MQClient.request(QUEUE_NAME, payload);
+    promise.done(function (result) {
+		if(result.statusCode === 200) {
+			res.send({
+				success: true,
+				error: null,
+				data: "Truck registered successfully!"
+			});
+		} else {
+			res.send({
+				success: true,
+				data: null,
+				error: result.error
+			});
+		}
+
     }, function (error) {
         res.status(500)
             .send({
@@ -138,10 +197,23 @@ router.post("/", function (req, res) {
 
 router.delete("/:ssn", Auth.requireLogin, function (req, res) {
     var ssn = req.params.ssn;
-    var promise = TruckHandler.delete(ssn);
-    promise.done(function () {
-        res.status(204)
-            .send();
+    //var promise = TruckHandler.delete(ssn);
+	var promise = MQClient.request(QUEUE_NAME,{
+		type: "delete_truck",
+		ssn: ssn
+	});
+    promise.done(function (result) {
+        if(result.statusCode === 200) {
+			res.status(204)
+				.send();
+		} else {
+			res.status(500)
+				.send({
+					success: false,
+					error: result.error,
+					data: null
+				});
+		}
     }, function (error) {
         res.status(500)
             .send({

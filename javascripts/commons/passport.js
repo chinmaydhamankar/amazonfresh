@@ -9,7 +9,7 @@ module.exports = function (passport) {
 	passport.use('local', new LocalStrategy({
 			usernameField: 'email',
 			passwordField: 'password'
-	},
+		},
 		function (email, password, done) {
 			process.nextTick(function () {
 				MongoDB.collection("users").findOne({
