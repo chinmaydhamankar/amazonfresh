@@ -49,10 +49,13 @@ exports.generatebill = function (info,customerSSN) {
                     insertInItemPromise.push(tempPromise);
                 }
                 Q.all(dynamicPricingPromise).done( function (dynamicPricingResult){
-                    for (var i=0; i<dynamicPricingResult.length; i++) {
-                        ProductHandler.adjustDynamicPrice(dynamicPricingResult[i].product_id, dynamicPricingResult[i].count, dynamicPricingResult[i].price_per_unit);
+                    for(var j = 0;  j < dynamicPricingPromise.length ; j++) {
+                        for (var i=0; i<dynamicPricingResult[j].length; i++) {
+                            ProductHandler.adjustDynamicPrice(dynamicPricingResult[j][i].product_id, dynamicPricingResult[j][i].count, dynamicPricingResult[j][i].price_per_unit);
+                        }
                     }
-                })
+
+                });
             }, function (error) {
                 deferred.reject(error);
             })
@@ -106,7 +109,6 @@ exports.getallbills = function (customerId) {
     var getJoinPromise = Mysql.executeQuery("SELECT * FROM bill, item Where bill.customer_id = '" + customerId + "' AND bill.bill_id = item.bill_id ;");
     getJoinPromise.done(function(joinResult){
         for(var i=0 ; i < joinResult.length ; i++){
-            console.log("===============================================================")
             if(!result[joinResult[i].bill_id]) {
                 result[joinResult[i].bill_id] = {};
                 result[joinResult[i].bill_id].bill_id = joinResult[i].bill_id;

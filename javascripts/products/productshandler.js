@@ -9,7 +9,7 @@ var Crypto = require("crypto");
 
 
 exports.adjustDynamicPrice = function (productId, count, productPrice) {
-    var deferred = Q.defer();
+	var deferred = Q.defer();
     deferred.resolve();
     return deferred.promise;
 }

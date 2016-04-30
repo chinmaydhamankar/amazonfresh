@@ -5,7 +5,7 @@
 var app = angular.module("amazonfresh");
 app.controller('BillsController',["$scope","$window","BillService",function ($scope, $window, BillService) {
 
- $scope.rating = {"rating1" : 5 };
+ //$scope.rating = {"rating1" : 5 };
 
     $scope.generatebill = function () {
         var info =  {
@@ -69,9 +69,9 @@ app.controller('BillsController',["$scope","$window","BillService",function ($sc
         });
     }
 
-    $scope.rating.rateFunction = function(rating){
+  /*  $scope.rating.rateFunction = function(rating){
         console.log("rating***************************************************");
-    }
+    }*/
 
     $scope.trackPackage = function(tripId){
         alert(tripId);
