@@ -10,8 +10,39 @@ var Crypto = require("crypto");
 
 exports.adjustDynamicPrice = function (productId, count, productPrice) {
 	var deferred = Q.defer();
-    deferred.resolve();
+	var promise = null;
+	if(count < 10) {
+		deferred.resolve();
+		return;
+	}
+    if(count == 10) {
+		promise = exports.setProductPrice(productId, productPrice * 1.10);
+	}
+	if(count == 50) {
+		promise = exports.setProductPrice(productId, productPrice * 1.25);
+	}
+	if(count == 500) {
+		promise = exports.setProductPrice(productId, productPrice * 1.50)
+	}
+	if(promise) {
+		promise.done(function () {
+			deferred.resolve();
+		}, function (error) {
+			deferred.reject(error);
+		});
+	}
     return deferred.promise;
+}
+
+exports.setProductPrice = function (productId, price) {
+	var deferred = Q.defer();
+	var cursor = MongoDB.collection("products").update({productID: productId},{$set:{productPrice: price}});
+	cursor.then(function () {
+		deferred.resolve();
+	}).catch(function (error) {
+		deferred.reject(error);
+	});
+	return deferred.promise;
 }
 
 /**
