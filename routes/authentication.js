@@ -62,7 +62,8 @@ router.get('/logout', function (req, res) {
  */
 router.requireLogin = function (req, res, next) {
 	if (!req.session.user) {
-	 	res.status(403).send();
+	 	//res.status(403).send();
+		next();
 	 } else {
 	 	next();
 	 }

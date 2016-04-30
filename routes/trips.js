@@ -9,16 +9,29 @@ var router = express.Router();
 var Auth = require("./authentication");
 var TripHandler = require("../javascripts/trips/tripshandler");
 var UserTypes = require("../javascripts/commons/constants").usertypes;
+var MQClient = require("../rpc/client");
 
 router.get("/", Auth.requireLogin, function (req, res) {
-	var promise = TripHandler.getAllTrips();
+	var payload = {
+		type: "all_trips"
+	};
+	//var promise = TripHandler.getAllTrips();
+	var promise = MQClient.request("trips_queue", payload);
 	promise.done(function (result) {
-		console.log("In trips.js");
-		res.send({
-			success: true,
-			error: null,
-			data: result
-		});
+		if(result.statusCode === 200) {
+			res.send({
+				success: true,
+				error: null,
+				data: result.response
+			});
+		} else {
+			res.status(500).send({
+				success: false,
+				error: result.error,
+				data: null
+			});
+		}
+
 	}, function (error) {
 		res.status(500).send({
 			success: false,
