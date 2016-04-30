@@ -163,12 +163,12 @@
                                         title="E-mail Address" /><br><br>
                             </span>
                               <span class="form-group farmer1-password">
-                                  <input type="password" name="customer-password" id="farmerpassword" ng-model="data.password" ng-model="data.password" ng-model-options="{allowInvalid: true}" pattern-validator="((?=.*\d)(?=.*[A-Z])(?=.*\W).{8,8})" class="form-control" placeholder="Password" />
+                                  <input type="password" ng-disabled="true" name="customer-password" id="farmerpassword" ng-model="data.password" ng-model="data.password" ng-model-options="{allowInvalid: true}" pattern-validator="((?=.*\d)(?=.*[A-Z])(?=.*\W).{8,8})" class="form-control" placeholder="Password" />
                                   <password-strength ng-model="credentials.password"></password-strength>
                                 <br>
                               </span>
                             <span class="form-group farmer1-password">
-                             <input type="password" name="verifyPassword" id = "farmer1verifyPassword" ng-model="data.password" placeholder="Verify Password"
+                             <input type="password" ng-disabled="true" name="verifyPassword" id = "farmer1verifyPassword" ng-model="data.password" placeholder="Verify Password"
                                     class="form-control" title="Verify Password" />
                              <span id = "marker"></span><br><br>
                             </span>
@@ -199,7 +199,7 @@
                                         title="Enter Phone Number" />
                             </span><br><br>
                              <span class="form-group farmer1-ssn">
-                                     <input id="farmer1-ssn" type="text" name="ssn" ng-model="data.ssn" class="form-control" placeholder="Social Security Number"
+                                     <input id="farmer1-ssn" type="text" ng-disabled="true" name="ssn" ng-model="data.ssn" class="form-control" placeholder="Social Security Number"
                                             title="Enter Social Security Number" />
                             </span><br><br>
 
@@ -284,6 +284,10 @@
             </form>
         </div>
     </div>
+    <script id="notificationTemplate" type="text/x-kendo-template">
+        <p style="width: 16em; padding:1em;white-space:nowrap;color:white"> {{ngValue}} #= kValue # </p>
+    </script>
+    <span kendo-notification="errorNotification" k-options="notf1Options"></span>
 </div>
 
 <!-- Product Code Ends -->

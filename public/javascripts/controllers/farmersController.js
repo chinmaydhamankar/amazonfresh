@@ -104,16 +104,25 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
             "reviews" : $scope.data.reviews,
             "location" : $scope.data.location
         }
-        var promise = FarmerService.updateFarmerProfile(info);
-        promise.then(function (result) {
-            $scope.data = result.data.data;
-            $scope.abcd = 2;
+        var errors = _getfarm1Errors(info);
+        if(errors.length > 0 ){
+            for(var i = 0 ; i < errors.length ; i++) {
+                $scope.errorNotification.show({
+                    kValue: errors[i]
+                },"ngTemplate");
+            }
+        }
+        else
+        {
+            var promise = FarmerService.updateFarmerProfile(info);
+            promise.then(function (result) {
+                $scope.data = result.data.data;
+                $scope.abcd = 2;
 
-
-
-        }, function (error) {
-            alert("Error - " + error);
-        });
+            }, function (error) {
+                alert("Error - " + error);
+            });
+        }
 
     };
 
@@ -184,6 +193,49 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
         }
         return errors;
     }
+
+        _getfarm1Errors = function (info) {
+            var errors = [];
+            if( ValidationService.isEmpty(info.firstName)) {
+                errors.push("First Name can not be empty or invalid!");
+            }
+
+            if(ValidationService.isEmpty(info.lastName)) {
+                errors.push("Last Name can not be empty or invalid!");
+            }
+
+            if(! ValidationService.validateEmail(info.email)) {
+                errors.push("Email can not be empty or invalid!");
+            }
+
+
+            if(ValidationService.isEmpty(info.phoneNumber)) {
+                errors.push("Phone Number can not be empty or invalid!");
+            }
+
+            if(! ValidationService.validateSSN(info.ssn)) {
+                errors.push("SSN can not be empty or invalid!");
+            }
+
+            if(ValidationService.isEmpty(info.address)) {
+                errors.push("Address can not be empty!");
+            }
+
+            if( ValidationService.isEmpty(info.state)) {
+                errors.push("State can not be empty!");
+            }
+
+            if( ValidationService.isEmpty(info.city)) {
+                errors.push("City can not be empty!");
+            }
+
+            if(! ValidationService.validateZipCode(info.zipCode)) {
+                errors.push("Zip Code can not be empty or invalid!");
+            }
+            return errors;
+        }
+
+
 
 }]);
 
