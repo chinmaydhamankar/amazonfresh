@@ -339,6 +339,11 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 		var promise = AdminService.getBillInformation();
 		promise.then(function(result){
 			$scope.data = result.data.data;
+			var bills = [];
+			for(var bill in $scope.data) {
+				bills.push($scope.data[bill]);
+			}
+			$scope.data = bills;
 			$rootScope.variable = 10;
 		},function(error){
 			alert("Error - " + error.data.error);

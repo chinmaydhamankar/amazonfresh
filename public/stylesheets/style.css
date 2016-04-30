@@ -974,3 +974,9 @@ Shruti's classes.
     color: red;
     text-align: center;
 }
+
+.admin-bills-wrapper {
+    height: initial !important;
+    padding: 1.5rem 1.5rem 1.5rem 1.5rem !important;
+    color: snow;
+}
