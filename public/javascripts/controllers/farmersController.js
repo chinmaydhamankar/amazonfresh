@@ -136,15 +136,36 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
             "productImage": $scope.productImage
 
         }
-        var promise = ProductService.createproduct(info);
-        promise.then(function (result) {
-            alert("Success!");
-        }, function (error) {
-            alert("Error - " + error);
-        });
+        var errors = _getErrors(info);
+        if(errors.length > 0 ){
+            for(var i = 0 ; i < errors.length ; i++) {
+                $scope.errorNotification.show({
+                    kValue: errors[i]
+                },"ngTemplate");
+            }
+        } else {
+
+            var promise = ProductService.createproduct(info);
+            promise.then(function (result) {
+                alert("Success!");
+            }, function (error) {
+                alert("Error - " + error);
+            });
+        }
     }
 
-
+        _getErrors = function (info) {
+            var errors = [];
+            if(ValidationService.isEmpty(info.productName)) {
+                errors.push("Productt Name can not be empty!");
+            }
+            if(ValidationService.isEmpty(info.productPrice)) {
+                errors.push("Product Price can not be empty!");
+            }if(ValidationService.isEmpty(info.description)) {
+                errors.push("Product Description can not be empty!");
+            }
+            return errors;
+        }
 
     _getfarmErrors = function (info) {
         var errors = [];

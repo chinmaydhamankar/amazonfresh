@@ -7,8 +7,15 @@
 var app = angular.module("amazonfresh");
 
 
-angular.module("amazonfresh").controller("ProductController", ["$scope", "$window", "ProductService",
-	function ($scope, $window, ProductService) {
+angular.module("amazonfresh").controller("ProductController", ["$scope", "$window", "ProductService","ValidationService",
+	function ($scope, $window, ProductService, ValidationService) {
+
+		$scope.notf1Options = {
+			templates: [{
+				type: "ngTemplate",
+				template: $("#notificationTemplate").html()
+			}]
+		};
 	$scope.createproduct = function () {
 
 		var info = {
@@ -18,13 +25,23 @@ angular.module("amazonfresh").controller("ProductController", ["$scope", "$windo
 			"productImage": $scope.productImage
 
 		}
-		var promise = ProductService.createproduct(info);
-		promise.then(function (result) {
-			alert("Success!");
-		}, function (error) {
-			alert("Error - " + error);
-		});
-	}
+		var errors = _getErrors(info);
+		if(errors.length > 0 ){
+			for(var i = 0 ; i < errors.length ; i++) {
+				$scope.errorNotification.show({
+					kValue: errors[i]
+				},"ngTemplate");
+			}
+		} else {
+
+			var promise = ProductService.createproduct(info);
+			promise.then(function (result) {
+				alert("Success!");
+			}, function (error) {
+				alert("Error - " + error);
+			});
+		}
+	};
 
 	extractCartItems = function () {
 		$scope.cartList = [];
@@ -46,7 +63,18 @@ angular.module("amazonfresh").controller("ProductController", ["$scope", "$windo
 			alert("Error" + error);
 		});
 	}
-
+		_getErrors = function (info) {
+			var errors = [];
+			if(ValidationService.isEmpty(info.productName)) {
+				errors.push("Productt Name can not be empty!");
+			}
+			if(ValidationService.isEmpty(info.productPrice)) {
+				errors.push("Product Price can not be empty!");
+			}if(ValidationService.isEmpty(info.description)) {
+				errors.push("Product Description can not be empty!");
+			}
+			return errors;
+		}
 	$scope.updateCart = function (productID, quantity) {
 		var promise = ProductService.updateCart(productID, quantity);
 		promise.then(function (cart) {
