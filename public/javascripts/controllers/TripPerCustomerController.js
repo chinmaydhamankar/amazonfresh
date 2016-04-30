@@ -216,10 +216,10 @@ angular.module("amazonfresh").controller("TripPerCustomerController",["$scope","
 		Highcharts.chart('analytics-trips-driver-charts', {
 			chart: {
 				type: 'column',
-				name: 'Trips Per Driver'
+				name: 'Trips Per Customer'
 			},
 			title: {
-				text: 'Trips Per Driver'
+				text: 'Trips Per Customer'
 			},
 			plotOptions: {
 				area: {
@@ -250,7 +250,7 @@ angular.module("amazonfresh").controller("TripPerCustomerController",["$scope","
 
 			xAxis: {
 				title: {
-					text: "Driver"
+					text: "Customer"
 				}
 			},
 			yAxis: {
