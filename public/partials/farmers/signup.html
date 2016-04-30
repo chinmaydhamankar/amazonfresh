@@ -25,7 +25,7 @@
                                   title="E-mail Address" /><br><br>
                             </span>
                               <span class="form-group customer-password">
-                                  <input type="password" name="customer-password" id="password" ng-model="credentials.password" ng-model="password" ng-model-options="{allowInvalid: true}" pattern-validator="((?=.*\d)(?=.*[A-Z])(?=.*\W).{8,8})" class="form-control" placeholder="Password" />
+                                  <input type="password" name="customer-password" id="password" ng-model="credentials.password"  ng-model-options="{allowInvalid: true}" pattern-validator="((?=.*\d)(?=.*[A-Z])(?=.*\W).{8,8})" class="form-control" placeholder="Password" />
                                   <password-strength ng-model="credentials.password"></password-strength>
                                 <br>
                               </span>
@@ -98,4 +98,8 @@
                 </form>
              </div>
     </div>
+    <script id="notificationTemplate" type="text/x-kendo-template">
+        <p style="width: 16em; padding:1em;white-space:nowrap;color:white"> {{ngValue}} #= kValue # </p>
+    </script>
+    <span kendo-notification="errorNotification" k-options="notf1Options"></span>
 </div>

@@ -3,16 +3,9 @@
  */
 
 var app = angular.module("amazonfresh");
-app.controller('FarmersController',["$scope","US_STATES","FarmerService","ProductService",function ($scope, US_STATES, FarmerService,ProductService) {
-    /*
-    function init(){
-        new Card({
-            form: document.querySelector('form'),
-            container: '.card-wrapper'
-        });
-    }
-    init();
-    */
+app.controller('FarmersController',["$scope","US_STATES","FarmerService","ProductService","ValidationService",
+    function ($scope, US_STATES, FarmerService,ProductService,ValidationService) {
+    $scope.credentials = {};
 
     $scope.USStatesOptions = {
         dataSource: US_STATES,
@@ -21,6 +14,12 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
     };
 
     $scope.signup = function () {
+        if($scope.credentials.password !== $scope.verifyPassword){
+            $scope.errorNotification.show({
+                kValue: "Password do not match!"
+            },"ngTemplate");
+        }
+
         var info = {
             "firstName": $scope.firstName,
             "lastName": $scope.lastName,
@@ -33,13 +32,31 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
             "city": $scope.city,
             "zipCode": $scope.zipcode
         }
-        var promise = FarmerService.signup(info);
-        promise.then(function (result) {
-            alert("Success!");
-        }, function (error) {
-            alert("Error - " + error);
-        });
+        var errors = _getfarmErrors(info);
+        if(errors.length > 0 ){
+            for(var i = 0 ; i < errors.length ; i++) {
+                $scope.errorNotification.show({
+                    kValue: errors[i]
+                },"ngTemplate");
+            }
+        }
+        else
+        {
+            var promise = FarmerService.signup(info);
+            promise.then(function (result) {
+                alert("Success!");
+            }, function (error) {
+                alert("Error - " + error);
+            });
+        }
     }
+
+    $scope.notf1Options = {
+        templates: [{
+            type: "ngTemplate",
+            template: $("#notificationTemplate").html()
+        }]
+    };
 
 
     $scope.regProduct = function ()
@@ -120,6 +137,53 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
 
 
 
+    _getfarmErrors = function (info) {
+        var errors = [];
+        if(! ValidationService.validateCharacters(info.firstName)) {
+            errors.push("First Name can not be empty or invalid!");
+        }
+
+        if(!ValidationService.validateCharacters(info.lastName)) {
+            errors.push("Last Name can not be empty or invalid!");
+        }
+
+        if(! ValidationService.validateEmail(info.email)) {
+            errors.push("Email can not be empty or invalid!");
+        }
+
+        if(! ValidationService.validatePassword(info.password)) {
+            errors.push("Password should contain 8 characters " +
+                "1 uppercase character " +
+                "1 special character!" +
+                "1 digit" +
+                "3 lowercase character");
+        }
+
+        if(ValidationService.isEmpty(info.phoneNumber)) {
+            errors.push("Phone Number can not be empty or invalid!");
+        }
+
+        if(! ValidationService.validateSSN(info.ssn)) {
+            errors.push("SSN can not be empty or invalid!");
+        }
+
+        if(ValidationService.isEmpty(info.address)) {
+            errors.push("Address can not be empty!");
+        }
+
+        if( ValidationService.isEmpty(info.state)) {
+            errors.push("State can not be empty!");
+        }
+
+        if( ValidationService.isEmpty(info.city)) {
+            errors.push("City can not be empty!");
+        }
+
+        if(! ValidationService.validateZipCode(info.zipCode)) {
+            errors.push("Zip Code can not be empty or invalid!");
+        }
+        return errors;
+    }
 
 }]);
 

@@ -102,9 +102,9 @@ app.factory("ValidationService", ["$http","$q","$window", function ($http, $q, $
 			var regex = /^[a-zA-Z]+$/;
 			if(!regex.test(name))
 			{
-				return false
+				return false;
 			}
-			return true
+			return true;
 		},
 
 		/**
