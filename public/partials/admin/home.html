@@ -338,46 +338,8 @@
             <label class="delivery-string">{{value.deliveryString}}</label>
         </div>
     </div>
+    <script id="notificationTemplate" type="text/x-kendo-template">
+        <p style="width: 16em; padding:1em;white-space:nowrap;color:white"> {{ngValue}} #= kValue # </p>
+    </script>
+    <span kendo-notification="errorNotification" k-options="notf1Options"></span>
 </div>
-
-<!--
-<div class="pending-request-wrapper col-md-8 col-md-offset-4">
-    <div  class = "pending-request-row container col-md-8" ng-repeat = "value in result">
-        <div class="col-sm-8">
-            <label style="font-size: 2rem; color: floralwhite;margin-top: 3.5rem;"> {{ value.firstName}} {{value.lastName}}</label>
-        </div>
-        &lt;!&ndash;<div class="col-sm-2">
-            <button id="confirmButton" type="button" class="btn btn-primary" ng-click = "approveReq(value.ssn,value.productName,value.usertype)">Confirm</button>
-        </div>
-        <div class="col-sm-2">
-            <button id="deleteButton" type="button" class="btn btn-danger" ng-click = "declineReq(value.ssn,value.productName,value.usertype)">Decline</button>
-        </div>&ndash;&gt;
-    </div>
-</div>-->
-
-
-<!--
-
-<div class="content" ng-repeat = "value in data.data">
-
-    <div class="col-sm-4">
-    <div id ="box">
-
-        <div id= "boxbottombhalf">
-            <button id="confirmButton" type="button" class="btn btn-primary" >Confirm</button>
-        </div>
-        <div id = "innerpic">
-
-            <div id = "innerpiccolor">
-            </div>
-            <div id = "innerbottompiccolor">
-            </div>
-            <h4 id = "h4text" ng-show = "abcd == 1"> {{ value.productName}}</h4>
-            <h4 id = "h5text" ng-show = "abcd == 2"> {{ value.firstName}} {{value.lastName}}</h4>
-
-        </div>
-
-         <button type="button" class="btn btn-danger" ng-click = "declineReq()">Decline</button>
-    </div>
-    </div>
-</div>-->

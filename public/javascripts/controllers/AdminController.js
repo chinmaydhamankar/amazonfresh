@@ -3,11 +3,18 @@
  */
 
 var app = angular.module("amazonfresh");
-app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminService",function ($scope, $window, $rootScope, AdminService) {
+app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminService","ValidationService",function ($scope, $window, $rootScope, AdminService, ValidationService) {
 	$scope.Customers = true;
 	$scope.Farmers = true;
 	$scope.Products = true;
 	$scope.Trucks = true;
+
+	$scope.notf1Options = {
+		templates: [{
+			type: "ngTemplate",
+			template: $("#notificationTemplate").html()
+		}]
+	};
 
 	$scope.$watch('type', function( val ) {
 		if( val === 'Customers' ) {
@@ -289,7 +296,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 		});
 	}
 
-	$scope.updateInfoTruck = function(){
+	$scope.updateInfoTruck = function() {
 		var info = {
 			"firstName": $scope.res.firstName,
 			"lastName": $scope.res.lastName,
@@ -308,14 +315,68 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			"truckModel" : $scope.res.truckModel,
 			"freeFrom" : $scope.res.freeFrom
 		};
-		var promise = AdminService.updateTruckInfo(info);
-		promise.then(function (result) {
-			$scope.data = result.data.data;
-			$scope.abcd = 2;
-			$window.location.href = "/#admin/home"
-		}, function (error) {
-			alert("Error - " + error.data.error);
-		});
+		var errors = $scope.getValidateUpdateTruckErrors();
+		if(errors.length > 0) {
+			for(var i = 0; i < errors.length ; i++) {
+				$scope.errorNotification.show({
+					kValue: errors[i]
+				},"ngTemplate");
+			}
+		} else {
+			var promise = AdminService.updateTruckInfo(info);
+			promise.then(function (result) {
+				$scope.data = result.data.data;
+				$scope.abcd = 2;
+				$window.location.href = "/#admin/home"
+			}, function (error) {
+				alert("Error - " + error.data.error);
+			});
+		}
+	}
+	
+	$scope.getValidateUpdateTruckErrors = function () {
+		var errors = [];
+
+		if (ValidationService.isEmpty($scope.res.firstName)) {
+			errors.push("First name can not be empty! ");
+		}
+		if (ValidationService.isEmpty($scope.res.lastName)) {
+			errors.push("Last name can not be empty! ");
+		}
+		if (ValidationService.isEmpty($scope.res.email)) {
+			errors.push("Email can not be empty! ");
+		}
+		if (ValidationService.isEmpty($scope.res.password)) {
+			errors.push("Password can not be empty! ");
+		}
+		if (ValidationService.isEmpty($scope.res.phoneNumber)) {
+			errors.push("Phone number can not be empty! ");
+		}
+		if (ValidationService.isEmpty($scope.res.ssn)) {
+			errors.push("SSN can not be empty! ");
+		}
+		if (ValidationService.isEmpty($scope.res.address)) {
+			errors.push("Address can not be empty! ");
+		}
+		if (ValidationService.isEmpty($scope.res.state)) {
+			errors.push("State can not be empty! ");
+		}
+		if (ValidationService.isEmpty($scope.res.city)) {
+			errors.push("City can not be empty! ");
+		}
+		if (ValidationService.isEmpty($scope.res.zipCode)) {
+			errors.push("Zip Code can not be empty! ");
+		}
+		if (!ValidationService.validateEmail($scope.res.email)) {
+			errors.push("Email Address not valid! ");
+		}
+		if (!ValidationService.validateSSN($scope.res.ssn)) {
+			errors.push("SSN not valid! ");
+		}
+		if (!ValidationService.validateZipCode($scope.res.zipCode)) {
+			errors.push("Zip code not valid! ");
+		}
+		return errors;
 	}
 
 	$scope.goToRevenuePerDay = function(){
