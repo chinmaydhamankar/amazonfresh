@@ -50,9 +50,9 @@ body {
 }
 
 .sign-up-prompt-span {
-    font-weight: normal;
-!important;
-    font-size: small;
+    font-weight: 400;
+    color: midnightblue;
+    margin-top: 1rem;
 }
 
 h1 {
@@ -393,7 +393,7 @@ input[name = farmer1-password] {
     margin-top: -3rem;
     position: fixed;
     width: 30rem;
-    height: 100rem;
+    height: 100%;
     overflow-y: auto;
     background: #303030;
     -webkit-transition: all 0.5s ease;
@@ -437,6 +437,8 @@ input[name = farmer1-password] {
 
 .sidebar-nav {
     margin-top: 2rem;
+    overflow: auto;
+    height: 80%;
 }
 
 .notification {
@@ -966,4 +968,15 @@ Shruti's classes.
 #viewItem
 {
     margin-left: 1rem;
+}
+
+.auth-error {
+    color: red;
+    text-align: center;
+}
+
+.admin-bills-wrapper {
+    height: initial !important;
+    padding: 1.5rem 1.5rem 1.5rem 1.5rem !important;
+    color: snow;
 }

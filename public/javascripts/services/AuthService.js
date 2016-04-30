@@ -20,7 +20,7 @@ angular.module("amazonfresh").factory("AuthService",["$http","$q", function ($ht
 					def.reject(data.data.error);
 				}
 			}, function (error) {
-				def.reject(error);
+				def.reject(error.data);
 			});
 			return def.promise;
 		}

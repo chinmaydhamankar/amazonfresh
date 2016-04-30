@@ -249,9 +249,42 @@
 
 
 <div class="pending-request-wrapper col-md-8 col-md-offset-4" ng-show = "variable == 10">
-    <div  class = "pending-request-row container col-md-8" ng-repeat = "value in data">
-        <div class="col-sm-8">
-            <label style="font-size: 2rem; color: floralwhite;margin-top: 3.5rem;"> {{ value.order_date}} {{value.total_amount}}</label>
+    <div  class = "pending-request-row admin-bills-wrapper container col-md-8" ng-repeat = "value in data">
+        <div class="row">
+            <div class="col-md-4">
+                <label>Bill Number</label>
+                <p>{{value.bill_id}}</p>
+            </div>
+            <div class="col-md-4">
+                <label>Customer ID</label>
+                <p>{{value.customer_id}}</p>
+            </div>
+            <div class="col-md-3">
+                <label>Total Amount</label>
+                <p>${{value.total_amount}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Product Name</label>
+            </div>
+            <div class="col-md-4">
+                <label>Quantity</label>
+            </div>
+            <div class="col-md-3">
+                <label>Price / Unit</label>
+            </div>
+        </div>
+        <div class="row" ng-repeat="item in value.item_details">
+            <div class="col-md-4">
+                <p>{{item.product_name}}</p>
+            </div>
+            <div class="col-md-4">
+                <p>{{item.quantity}}</p>
+            </div>
+            <div class="col-md-3">
+                <p>${{item.price_per_unit}}</p>
+            </div>
         </div>
     </div>
 </div>

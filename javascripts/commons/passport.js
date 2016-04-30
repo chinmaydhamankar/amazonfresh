@@ -27,6 +27,8 @@ module.exports = function (passport) {
 						} else {
 							return done("Invalid Password", false);
 						}
+					} else {
+						return done("User not found!", false);
 					}
 				});
 			});

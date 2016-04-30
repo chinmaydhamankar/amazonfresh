@@ -3,7 +3,8 @@
  */
 
 var app = angular.module("amazonfresh");
-app.controller('CustomersController',["$scope","US_STATES","CustomerService",function ($scope, US_STATES, CustomerService) {
+app.controller('CustomersController',["$scope","US_STATES","CustomerService","ValidationService",
+    function ($scope, US_STATES, CustomerService,ValidationService) {
     function init(){
         new Card({
             form: document.querySelector('form'),
@@ -19,6 +20,13 @@ app.controller('CustomersController',["$scope","US_STATES","CustomerService",fun
     };
 
     $scope.signup = function () {
+
+        if($scope.credentials.password !== $scope.verifyPassword){
+            $scope.errorNotification.show({
+                kValue: "Password do not match!"
+            },"ngTemplate");
+        }
+
         var info = {
             "firstName": $scope.firstName,
             "lastName": $scope.lastName,
@@ -34,12 +42,83 @@ app.controller('CustomersController',["$scope","US_STATES","CustomerService",fun
             "cardNumber" : $scope.cardNumber,
             "expiry" : $scope.expiry
         }
-        var promise = CustomerService.signup(info);
-        promise.then(function (result) {
-            alert("Success!");
-        }, function (error) {
-            alert("Error - " + error);
-        });
+        var errors = _getErrors(info);
+        if(errors.length > 0 ){
+            for(var i = 0 ; i < errors.length ; i++) {
+                $scope.errorNotification.show({
+                    kValue: errors[i]
+                },"ngTemplate");
+            }
+        }
+        else
+        {
+            var promise = CustomerService.signup(info);
+            promise.then(function (result) {
+                alert("Success!");
+            }, function (error) {
+                alert("Error - " + error);
+            });
+        }
+
+    }
+
+    $scope.notf1Options = {
+        templates: [{
+            type: "ngTemplate",
+            template: $("#notificationTemplate").html()
+        }]
+    };
+
+
+    _getErrors = function (info) {
+        var errors = [];
+        if(! ValidationService.validateCharacters(info.firstName)) {
+             errors.push("First Name can not be empty or invalid!");
+        }
+
+        if(!ValidationService.validateCharacters(info.lastName)) {
+            errors.push("Last Name can not be empty or invalid!");
+        }
+
+        if(! ValidationService.validateEmail(info.email)) {
+            errors.push("Email can not be empty or invalid!");
+        }
+
+        if(! ValidationService.validatePassword(info.password)) {
+            errors.push("Password should contain 8 characters " +
+                "1 uppercase character " +
+                "1 special character!" +
+                "1 digit" +
+                "3 lowercase character");
+        }
+
+        if(! ValidationService.validatePhoneNumber(info.phoneNumber)) {
+            errors.push("Phone Number can not be empty or invalid!");
+        }
+
+        if(! ValidationService.validateSSN(info.ssn)) {
+            errors.push("SSN can not be empty or invalid!");
+        }
+
+        if(! ValidationService.isEmpty(info.address)) {
+            errors.push("Address can not be empty!");
+        }
+
+        if(! ValidationService.isEmpty(info.state)) {
+            errors.push("State can not be empty!");
+        }
+
+        if(! ValidationService.validateCharacters(info.city)) {
+            errors.push("City can not be empty!");
+        }
+
+        if(! ValidationService.validateZipCode(info.zipCode)) {
+            errors.push("Zip Code can not be empty or invalid!");
+        }
+        if(! ValidationService.validateCreditCardExpiry(info.expiry)){
+            errors.push("Expiry can not be empty or invalid!");
+        }
+        return errors;
     }
 
 }]);
