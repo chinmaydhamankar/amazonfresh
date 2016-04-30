@@ -10,13 +10,14 @@ var Auth = require("./authentication");
 var TripHandler = require("../javascripts/trips/tripshandler");
 var UserTypes = require("../javascripts/commons/constants").usertypes;
 var MQClient = require("../rpc/client");
+const QUEUE_NAME = "trips_queue";
 
 router.get("/", Auth.requireLogin, function (req, res) {
 	var payload = {
 		type: "all_trips"
 	};
 	//var promise = TripHandler.getAllTrips();
-	var promise = MQClient.request("trips_queue", payload);
+	var promise = MQClient.request(QUEUE_NAME, payload);
 	promise.done(function (result) {
 		if(result.statusCode === 200) {
 			res.send({
@@ -48,13 +49,31 @@ router.post("/", Auth.requireLogin, function (req, res) {
 	var customerID = req.body.customerID,
 		farmerID = req.body.farmerID,
 		productID = req.body.productID;
-	var promise = TripHandler.generateTrip(customerID, farmerID, productID);
+	var payload = {
+		type: "generate_trip",
+		info: {
+			customerID: customerID,
+			farmerID: farmerID,
+			productID: productID
+		}
+	};
+	//var promise = TripHandler.generateTrip(customerID, farmerID, productID);
+	var promise = MQClient.request(QUEUE_NAME, payload);
 	promise.done(function (result) {
-		res.send({
-			success: true,
-			error: null,
-			data: "Trip registered successfully!"
-		});
+		if(result.statusCode === 200) {
+			res.send({
+				success: true,
+				error: null,
+				data: "Trip registered successfully!"
+			});
+		} else {
+			res.status(500).send({
+				success: false,
+				error: "Error occurred!",
+				data: null
+			});
+		}
+
 	}, function (error) {
 		res.status(500).send({
 			success: false,
@@ -69,13 +88,27 @@ router.post("/", Auth.requireLogin, function (req, res) {
  */
 router.get("/id/:tripID", Auth.requireLogin, function (req, res) {
 	var tripID = req.params.tripID;
-	var promise = TripHandler.findTripById(tripID);
+	//var promise = TripHandler.findTripById(tripID);
+	var payload = {
+		type: "get_trip_id",
+		tripID: tripID
+	};
+	var promise = MQClient.request(QUEUE_NAME, payload);
 	promise.done(function (result) {
-		res.send({
-			success: true,
-			error: null,
-			data: result
-		});
+		if(result.statusCode === 200) {
+			res.send({
+				success: true,
+				error: null,
+				data: result.response
+			});
+		} else {
+			res.send({
+				success: false,
+				error: "Error",
+				data: result.error
+			});
+		}
+
 	}, function (error) {
 		res.status(500).send({
 			success: false,
