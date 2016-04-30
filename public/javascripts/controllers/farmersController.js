@@ -139,11 +139,11 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
 
     _getfarmErrors = function (info) {
         var errors = [];
-        if(! ValidationService.validateCharacters(info.firstName)) {
+        if( ValidationService.isEmpty(info.firstName)) {
             errors.push("First Name can not be empty or invalid!");
         }
 
-        if(!ValidationService.validateCharacters(info.lastName)) {
+        if(ValidationService.isEmpty(info.lastName)) {
             errors.push("Last Name can not be empty or invalid!");
         }
 
