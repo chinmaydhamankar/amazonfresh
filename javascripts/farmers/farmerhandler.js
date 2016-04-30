@@ -133,6 +133,7 @@ exports.searchFarmerInfo = function(info)
 
 exports.updateFarmer = function (info) {
     var deferred = Q.defer();
+    console.log(info.state);
     var promise = _validateFarmerInfo1(info);
     promise.done(function () {
         var cursor = MongoDB.collection("users").update({"ssn": info.ssn,"usertype" : "FARMER"},
@@ -144,6 +145,7 @@ exports.updateFarmer = function (info) {
                 "city": info.city,
                 "state" : info.state,
                 "zipCode" : info.zipCode,
+                "url" : info.url,
                 "phoneNumber" : info.phoneNumber,
                 "email" : info.email,
                 "password" : info.password,
