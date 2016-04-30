@@ -30,7 +30,8 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
             "address": $scope.address,
             "state": $scope.state,
             "city": $scope.city,
-            "zipCode": $scope.zipcode
+            "zipCode": $scope.zipcode,
+            "url" : $scope.url
         }
         var errors = _getfarmErrors(info);
         if(errors.length > 0 ){
@@ -99,11 +100,14 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
             "state": $scope.state,
             "city": $scope.data.city,
             "zipCode": $scope.data.zipCode,
+            "url" : $scope.data.url,
             "usertype" : $scope.data.usertype,
             "rating" : $scope.data.rating,
             "reviews" : $scope.data.reviews,
             "location" : $scope.data.location
         }
+
+        alert(info.state);
         var errors = _getfarm1Errors(info);
         if(errors.length > 0 ){
             for(var i = 0 ; i < errors.length ; i++) {
@@ -201,9 +205,6 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
             errors.push("Address can not be empty!");
         }
 
-        if( ValidationService.isEmpty(info.state)) {
-            errors.push("State can not be empty!");
-        }
 
         if( ValidationService.isEmpty(info.city)) {
             errors.push("City can not be empty!");
@@ -240,10 +241,6 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
 
             if(ValidationService.isEmpty(info.address)) {
                 errors.push("Address can not be empty!");
-            }
-
-            if( ValidationService.isEmpty(info.state)) {
-                errors.push("State can not be empty!");
             }
 
             if( ValidationService.isEmpty(info.city)) {
