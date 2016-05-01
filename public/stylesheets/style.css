@@ -981,3 +981,13 @@ Shruti's classes.
     padding: 1.5rem 1.5rem 1.5rem 1.5rem !important;
     color: snow;
 }
+/*productList search div*/
+.productlist
+{
+    margin-top: -13rem;
+    margin-left: 80rem;
+    width: 26rem;
+    height: 6rem;
+    background-color: #585858;
+    border-radius: 1rem;
+}
