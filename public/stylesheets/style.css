@@ -390,7 +390,7 @@ input[name = farmer1-password] {
 
 #AdminSidePanel {
     z-index: 1000;
-    margin-top: -3rem;
+    margin-top: 0rem;
     position: fixed;
     width: 30rem;
     height: 100%;
@@ -522,7 +522,7 @@ input[name = farmer1-password] {
 }
 
 .searchdiv {
-    margin-top: -13rem;
+    margin-top: 0rem;
     margin-left: 102rem;
     width: 26rem;
     height: 6rem;
