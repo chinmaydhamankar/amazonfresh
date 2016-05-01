@@ -74,11 +74,11 @@ app.controller('CustomersController',["$scope","US_STATES","CustomerService","Va
 
     _getErrors = function (info) {
         var errors = [];
-        if(! ValidationService.validateCharacters(info.firstName)) {
+        if(ValidationService.isEmpty(info.firstName)) {
              errors.push("First Name can not be empty or invalid!");
         }
 
-        if(!ValidationService.validateCharacters(info.lastName)) {
+        if(ValidationService.isEmpty(info.lastName)) {
             errors.push("Last Name can not be empty or invalid!");
         }
 
@@ -86,9 +86,14 @@ app.controller('CustomersController',["$scope","US_STATES","CustomerService","Va
             errors.push("Email can not be empty or invalid!");
         }
 
-        if(ValidationService.isEmpty(info.password)) {
-            errors.push("Password can not be empty!");
+        if(ValidationService.isEmpty(info.cardName)) {
+            errors.push("Card name can not be empty!");
         }
+
+        if(ValidationService.isEmpty(info.cardNumber)) {
+            errors.push("Card number can not be empty!");
+        }
+
        if(! ValidationService.validatePassword(info.password)) {
             errors.push("Password should contain 8 characters " +
                 "1 uppercase character " +
@@ -97,7 +102,7 @@ app.controller('CustomersController',["$scope","US_STATES","CustomerService","Va
                 "3 lowercase character");
         }
 
-        if( ValidationService.isEmpty   (info.phoneNumber)) {
+        if( ValidationService.isEmpty(info.phoneNumber)) {
             errors.push("Phone Number can not be empty or invalid!");
         }
 
@@ -113,7 +118,7 @@ app.controller('CustomersController',["$scope","US_STATES","CustomerService","Va
             errors.push("State can not be empty!");
         }
 
-        if(! ValidationService.validateCharacters(info.city)) {
+        if(ValidationService.isEmpty(info.city)) {
             errors.push("City can not be empty!");
         }
 
