@@ -6,6 +6,7 @@ var farmerHandler = require("../javascripts/farmers/farmerhandler");
 var customerHandler = require("../javascripts/customers/customershandler");
 var productHandler = require("../javascripts/products/productshandler");
 var UserTypes = require("../javascripts/commons/constants").usertypes;
+var MQClient = require("../rpc/client");
 
 /**
  * Approves a farmer.
@@ -251,13 +252,20 @@ router.post("/getFarmersByAdvancedSearch",function(req,res){
 		});
 	}
     var data = req.body;
+	console.log(data);
     data = JSON.stringify(data);
-    var promise = farmerHandler.searchFarmerInfo(data);
+	var payload = {
+		type: "searchfarmer",
+		data : data
+	};
+	var promise = MQClient.request("farmer_queue", payload);
+   // var promise = farmerHandler.searchFarmerInfo(data);
+	console.log("Commiting these chage" + data);
     promise.done(function(data){
         res.send({
             success: true,
             error: null,
-            data: data
+            data: data.response
         });
     },function(err){
         res.status(500)

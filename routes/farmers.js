@@ -36,6 +36,7 @@ router.post("/", function (req, res) {
     });
 });
 
+/*
 router.delete("/:ssn", Auth.requireLogin, function (req, res) {
     var payload = {
         type: "deletefarmer",
@@ -96,6 +97,7 @@ router.get("/listfarmers", Auth.requireLogin, function (req, res) {
     });
 });
 
+*/
 
 router.get("/:ssn", Auth.requireLogin, function (req, res) {
     var payload = {
