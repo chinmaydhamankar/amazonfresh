@@ -5,10 +5,14 @@ var express = require("express");
 var router = express.Router();
 var CustomersHandler = require("../javascripts/customers/customershandler");
 var Auth = require("./authentication");
+var UserTypes = require("../javascripts/commons/constants").usertypes;
+var MQClient = require("../rpc/client");
+const QUEUE_NAME = "customers_queue";
 
 router.post("/",function (req, res) {
-    var promise = CustomersHandler.signup(req.body.info);
-    promise.done(function () {
+
+    var promise = MQClient.request(QUEUE_NAME, {type: "signup_customer",data: req.body.info});
+    promise.done(function (result) {
         res.send({
             success: true,
             error: null,
@@ -47,7 +51,7 @@ router.get("/", Auth.requireLogin, function(req,res) {
 
 
 router.put("/updateCustomer", Auth.requireLogin, function (req, res) {
-    var promise = CustomersHandler.updateCustomer(req.body.info);
+    var promise = MQClient.request(QUEUE_NAME, {type: "update_customer",data: req.body.info});
     promise.done(function () {
         res.send({
             success: true,

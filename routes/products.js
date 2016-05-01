@@ -319,13 +319,19 @@ router.post("/searchproduct", Auth.requireLogin, function (req, res) {
 });
 
 router.put("/", Auth.requireLogin, function (req, res) {
-	var promise = ProductHandler.updateproduct(req.body.info);
-	promise.done(function () {
-		res.send({
-			success: true,
-			error: null,
-			data: "products to be updated"
-		});
+
+	var promise = MQClient.request("products_queue", {type: "update_products",data: req.body.info});
+	promise.done(function (result) {
+		console.log("successfully updated");
+		if(result.statusCode == 200)
+		{
+			res.send({
+				success: true,
+				error: null,
+				data: "products is updated"
+			});
+		}
+
 	}, function (error) {
 		res.status(500)
 			.send({

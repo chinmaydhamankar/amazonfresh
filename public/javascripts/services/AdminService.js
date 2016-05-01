@@ -4,7 +4,7 @@
 
 angular.module("amazonfresh").factory("AdminService",["$window","$http","$q", function ($window, $http, $q) {
     var AdminService = {
-        signup: function () {
+        getPendingFarmers: function () {
             var url = "http://localhost:3000/admin/listunapprovedfarmers";
             var def = $q.defer();
             $http({

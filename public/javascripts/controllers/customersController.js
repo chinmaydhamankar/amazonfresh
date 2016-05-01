@@ -97,7 +97,7 @@ app.controller('CustomersController',["$scope","US_STATES","CustomerService","Va
                 "3 lowercase character");
         }
 
-        if(! ValidationService.validatePhoneNumber(info.phoneNumber)) {
+        if( ValidationService.isEmpty   (info.phoneNumber)) {
             errors.push("Phone Number can not be empty or invalid!");
         }
 

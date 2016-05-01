@@ -68,8 +68,9 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 		$scope.typeSelectionList.select(0);
 		$scope.type = "Farmers";
 	}
+
 	$scope.getPendingFarmers = function () {
-		var promise = AdminService.signup();
+		var promise = AdminService.getPendingFarmers();
 		promise.then(function (result) {
 			$scope.data = result.data;
 			$scope.abcd = 2;
@@ -110,9 +111,9 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 
 
 	$scope.approveReq = function (ssn,productID,usertype) {
-		alert(productID);
 		var promise = AdminService.approveReq(ssn,productID);
 		promise.then(function (result) {
+			alert(usertype);
 			if (result == "f") {
 				if (usertype == "FARMER") {
 
@@ -430,9 +431,6 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 		}
 		if (ValidationService.isEmpty($scope.res.email)) {
 			errors.push("Email can not be empty! ");
-		}
-		if (ValidationService.isEmpty($scope.res.password)) {
-			errors.push("Password can not be empty! ");
 		}
 		if (ValidationService.isEmpty($scope.res.phoneNumber)) {
 			errors.push("Phone number can not be empty! ");
