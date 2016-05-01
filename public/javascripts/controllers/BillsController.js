@@ -103,7 +103,7 @@ app.controller('BillsController',["$scope","$window","BillService",function ($sc
                 var item = items[i];
                 if(item.expected_delivery_date > currentDate) {
                     item.expectedDeliveryDate =  formatDate(item.expected_delivery_date);
-                    items.push({})
+                    //items.push({})
                 } else {
                     item.expectedDeliveryDate = "Delivered!";
                 }
