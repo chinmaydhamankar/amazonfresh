@@ -1,6 +1,6 @@
 /**
  * Created by Abhay on 4/27/2016.
- */
+
 angular.module("amazonfresh").directive("StarRating", [function () {
     return {
         require: 'ngModel',
@@ -45,3 +45,4 @@ angular.module("amazonfresh").directive("StarRating", [function () {
         }
     };
 }]);
+*/

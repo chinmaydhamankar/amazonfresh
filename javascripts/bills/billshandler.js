@@ -6,7 +6,9 @@ var Q = require("q");
 var TripHandler = require("../trips/tripshandler");
 var Mysql = require("../commons/mysqlhandler");
 var ProductHandler = require("../products/productshandler");
-
+var MongoDB = require("../commons/mongodbhandler");
+//var _redis = require("redis");
+//var redis = _redis.createClient();
 
 exports.generatebill = function (info,customerSSN) {
     var dynamicPricingPromise = [];
@@ -15,6 +17,14 @@ exports.generatebill = function (info,customerSSN) {
     var sqlQuery = "INSERT INTO bill (order_date, total_amount, customer_id) " +
         "VALUES (sysdate(), " + info.total_amount + ", '" + customerSSN + "');";
     console.log(sqlQuery)
+    /*redis.set('customer_id', customerSSN, function(error, result) {
+        if (error) {
+            console.log('Redis Error: ' + error);
+        }
+        else {
+            console.log("data saved in Redis successfully")
+        }
+    })*/
     var insertInBillPromise = Mysql.executeQuery(sqlQuery);
     var getTripIdPromise = [];
     var insertInItemPromise = [];
@@ -75,6 +85,31 @@ exports.generatebill = function (info,customerSSN) {
 
     return deferred.promise;
 }
+
+exports.addrating = function (info) {
+    var deferred = Q.defer();
+    var cursor = MongoDB.collection("products").find({"productID" : info.product_id});
+    cursor.each(function (error, doc) {
+        if (error) {
+            deferred.reject(error);
+        }
+        if (doc != null) {
+            var setnumberOfRatings = doc.numberOfRatings + 1;
+            var setrating = ((doc.rating*doc.numberOfRatings) + Number(info.rating))/setnumberOfRatings;
+            var cursor = MongoDB.collection("products").update({"productID" : info.product_id},{$set : {"rating" : setrating, "numberOfRatings" :  setnumberOfRatings}});
+            cursor.then(function (user) {
+                deferred.resolve(user);
+            }).catch(function (error) {
+                deferred.reject(error);
+            });
+        } else {
+
+        }
+    });
+
+    return deferred.promise;
+}
+
 exports.delete = function (billId) {
     var deferred = Q.defer();
     var promise = Mysql.executeQuery("DELETE FROM bill WHERE bill_id=" + billId + ";");
@@ -181,7 +216,6 @@ exports.revenue = function () {
     });
     return deferred.promise;
 };
-
 
 function _getOrder(billId){
     var deferred = Q.defer();

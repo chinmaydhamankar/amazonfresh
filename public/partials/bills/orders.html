@@ -33,9 +33,19 @@
             </div>
         </div>
         <div id="bill-expectedDeliveryDate" class="midright col-sm-3">
-            <div>
+            <div >
                 {{items.expectedDeliveryDate}}
                 <!--{{isDelivered}}-->
+            </div>
+
+            <div>
+                <select ng-model="rating" ng-change="ratingSelected(rating,items.product_id)">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
             </div>
 
         </div>

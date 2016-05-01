@@ -30,6 +30,31 @@ angular.module("amazonfresh").factory("BillService",["$http","$q","$window", fun
             return def.promise;
         },
 
+        addrating: function (info) {
+            var url = "http://localhost:3000/bills/addrating";
+            var def = $q.defer();
+            $http({
+                method: 'POST',
+                url: url,
+                data: {
+                    "info" : info
+                }
+            }).then(function (data) {
+                if (data.data.success) {
+                    def.resolve();
+                } else {
+                    def.reject(data.data.error);
+                }
+            }, function (error) {
+                if(error.status=== 403)
+                {
+                    $window.location.href="http://localhost:3000/#/auth/login";
+                }
+                def.reject(error);
+            });
+            return def.promise;
+        },
+
         deletebill: function (billId) {
             var url = "http://localhost:3000/bills/"+billId;
             var def = $q.defer();

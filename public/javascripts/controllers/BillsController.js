@@ -24,7 +24,22 @@ app.controller('BillsController',["$scope","$window","BillService",function ($sc
                                             "price_per_unit": 29.99
                                         }]
                     }
+
         var promise = BillService.generatebill(info);
+        promise.then(function (result) {
+            alert("Success!");
+        }, function (error) {
+            alert("Error - " + error);
+        });
+    }
+
+    $scope.ratingSelected = function (rating,product_id)
+    {
+        var info = {
+                        "rating" : rating,
+                        "product_id" : product_id
+                    }
+       var promise = BillService.addrating(info);
         promise.then(function (result) {
             alert("Success!");
         }, function (error) {
@@ -90,7 +105,6 @@ app.controller('BillsController',["$scope","$window","BillService",function ($sc
                     item.expectedDeliveryDate =  formatDate(item.expected_delivery_date);
                     items.push({})
                 } else {
-                    $scope.isDelivered = "true";
                     item.expectedDeliveryDate = "Delivered!";
                 }
             }
