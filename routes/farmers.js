@@ -5,12 +5,21 @@ var express = require("express");
 var Auth = require("./authentication");
 var router = express.Router();
 var FarmerHandler = require("../javascripts/farmers/farmerhandler");
+var UserTypes = require("../javascripts/commons/constants").usertypes;
+var MQClient = require("../rpc/client");
+const QUEUE_NAME = "farmer_queue";
+
 
 /**
  * function to register a truck driver into the system.
  */
 router.post("/", function (req, res) {
-    var promise = FarmerHandler.createfarmer(req.body.info);
+    var payload = {
+        type: "createfarmer",
+        data : req.body.info
+    };
+    var promise = MQClient.request(QUEUE_NAME, payload);
+  //  var promise = FarmerHandler.createfarmer(req.body.info);
     promise.done(function () {
         res.send({
             success: true,
@@ -28,8 +37,13 @@ router.post("/", function (req, res) {
 });
 
 router.delete("/:ssn", Auth.requireLogin, function (req, res) {
-    var ssn = req.params.ssn;
-    var promise = FarmerHandler.delete(ssn);
+    var payload = {
+        type: "deletefarmer",
+        data : req.params.ssn
+    };
+    var promise = MQClient.request(QUEUE_NAME, payload);
+   // var ssn = req.params.ssn;
+    //var promise = FarmerHandler.delete(ssn);
     promise.done(function () {
         res.status(204)
             .send();
@@ -84,14 +98,19 @@ router.get("/listfarmers", Auth.requireLogin, function (req, res) {
 
 
 router.get("/:ssn", Auth.requireLogin, function (req, res) {
-    var ssn = req.session.user.ssn;
-    console.log("Session is" + ssn);
-    var promise = FarmerHandler.getFarmerInfo(ssn);
+    var payload = {
+        type: "getFarmerInfo",
+        ssn : req.session.user.ssn
+    };
+    var promise = MQClient.request(QUEUE_NAME, payload);
+    //var ssn = req.session.user.ssn;
+    //console.log("Session is" + ssn);
+    //var promise = FarmerHandler.getFarmerInfo(ssn);
     promise.done(function (farmerinfo) {
         res.send({
             success: true,
             error: null,
-            data: farmerinfo
+            data: farmerinfo.response
         });
     }, function (error) {
         res.status(500)
@@ -105,7 +124,12 @@ router.get("/:ssn", Auth.requireLogin, function (req, res) {
 
 router.put("/updateFarmer", Auth.requireLogin, function (req, res) {
     console.log("In farmer.js");
-    var promise = FarmerHandler.updateFarmer(req.body.info);
+    var payload = {
+        type: "updatefarmer",
+        data : req.body.info
+    };
+    var promise = MQClient.request(QUEUE_NAME, payload);
+ //   var promise = FarmerHandler.updateFarmer(req.body.info);
     promise.done(function () {
         res.send({
             success: true,

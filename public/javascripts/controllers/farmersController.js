@@ -70,7 +70,7 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
         $scope.vari = 1;
         var promise = FarmerService.getMyProfile();
         promise.then(function (result) {
-            alert(result.data.data.password);
+            alert(result.data.data.isApproved);
             $scope.data = result.data.data;
             $scope.abcd = 2;
             $scope.farmlength = result.data.data.length;
@@ -97,10 +97,11 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
             "phoneNumber": $scope.data.phoneNumber,
             "ssn": $scope.data.ssn,
             "address": $scope.data.address,
-            "state": $scope.state,
+            "state": $scope.data.state,
             "city": $scope.data.city,
             "zipCode": $scope.data.zipCode,
             "url" : $scope.data.url,
+            "isApproved" : $scope.isApproved,
             "usertype" : $scope.data.usertype,
             "rating" : $scope.data.rating,
             "reviews" : $scope.data.reviews,
@@ -256,5 +257,3 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
 
 
 }]);
-
-
