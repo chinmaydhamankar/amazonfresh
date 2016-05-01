@@ -39,7 +39,12 @@ router.post("/generatebill", Auth.requireLogin, function (req, res) {
 });
 
 router.post("/addrating", Auth.requireLogin, function (req, res) {
-    var promise = BillHandler.addrating(req.body.info);
+    var payload = {
+        type: "addrating",
+        info: req.body.info
+    };
+    var promise = MQClient.request(QUEUE_NAME, payload);
+//    var promise = BillHandler.addrating(req.body.info);
     promise.done(function () {
         res.send({
             success: true,
