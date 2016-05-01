@@ -56,14 +56,14 @@ router.post("/", Auth.requireLogin, function (req, res) {
 			productID: productID
 		}
 	};
-	//var promise = TripHandler.generateTrip(customerID, farmerID, productID);
+
 	var promise = MQClient.request(QUEUE_NAME, payload);
 	promise.done(function (result) {
 		if(result.statusCode === 200) {
 			res.send({
 				success: true,
 				error: null,
-				data: "Trip registered successfully!"
+				data: " Trip registered successfully! "
 			});
 		} else {
 			res.status(500).send({

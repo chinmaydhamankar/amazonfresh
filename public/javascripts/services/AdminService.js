@@ -321,7 +321,6 @@ angular.module("amazonfresh").factory("AdminService",["$window","$http","$q", fu
         },
         tripsInfo : function()
         {
-            alert("in service trips info");
             var url = "http://localhost:3000/trips";
             var def = $q.defer();
             $http({
