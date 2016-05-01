@@ -990,3 +990,15 @@ Shruti's classes.
     background-color: #585858;
     border-radius: 1rem;
 }
+
+#welcomeAdmin{
+    color: #4c3a3a;
+    text-shadow: -10px 10px 0px #79a5a5,
+    -20px 20px 0px #a9d4d4,
+    -30px 30px 0px #4b7979;
+
+    margin-left: 41rem;
+    font-size: 10rem !important;
+    font-weight: 600 !important;
+    margin-top: 12rem !important;
+}
