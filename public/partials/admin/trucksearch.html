@@ -30,7 +30,7 @@
 
 <div class="pending-request-wrapper col-md-8 col-md-offset-4" ng-show = "variable == 1 || variable == 2 || variable == 3 || variable == 7">
     <div  class = "pending-request-row container col-md-8" ng-repeat = "value in data.data">
-        <div class="col-sm-8">
+        <div class="col-sm-5">
             <label style="font-size: 2rem; color: floralwhite;margin-top: 3.5rem;" ng-show = "abcd == 2"> {{ value.firstName}} {{value.lastName}}</label>
             <label style="font-size: 2rem; color: floralwhite;margin-top: 3.5rem;" ng-show = "abcd == 1"> {{ value.productName}}</label>
         </div>
@@ -49,7 +49,7 @@
 
 <div class="pending-request-wrapper col-md-8 col-md-offset-4" ng-show = "variable == 8">
     <div  class = "pending-request-row container col-md-8" ng-repeat = "value in truckResult">
-        <div class="col-sm-8">
+        <div class="col-sm-5">
             <label style="font-size: 2rem; color: floralwhite;margin-top: 3.5rem;"> {{ value.firstName}} {{value.lastName}}</label>
         </div>
         <div class="col-sm-2">
@@ -59,37 +59,130 @@
             <button id="viewItem" type="button" class="btn btn-primary" ng-click = "truckpopup.center().open()" ng-show="!popupvisible">View</button>
         </div>
         <div class="col-sm-2">
-            <button id="deleteButton" type="button" class="btn btn-danger" ng-click = "declineReq(value.ssn,value.productName,value.usertype)">Decline</button>
+            <button id="deleteButton" type="button" class="btn btn-danger" ng-click = "declineReq(value.ssn,value.productName,value.usertype)">Delete</button>
         </div>
         <div kendo-window = "truckpopup" k-options="advancedSearchWindowOptions" k-on-open = "popupvisible = true; viewTruckInfo(value.ssn);" k-on-close="popupvisible = false">
+            <div class="row">
+                <div class="col-sm-4 col-md-4"><label>First Name</label></div>
+                <div class="col-sm-1 col-md-1"><label> {{ res.firstName}}</label></div>
+            </div>
 
-            <label>First Name</label><label> {{ res.firstName}}</label>
-            <label>Last Name</label><label>{{ res.lastName}}</label>
-            <label>Email</label><label>{{res.email }}</label>
-            <label>Phone Number</label><label>{{res.phoneNumber }}</label>
-            <label>Social Security Number</label><label>{{ res.ssn}}</label>
-            <label>Address</label><label>{{ res.address}}</label>
-            <label>City</label><label>{{res.city }}</label>
-            <label>State</label><label>{{ res.state}}</label>
-            <label>Zip code</label><label>{{ res.zipCode}}</label>
-            <label>Truck Manufacturer</label><label>{{ res.truckManufacturer}}</label>
-            <label>Truck Model</label><label>{{ res.truckModel}}</label>
+            <div class="row">
+
+                <div class="col-sm-4 col-md-4"><label>Last Name</label></div>
+                <div class="col-sm-1 col-md-1"><label>{{ res.lastName}}</label></div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-md-4"><label>Email</label></div>
+                <div class="col-sm-1 col-md-1"><label>{{res.email }}</label></div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-md-4"><label>Phone Number</label></div>
+                <div class="col-sm-1 col-md-1"><label>{{res.phoneNumber }}</label></div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-4 col-md-4"><label>Social Security Number</label></div>
+                <div class="col-sm-3 col-md-3"><label>{{ res.ssn}}</label></div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-md-4"><label>Address</label></div>
+                <div class="col-sm-4 col-md-4"> <label>{{ res.address}}</label></div>
+                </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-md-4"><label>City</label></div>
+                <div class="col-sm-3 col-md-3"><label>{{res.city }}</label></div>
+                </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-md-4"><label>State</label></div>
+                <div class="col-sm-1 col-md-1"><label>{{ res.state}}</label></div>
+                </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-md-4"><label>Zip code</label></div>
+                <div class="col-sm-1 col-md-1"><label>{{ res.zipCode}}</label></div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-md-4"><label>Truck Manufacturer</label></div>
+                <div class="col-sm-3 col-md-3"><label>{{ res.truckManufacturer}}</label></div>
+           </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-md-4"><label>Truck Model</label></div>
+                <div class="col-sm-3 col-md-3"><label>{{ res.truckModel}}</label></div>
+            </div>
         </div>
 
         <div kendo-window = "truckupdatepopup" k-options="advancedSearchWindowOptions" k-on-open = "popupvisible = true; viewTruckInfo(value.ssn);" k-on-close="popupvisible = false">
 
-            <label>First Name</label><input type = text ng-model = res.firstName /><br>
-            <label>Last Name</label><input type = text ng-model = res.lastName /><br>
-            <label>Email</label><input type = text ng-model = res.email /><br>
-            <label>Phone Number</label><input type = text ng-model = res.phoneNumber /><br>
-            <label>Social Security Number</label><input type = text ng-model = res.ssn /><br>
-            <label>Address</label><input type = text ng-model = res.address /><br>
-            <label>City</label><input type = text ng-model = res.city /><br>
-            <label>State</label><input type = text ng-model = res.state /><br>
-            <label>Zip code</label><input type = text ng-model = res.zipCode /><br>
-            <label>Truck Manufacturer</label><input type = text ng-model = res.truckManufacturer /><br>
-            <label>Truck Model</label><input type = text ng-model = res.truckModel /><br>
-            <button id="updatebutton" type="button" class="btn btn-primary" ng-click = "updateInfoTruck()">Update</button>
+            <div class="row">
+                <div class="col-sm-4 col-md-4"><label>First Name</label></div>
+                <div class="col-sm-1 col-md-1"><input type = text ng-model = res.firstName /></div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-4 col-md-4"><label>Last Name</label></div>
+                <div class="col-sm-1 col-md-1"><input type = text ng-model = res.lastName /></div>
+             </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-md-4"><label>Email</label></div>
+                <div class="col-sm-1 col-md-1"><input type = text ng-model = res.email /></div>
+                </div>
+
+             <div class="row">
+                 <div class="col-sm-4 col-md-4"><label>Phone Number</label></div>
+                 <div class="col-sm-1 col-md-1"><input type = text ng-model = res.phoneNumber /></div>
+             </div>
+
+             <div class="row">
+                 <div class="col-sm-4 col-md-4"><label>Social Security Number</label></div>
+                 <div class="col-sm-3 col-md-3"><input type = text ng-model = res.ssn /></div>
+              </div>
+
+             <div class="row">
+
+                 <div class="col-sm-4 col-md-4"><label>Address</label></div>
+                 <div class="col-sm-3 col-md-3"> <input type = text ng-model = res.address /></div>
+             </div>
+
+             <div class="row">
+                 <div class="col-sm-4 col-md-4"><label>City</label></div>
+                 <div class="col-sm-1 col-md-1"><input type = text ng-model = res.city /></div>
+              </div>
+
+              <div class="row">
+                  <div class="col-sm-4 col-md-4"><label>State</label></div>
+                  <div class="col-sm-1 col-md-1"> <input type = text ng-model = res.state /></div>
+              </div>
+
+             <div class="row">
+                 <div class="col-sm-4 col-md-4"><label>Zip code</label></div>
+                 <div class="col-sm-1 col-md-1"><input type = text ng-model = res.zipCode /></div>
+            </div>
+
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4"><label>Truck Manufacturer</label></div>
+                        <div class="col-sm-1 col-md-1"><input type = text ng-model = res.truckManufacturer /></div>
+                    </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-md-4"><label>Truck Model</label></div>
+                <div class="col-sm-1 col-md-1"><input type = text ng-model = res.truckModel /></div>
+             </div>
+
+            <div class="row">
+            <button id="updatebutton" type="button" class="btn btn-primary" ng-click = "updateInfoTruck()"style="margin-left: 50rem !important">Update</button>
+            </div>
         </div>
 
 
