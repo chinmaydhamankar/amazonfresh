@@ -16,7 +16,7 @@ app.controller('AuthController', ["$scope","$window","AuthService","USER_TYPES",
 				$scope.redirectToFarmerHome();
 			}
 		}, function (error) {
-			$scope.error = error.error;
+			$scope.error = error;
 		});
 	};
 
@@ -39,4 +39,8 @@ app.controller('AuthController', ["$scope","$window","AuthService","USER_TYPES",
 	$scope.redirectToDriverSignUp = function () {
 		$window.location.href = "/#trucks/signup";
 	};
+
+	$scope.redirectToCustomerSignUp = function () {
+		$window.location.href = "/#customers/signup";
+	}
 }]);

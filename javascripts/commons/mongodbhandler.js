@@ -22,7 +22,19 @@ pool.getCollection = function (name) {
  * Connects to the MongoDB Database with the provided URL
  */
 exports.connect = function (url, callback) {
-	MongoClient.connect(url, function (err, _db) {
+	MongoClient.connect(url,{ options: {
+		server:{
+			auto_reconnect: true,
+				poolSize: 10,
+				socketOptions:{
+				keepAlive: 1
+			}
+		},
+		db: {
+			numberOfRetries: 10,
+				retryMiliSeconds: 1000
+		}
+	}},function (err, _db) {
 		if (err) {
 			throw new Error('Could not connect: ' + err);
 		}
