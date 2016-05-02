@@ -36,7 +36,7 @@ angular.module("amazonfresh").controller("ProductController", ["$scope", "$windo
 
 			var promise = ProductService.createproduct(info);
 			promise.then(function (result) {
-				alert("Success!");
+				//alert("Success!");
 			}, function (error) {
 				alert("Error - " + error);
 			});
@@ -58,7 +58,7 @@ angular.module("amazonfresh").controller("ProductController", ["$scope", "$windo
 	$scope.deleteproduct = function (productID) {
 		var promise = ProductService.deleteproduct(productID);
 		promise.then(function (result) {
-			alert("Success!");
+			//alert("Success!");
 		}, function (error) {
 			alert("Error" + error);
 		});

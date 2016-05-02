@@ -65,7 +65,7 @@ angular.module("amazonfresh").factory("BillService",["$http","$q","$window", fun
                 if (data.status==204) {
                     def.resolve();
                 } else {
-                    alert("ala error")
+                    //alert("ala error")
                     def.reject(data.data.error);
                 }
             }, function (error) {

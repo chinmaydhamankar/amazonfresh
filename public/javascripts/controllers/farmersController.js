@@ -3,8 +3,8 @@
  */
 
 var app = angular.module("amazonfresh");
-app.controller('FarmersController',["$scope","US_STATES","FarmerService","ProductService","ValidationService",
-    function ($scope, US_STATES, FarmerService,ProductService,ValidationService) {
+app.controller('FarmersController',["$window","$scope","US_STATES","FarmerService","ProductService","ValidationService",
+    function ($window, $scope, US_STATES, FarmerService,ProductService,ValidationService) {
     $scope.credentials = {};
 
     $scope.USStatesOptions = {
@@ -45,7 +45,8 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
         {
             var promise = FarmerService.signup(info);
             promise.then(function (result) {
-                alert("Success!");
+                //alert("Success!");
+                $window.location.href = "http://localhost:3000/";
             }, function (error) {
                 alert("Error - " + error);
             });
@@ -70,7 +71,7 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
         $scope.vari = 1;
         var promise = FarmerService.getMyProfile();
         promise.then(function (result) {
-            alert(result.data.data.isApproved);
+            //alert(result.data.data.isApproved);
             $scope.data = result.data.data;
             $scope.abcd = 2;
             $scope.farmlength = result.data.data.length;
@@ -108,7 +109,7 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
             "location" : $scope.data.location
         }
 
-        alert(info.state);
+        //alert(info.state);
         var errors = _getfarm1Errors(info);
         if(errors.length > 0 ){
             for(var i = 0 ; i < errors.length ; i++) {
@@ -152,7 +153,8 @@ app.controller('FarmersController',["$scope","US_STATES","FarmerService","Produc
 
             var promise = ProductService.createproduct(info);
             promise.then(function (result) {
-                alert("Success!");
+                //alert("Success!");
+                $window.location.href = "http://localhost:3000/#farmers/homepage";
             }, function (error) {
                 alert("Error - " + error);
             });

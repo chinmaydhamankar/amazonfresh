@@ -3,7 +3,7 @@
  */
 var app = angular.module("amazonfresh");
 
-app.controller("TrucksController", ["$scope","TruckService", "US_STATES","ValidationService", function ($scope, TruckService, US_STATES, ValidationService) {
+app.controller("TrucksController", ["$window","$scope","TruckService", "US_STATES","ValidationService", function ($window, $scope, TruckService, US_STATES, ValidationService) {
 
 	$scope.credentials = {};
 	$scope.emailError = null;
@@ -64,7 +64,8 @@ app.controller("TrucksController", ["$scope","TruckService", "US_STATES","Valida
 		} else {
 			var promise = TruckService.signup(info);
 			promise.then(function (result) {
-				alert("Success!");
+				//alert("Success!");
+				$window.location.href = "http://localhost:3000/";
 			}, function (error) {
 				alert("Error - " + error);
 			});

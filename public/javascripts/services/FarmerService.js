@@ -3,7 +3,7 @@ angular.module("amazonfresh").factory("FarmerService",["$window","$http","$q", f
     var FarmerService = {
 
         getMyProfile : function () {
-            alert("Reached Here");
+            //alert("Reached Here");
             var url = "http://localhost:3000/farmers/111-11-9910";
             var def = $q.defer();
             $http({

@@ -3,8 +3,8 @@
  */
 
 var app = angular.module("amazonfresh");
-app.controller('CustomersController',["$scope","US_STATES","CustomerService","ValidationService",
-    function ($scope, US_STATES, CustomerService,ValidationService) {
+app.controller('CustomersController',["$scope","$window","US_STATES","CustomerService","ValidationService",
+    function ($scope, $window, US_STATES, CustomerService,ValidationService) {
     function init(){
         new Card({
             form: document.querySelector('form'),
@@ -56,9 +56,10 @@ app.controller('CustomersController',["$scope","US_STATES","CustomerService","Va
         {
             var promise = CustomerService.signup(info);
             promise.then(function (result) {
-                alert("Success!");
+                //alert("Success!");
+                $window.location.href = "http://localhost:3000/";
             }, function (error) {
-                alert("Error - " + error);
+                alert("Error - " + error.error);
             });
         }
 

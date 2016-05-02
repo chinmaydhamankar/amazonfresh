@@ -53,7 +53,7 @@ angular.module("amazonfresh").factory("AdminService",["$window","$http","$q", fu
         },
 
          getPendingTrucks : function () {
-             alert("In trucks");
+             //alert("In trucks");
              var url = "http://localhost:3000/trucks/pending";
              var def = $q.defer();
              $http({
@@ -137,7 +137,7 @@ angular.module("amazonfresh").factory("AdminService",["$window","$http","$q", fu
         },
 
         getTrucksByAdvancedSearch : function(info){
-            alert("In getrucks by sreach ");
+            //alert("In getrucks by sreach ");
             var url = "http://localhost:3000/trucks/search";
             var def = $q.defer();
             $http({
@@ -253,7 +253,7 @@ angular.module("amazonfresh").factory("AdminService",["$window","$http","$q", fu
         },
 
         updateProductInfo:function(info){
-            alert("In admin service");
+            //alert("In admin service");
             var url = "http://localhost:3000/products";
             var def = $q.defer();
             $http({
@@ -276,7 +276,7 @@ angular.module("amazonfresh").factory("AdminService",["$window","$http","$q", fu
 
 
         updateTruckInfo : function(info){
-            alert("URL is http://localhost:3000/trucks/updateTruck");
+            //alert("URL is http://localhost:3000/trucks/updateTruck");
             var url = "http://localhost:3000/trucks/updateTruck";
             var def = $q.defer();
             $http({
@@ -444,7 +444,7 @@ angular.module("amazonfresh").factory("AdminService",["$window","$http","$q", fu
         approveReq: function (ssn,productID) {
             var url,x;
             if (productID === undefined) {
-                alert("Shim Add Code");
+                //alert("Shim Add Code");
                 url = "http://localhost:3000/admin/approvefarmer";
                 x = "f";
             }
