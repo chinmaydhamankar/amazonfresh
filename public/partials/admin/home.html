@@ -43,10 +43,6 @@
     <a style="text-decoration: none" id="advanced-search" ng-click = "popup.center().open()" ng-show="!popupvisible">Advanced Search</a>
 </div>
 
-<div ng-show = "variable == 20">
-    <h1 id="welcomeAdmin" > Welcome Admin</h1>
-</div>
-
 <div class="admin-advanced-search-window" kendo-window = "popup" k-options="advancedSearchWindowOptions" k-on-open = "popupvisible = true; onAdvancedSearchWindowOpen();" k-on-close="popupvisible = false">
 
     <div class="container admin-advanced-search-window-container">

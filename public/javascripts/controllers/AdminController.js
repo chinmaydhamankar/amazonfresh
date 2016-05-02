@@ -52,7 +52,7 @@ app.controller('AdminController',["$scope", "$window", "$rootScope", "AdminServi
 			$scope.getPendingFarmers();
 			$scope.getPendingProducts();
 			$scope.getPendingTrucks();
-			$rootScope.variable = 20;
+			$rootScope.variable = 1;
 		}
 	}
 
