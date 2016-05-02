@@ -2,7 +2,6 @@
 var express = require("express");
 var Auth = require("./authentication");
 var router = express.Router();
-var ProductHandler = require("../javascripts/products/productshandler");
 var UserTypes = require("../javascripts/commons/constants").usertypes;
 var MQClient = require("../rpc/client");
 
@@ -296,27 +295,6 @@ router.delete("/cart/:productID", Auth.requireLogin, function (req, res) {
 	}
 });
 
-
-router.post("/searchproduct", Auth.requireLogin, function (req, res) {
-	var productName = req.body.productName;
-
-	console.log(productName);
-	var promise = ProductHandler.searchproduct(productName);
-	promise.done(function () {
-		res.send({
-			success: true,
-			error: null,
-			data: "Got One Product!"
-		});
-	}, function (error) {
-		res.status(500)
-			.send({
-				success: false,
-				error: error,
-				data: null
-			});
-	});
-});
 
 router.put("/", Auth.requireLogin, function (req, res) {
 

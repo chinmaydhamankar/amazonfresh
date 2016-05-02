@@ -39,6 +39,17 @@ app.use(session({
 	})
 }));
 
+/*app.use(function (req, res, next) {
+	if(req.session && req.session.user) {
+		next();
+	} else {
+		res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+		res.header("Pragma", "no-cache");
+		res.header("Expires", 0);
+		next();
+	}
+});*/
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(passport.initialize());

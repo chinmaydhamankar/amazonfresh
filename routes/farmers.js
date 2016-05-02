@@ -4,8 +4,6 @@
 var express = require("express");
 var Auth = require("./authentication");
 var router = express.Router();
-var FarmerHandler = require("../javascripts/farmers/farmerhandler");
-var UserTypes = require("../javascripts/commons/constants").usertypes;
 var MQClient = require("../rpc/client");
 const QUEUE_NAME = "farmer_queue";
 

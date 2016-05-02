@@ -2,9 +2,6 @@ var express = require("express");
 var Auth = require("./authentication");
 var router = express.Router();
 var adminHandler = require("../javascripts/admin/adminhandler");
-var farmerHandler = require("../javascripts/farmers/farmerhandler");
-var customerHandler = require("../javascripts/customers/customershandler");
-var productHandler = require("../javascripts/products/productshandler");
 
 
 var UserTypes = require("../javascripts/commons/constants").usertypes;

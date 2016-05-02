@@ -16,7 +16,7 @@ app.controller('AuthController', ["$scope","$window","AuthService","USER_TYPES",
 				$scope.redirectToFarmerHome();
 			}
 		}, function (error) {
-			$scope.error = error;
+			$scope.error = error.error;
 		});
 	};
 
