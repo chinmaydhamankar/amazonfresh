@@ -160,13 +160,18 @@ router.post("/approveproduct", function (req, res) {
 	}
     var data = req.body;
     data = JSON.stringify(data);
-    var promise = adminHandler.approveproduct(data);
-    promise.done(function () {
-        res.send({
-            success: true,
-            error: null,
-            data: "Product has been approved successfully!"
-        });
+	var promise = MQClient.request(QUEUE_NAME, {type: "approveproduct",data : data});
+    //var promise = adminHandler.approveproduct(data);
+    promise.done(function (result) {
+		if(result.statusCode == 200)
+		{
+			res.send({
+				success: true,
+				error: null,
+				data: "Product has been approved successfully!"
+			});
+		}
+
     }, function (error) {
         res.status(500)
             .send({
@@ -188,8 +193,6 @@ router.post("/farmerViewInfo",function(req,res){
 	}
     var data = req.body;
     data = JSON.stringify(data);
-    console.log("SSNSNSNSNSNSNSN------"+data);
-
 	var promise = MQClient.request("farmer_queue", {type: "view_farmer",data: data});
     promise.done(function (result) {
 		if(result.statusCode == 200)
@@ -423,13 +426,19 @@ router.post("/declineproduct", function (req, res) {
     var data = req.body;
     data = JSON.stringify(data);
     console.log(data);
-    var promise = adminHandler.declineproduct(data);
-    promise.done(function () {
-        res.send({
-            success: true,
-            error: null,
-            data: "Product registration has been declined successfully!"
-        });
+
+	var promise = MQClient.request(QUEUE_NAME, {type: "decline_request_product",data: data});
+    //var promise = adminHandler.declineproduct(data);
+    promise.done(function (result) {
+		if(result.statusCode == 200)
+		{
+			res.send({
+				success: true,
+				error: null,
+				data: "Product registration has been declined successfully!"
+			});
+		}
+
     }, function (error) {
         res.status(500)
             .send({
