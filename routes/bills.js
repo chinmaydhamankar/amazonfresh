@@ -20,8 +20,6 @@ router.post("/generatebill", Auth.requireLogin, function (req, res) {
         customerSSN : req.session.user.ssn
     };
     var promise = MQClient.request(QUEUE_NAME, payload);
-/*    var customerSSN = req.session.user.ssn;
-    var promise = BillHandler.generatebill(req.body.info,customerSSN);*/
     promise.done(function () {
 		req.session.cart = [];
         res.send({

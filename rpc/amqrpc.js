@@ -4,7 +4,7 @@
 var amqp = require("amqp"),
 	crypto = require("crypto");
 
-const TIMEOUT = 10000; //time to wait for response in ms
+const TIMEOUT = 20000; //time to wait for response in ms
 const CONTENT_TYPE = "application/json";
 const CONTENT_ENCODING = "utf-8";
 var self;
