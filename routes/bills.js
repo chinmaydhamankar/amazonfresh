@@ -23,6 +23,7 @@ router.post("/generatebill", Auth.requireLogin, function (req, res) {
 /*    var customerSSN = req.session.user.ssn;
     var promise = BillHandler.generatebill(req.body.info,customerSSN);*/
     promise.done(function () {
+		req.session.cart = [];
         res.send({
             success: true,
             error: null,
