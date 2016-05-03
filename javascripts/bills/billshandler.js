@@ -11,7 +11,7 @@ var Mysql = require("../commons/mysqlhandler");
 exports.getallbills = function (customerId) {
     var deferred = Q.defer();
     var result = {};
-    var getJoinPromise = Mysql.executeQuery("SELECT * FROM bill, item Where bill.customer_id = '" + customerId + "' AND bill.bill_id = item.bill_id ;");
+    var getJoinPromise = Mysql.executeQuery("SELECT * FROM bill, item Where bill.customer_id = '" + customerId + "' AND bill.bill_id = item.bill_id LIMIT 1000;");
     getJoinPromise.done(function(joinResult){
         for(var i=0 ; i < joinResult.length ; i++){
             if(!result[joinResult[i].bill_id]) {
