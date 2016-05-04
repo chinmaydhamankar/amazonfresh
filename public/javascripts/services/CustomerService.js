@@ -19,7 +19,7 @@ angular.module("amazonfresh").factory("CustomerService",["$window","$http","$q",
             {
                 if (data.data.success)
                 {
-                    alert()
+                    //alert()
                     def.resolve();
                 }
                 else

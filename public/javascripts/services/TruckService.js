@@ -16,7 +16,7 @@ angular.module("amazonfresh").factory("TruckService",["$window","$http","$q", fu
 				if (data.data.success) {
 					def.resolve();
 				} else {
-					alert("errorororor");
+					//alert("errorororor");
 					alert(data.data.error);
 					def.reject(data.data.error);
 				}
@@ -26,7 +26,7 @@ angular.module("amazonfresh").factory("TruckService",["$window","$http","$q", fu
 				}
 				else
 				{
-					alert("Hii");
+					//alert("Hii");
 					def.reject(error.data.error);
 				}
 

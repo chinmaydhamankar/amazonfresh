@@ -271,8 +271,10 @@ app.controller("AnalyticsController",["$scope","$window","$q","AnalyticsService"
 		}).catch(function (error) {
 			if(error.status === 302) {
 				$window.location.href = "http://localhost:3000/auth/login";
+			} else {
+				alert("Oops! Something went terribly wrong! ");
 			}
-			alert("Oops! Something went terribly wrong! ");
+
 		});
 
 		/**

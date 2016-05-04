@@ -113,7 +113,7 @@ angular.module("amazonfresh").controller("ProductController", ["$scope", "$windo
 
 		$scope.searchProduct = function()
 		{
-			alert($scope.searchText);
+			//alert($scope.searchText);
 			if($scope.searchText == undefined || $scope.searchText == "")
 			{
 				init();
