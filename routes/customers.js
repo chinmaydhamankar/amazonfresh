@@ -10,17 +10,20 @@ const QUEUE_NAME = "customers_queue";
 router.post("/",function (req, res) {
     var promise = MQClient.request(QUEUE_NAME, {type: "signup_customer",data: req.body.info});
     promise.done(function (result) {
-        res.send({
-            success: true,
-            error: null,
-            data: "Customer is registered successfully!"
-        });
+        if(result.statusCode == 200)
+        {
+            res.send({
+                success: true,
+                error: null,
+                data: "Customer is registered successfully!"
+            });
+        }
+
     }, function (error) {
         res.status(500)
             .send({
                 success: false,
-                error: error,
-                data: null
+                error: "Sign Up failed"
             });
     });
 });

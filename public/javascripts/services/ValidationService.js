@@ -87,6 +87,7 @@ app.factory("ValidationService", ["$http","$q","$window", function ($http, $q, $
 		},
 
 		validateCreditCardExpiry: function(expiry){
+			var expiry = expiry.replace(/ /g ,"");
 			if (expiry) {
 				expiry = expiry.replace(" ","");
 				var regex = /^(0[1-9]|1[0-2])\/?([0-9]{2})$/;

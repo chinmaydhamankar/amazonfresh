@@ -40,16 +40,19 @@ router.post("/generatebill", Auth.requireLogin, function (req, res) {
 router.post("/addrating", Auth.requireLogin, function (req, res) {
     var payload = {
         type: "addrating",
-        info: req.body.info
+            info: req.body.info
     };
     var promise = MQClient.request(QUEUE_NAME, payload);
-//    var promise = BillHandler.addrating(req.body.info);
-    promise.done(function () {
-        res.send({
-            success: true,
-            error: null,
-            data: "rating added successfully!"
-        });
+    promise.done(function (result) {
+        if(result.statusCode == 200)
+        {
+            res.send({
+                success: true,
+                error: null,
+                data: "rating added successfully!"
+            });
+        }
+
     }, function (error) {
         res.status(500)
             .send({

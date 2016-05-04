@@ -110,6 +110,33 @@ angular.module("amazonfresh").controller("ProductController", ["$scope", "$windo
 		});
 	}
 
+
+		$scope.searchProduct = function()
+		{
+			alert($scope.searchText);
+			if($scope.searchText == undefined || $scope.searchText == "")
+			{
+				init();
+			}
+			else
+			{
+				var info =
+				{
+					productName : $scope.searchText
+				}
+				var promise = ProductService.searchProduct(info);
+				promise.then(function (result){
+					$scope.productList = result;
+					$scope.source = new kendo.data.DataSource({
+						data: result,
+						pageSize: 21
+					});
+				});
+			}
+
+		}
+
+
 	init = function () {
 		$scope.cart = [];
 		var promise = ProductService.listproducts();

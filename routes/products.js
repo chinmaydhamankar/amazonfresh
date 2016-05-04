@@ -79,14 +79,9 @@ router.delete("/:productID", Auth.requireLogin, function (req, res) {
  * function to list all products from the system.
  */
 router.get("/", Auth.requireLogin, function (req, res) {
-	var payload = {
-		type: "listallproducts",
-
-	};
-	//var promise = ProductHandler.listallproducts();
-	var promise = MQClient.request("products_queue", payload);
+	var promise = MQClient.request("products_queue", {type: "listallproducts"});
 	promise.done(function (result) {
-		if(result.statusCode === 200) {
+		if(result.statusCode == 200) {
 			res.send({
 				success: true,
 				error: null,
@@ -95,8 +90,7 @@ router.get("/", Auth.requireLogin, function (req, res) {
 		} else {
 			res.status(500).send({
 				success: false,
-				error: result.error,
-				data: null
+				error: result.error
 			});
 		}
 
@@ -176,6 +170,37 @@ router.get("/id/:productID", Auth.requireLogin, function (req, res) {
 /**
  * Adds a product to the cart.
  */
+
+router.post("/searchProduct",Auth.requireLogin,function(req,res) {
+	var info = req.body;
+	console.log("&&&&&&&&&&&"+info);
+	console.log("Product to be searched is ::"+info.productName);
+	var promise = MQClient.request("products_queue", {type: "searchProductByName",data : info});
+	promise.done(function (result) {
+		if(result.statusCode == 200) {
+			console.log("successful");
+			res.send({
+				success: true,
+				error: null,
+				data: result.data
+			});
+		} else {
+			res.status(500).send({
+				success: false,
+				error: result.error
+			});
+		}
+
+	}, function (error) {
+		res.status(500).send({
+			success: false,
+			error: error,
+			data: null
+		});
+	});
+
+});
+
 router.post("/cart/", Auth.requireLogin, function (req, res) {
 	var productID = req.body.productID;
 	console.log(productID);

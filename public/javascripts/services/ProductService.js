@@ -29,6 +29,30 @@ angular.module("amazonfresh").factory("ProductService", ["$window", "$http", "$q
 			return def.promise;
 		},
 
+		searchProduct : function(info){
+			alert(info.productName);
+			var url = "http://localhost:3000/products/searchProduct";
+			var def = $q.defer();
+			$http({
+				method: 'POST',
+				url: url,
+				data : info
+
+			}).then(function (data) {
+				if (data.data.success) {
+					def.resolve(data.data.data);
+				} else {
+					def.reject(data.data.error);
+				}
+			}, function (error) {
+				if(error.status=== 302)
+				{
+					$window.location.href="http://localhost:3000/#auth/login";
+				}
+				def.reject(error.data.error);
+			});
+			return def.promise;
+		},
 
 		listproducts: function () {
 			var url = "http://localhost:3000/products";
