@@ -225,7 +225,7 @@ router.delete("/:ssn", Auth.requireLogin, function (req, res) {
 });
 
 router.get("/populateDB", function (req, res) {
-	var promise = MQClient.request("populateDB_queue",{type: "populate_products"});
+	var promise = MQClient.request("populateDB_queue",{type: "populate_bills"});
 	promise.done(function () {
 		res.send({
 			status: "OK"

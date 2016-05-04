@@ -252,7 +252,9 @@ app.controller("AnalyticsController",["$scope","$window","$q","AnalyticsService"
 				},
 
 				xAxis: {
-					type: 'datetime'
+					title:{
+						text:'Date'
+					}
 				},
 				yAxis: {
 					title: {
@@ -282,7 +284,15 @@ app.controller("AnalyticsController",["$scope","$window","$q","AnalyticsService"
 		_processRevenuePerDay = function (data) {
 			var revenuePerDay = [];
 			for(var i = 0 ; i < data.length ; i++ ) {
-				revenuePerDay.push([data[i].date, data[i].revenue]);
+				revenuePerDay.push([getDateString(data[i]["cast(order_date as date)"]), data[i].revenue]);
+			}
+
+			function getDateString(date) {
+				var months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+				var string = "";
+				date = new Date(date);
+				string += months[date.getUTCMonth()] + " " + date.getUTCDate() + " " + date.getUTCFullYear();
+				return string;
 			}
 			return revenuePerDay;
 		}

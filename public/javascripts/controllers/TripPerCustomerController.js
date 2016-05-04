@@ -272,7 +272,8 @@ angular.module("amazonfresh").controller("TripPerCustomerController",["$scope","
 		var fullName = null;
 		var total = 0;
 		var newData = [];
-		for(var i = 0 ; i < data.length; i++) {
+		var length = data.length > 1000 ? 175 : data.length;
+		for(var i = 0 ; i < length; i++) {
 			fullName = data[i].customerFirstName + " " + data[i].customerLastName;
 			total = Number(data[i].total);
 			newData.push([fullName, total]);

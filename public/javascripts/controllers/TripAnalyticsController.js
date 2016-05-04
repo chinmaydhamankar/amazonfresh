@@ -272,7 +272,8 @@ angular.module("amazonfresh").controller("TripAnalyticsController",["$scope","Tr
 		var fullName = null;
 		var total = 0;
 		var newData = [];
-		for(var i = 0 ; i < data.length; i++) {
+		var length = data.length > 1000 ? 175 : data.length;
+		for(var i = 0 ; i < length; i++) {
 			fullName = data[i].driverFirstName + " " + data[i].driverLastName;
 			total = Number(data[i].total);
 			newData.push([fullName, total]);
