@@ -167,21 +167,25 @@ router.post("/", function (req, res) {
     //var promise = TruckHandler.signuptruck(req.body.info);
 	var promise = MQClient.request(QUEUE_NAME, payload);
     promise.done(function (result) {
-		if(result.statusCode === 200) {
+		if(result.statusCode == 200) {
+			console.log("in if part of the truck.js");
 			res.send({
 				success: true,
 				error: null,
 				data: "Truck registered successfully!"
 			});
-		} else {
+		}
+		else {
+			console.log("In else part of the truck.js");
+			console.log("Error si --"+result.error);
 			res.send({
-				success: true,
-				data: null,
+				success: false,
 				error: result.error
 			});
 		}
 
     }, function (error) {
+		console.log("In error part");
         res.status(500)
             .send({
                 success: false,

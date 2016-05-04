@@ -59,7 +59,7 @@ app.controller('CustomersController',["$scope","$window","US_STATES","CustomerSe
                 //alert("Success!");
                 $window.location.href = "http://localhost:3000/";
             }, function (error) {
-                alert("Error - " + error.error);
+                alert("Error - " + error);
             });
         }
 
