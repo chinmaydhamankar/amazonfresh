@@ -193,6 +193,43 @@ router.get("/analytics/bycustomer", function (req, res) {
 	});
 });
 
+router.get("/analytics/bylocation", function (req, res) {
+	var user = req.session.user;
+	if(user.usertype !== UserTypes.ADMIN) {
+		res.status(403).send({
+			success: false,
+			error: "Unauthorized!",
+			data: null
+		});
+	}
+	var payload = {
+		type: "trips_by_location"
+	}
+	var promise = MQClient.request(QUEUE_NAME, payload);
+	promise.done(function (result) {
+		if(result.statusCode === 200) {
+			res.send({
+				success: true,
+				error: null,
+				data: result.response
+			});
+		} else {
+			res.send({
+				success: false,
+				error: "Some error occurred!",
+				data: result.error
+			});
+		}
+
+	}, function (error) {
+		res.send({
+			success: false,
+			error: error,
+			data: null
+		});
+	});
+});
+
 
 /**
  * finds a trip with given driver ID.

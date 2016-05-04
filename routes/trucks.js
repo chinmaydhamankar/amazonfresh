@@ -4,7 +4,7 @@
 var express = require("express");
 var Auth = require("./authentication");
 var router = express.Router();
-
+var MongoDB = require("../javascripts/commons/mongodbhandler");
 var MQClient = require("../rpc/client");
 var QUEUE_NAME = "trucks_queue";
 /**

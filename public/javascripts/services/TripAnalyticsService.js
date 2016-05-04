@@ -73,6 +73,26 @@ angular.module("amazonfresh").factory("TripAnalyticsService", ["$q","$window","$
 				deferred.reject(error.data.error);
 			});
 			return deferred.promise;
+		},
+
+		getTripsPerLocation: function () {
+			var deferred = $q.defer();
+			$http({
+				method: "GET",
+				url: "http://localhost:3000/trips/analytics/bylocation"
+			}).then(function (data) {
+				if(data.data.success) {
+					deferred.resolve(data.data.data);
+				} else {
+					deferred.reject(data.data.error);
+				}
+			}).catch(function (error) {
+				if(error.status === 403) {
+					$window.location.href = "http://localhost:3000/#/auth/login";
+				}
+				deferred.reject(error.data.error);
+			});
+			return deferred.promise;
 		}
 	};
 	return TripAnalyticsService;

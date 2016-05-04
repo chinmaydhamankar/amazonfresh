@@ -51,7 +51,13 @@ router.post("/addrating", Auth.requireLogin, function (req, res) {
                 error: null,
                 data: "rating added successfully!"
             });
-        }
+        } else {
+			res.send({
+				success: false,
+				error: result.error,
+				data: null
+			});
+		}
 
     }, function (error) {
         res.status(500)
