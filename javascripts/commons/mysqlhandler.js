@@ -94,7 +94,7 @@ function _getPool() {
 		pool = _createPool({
 			host: 'localhost',
 			user: 'root',
-			password: 'Rileysteele1',
+			password: 'pratik2901',
 			database: 'amazonfresh',
 			poolsize: 25
 		});

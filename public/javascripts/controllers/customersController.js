@@ -128,6 +128,8 @@ app.controller('CustomersController',["$scope","$window","US_STATES","CustomerSe
         }
         if(! ValidationService.validateCreditCardExpiry(info.expiry)){
             errors.push("Expiry can not be empty or invalid!");
+        }if(!ValidationService.validatePhoneNumber1(info.phoneNumber)) {
+            errors.push("Phone number not valid!");
         }
         return errors;
     }

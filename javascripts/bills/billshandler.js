@@ -43,8 +43,8 @@ exports.getallbills = function (customerId) {
 exports.getallbillsadmin = function () {
     var deferred = Q.defer();
     var result = {};
-    var getJoinPromise = Mysql.executeQuery("SELECT * FROM bill, item Where bill.bill_id = item.bill_id ;");
-    getJoinPromise.done(function(joinResult){
+    var getJoinPromise = Mysql.executeQuery("SELECT * FROM bill, item Where bill.bill_id = item.bill_id LIMIT 1000;");
+    getJoinPromise.done(function(joinResult) {
         for(var i=0 ; i < joinResult.length ; i++){
             if(!result[joinResult[i].bill_id]) {
                 result[joinResult[i].bill_id] = {};

@@ -106,6 +106,18 @@ app.factory("ValidationService", ["$http","$q","$window", function ($http, $q, $
 			}
 		},
 
+		validatePhoneNumber1: function (phoneNumber) {
+			if(phoneNumber instanceof String) {
+				phoneNumber = Number(phoneNumber);
+			}
+			if(isNaN(phoneNumber) || phoneNumber === 0) {
+				return false;
+			} else if (phoneNumber.toString().length < 10 || phoneNumber.toString().length > 11) {
+				return false;
+			}
+			return true;
+		},
+
 		validateCharacters : function (name){
 			if(this.isEmpty(name))
 			{

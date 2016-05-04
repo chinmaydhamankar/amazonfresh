@@ -216,6 +216,9 @@ app.controller('FarmersController',["$window","$scope","US_STATES","FarmerServic
         if(! ValidationService.validateZipCode(info.zipCode)) {
             errors.push("Zip Code can not be empty or invalid!");
         }
+        if(!ValidationService.validatePhoneNumber1(info.phoneNumber)) {
+            errors.push("Phone number not valid!");
+        }
         return errors;
     }
 

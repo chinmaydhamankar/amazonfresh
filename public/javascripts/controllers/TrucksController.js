@@ -100,6 +100,8 @@ app.controller("TrucksController", ["$window","$scope","TruckService", "US_STATE
 			errors.push("SSN not valid.");
 		}if(!ValidationService.validateZipCode(info.zipCode)){
 			errors.push("Zip code not valid.");
+		} if(!ValidationService.validatePhoneNumber1(info.phoneNumber)) {
+			errors.push("Phone number not valid!");
 		}
 		return errors;
 	}
