@@ -20,7 +20,7 @@ angular.module("amazonfresh").factory("TripAnalyticsService", ["$q","$window","$
 					deferred.reject(data.data.error);
 				}
 			}).catch(function (error) {
-				if(error.status === 403) {
+				if(error.status=== 403 || error.status === 302) {
 					$window.location.href = "http://localhost:3000/#/auth/login";
 				}
 				deferred.reject(error.data.error);
@@ -44,7 +44,7 @@ angular.module("amazonfresh").factory("TripAnalyticsService", ["$q","$window","$
 					deferred.reject(data.data.error);
 				}
 			}).catch(function (error) {
-				if(error.status === 403) {
+				if(error.status=== 403 || error.status === 302) {
 					$window.location.href = "http://localhost:3000/#/auth/login";
 				}
 				deferred.reject(error.data.error);
@@ -67,7 +67,7 @@ angular.module("amazonfresh").factory("TripAnalyticsService", ["$q","$window","$
 					deferred.reject(result.data.error);
 				}
 			}).catch(function (error) {
-				if(error.status === 403 ) {
+				if(error.status=== 403 || error.status === 302) {
 					$window.location.href = "http://localhost:3000/#/auth/login";
 				}
 				deferred.reject(error.data.error);
@@ -87,7 +87,7 @@ angular.module("amazonfresh").factory("TripAnalyticsService", ["$q","$window","$
 					deferred.reject(data.data.error);
 				}
 			}).catch(function (error) {
-				if(error.status === 403) {
+				if(error.status=== 403 || error.status === 302) {
 					$window.location.href = "http://localhost:3000/#/auth/login";
 				}
 				deferred.reject(error.data.error);

@@ -19,7 +19,7 @@ angular.module("amazonfresh").factory("FarmerService",["$window","$http","$q", f
                     def.reject(data.data.error);
                 }
             }, function (error) {
-                if(error.status === 302) {
+                if(error.status=== 403 || error.status === 302) {
                     $window.location.href = "http://localhost:3000/#auth/login";
                 }
                 def.reject(error.data.error);
@@ -44,7 +44,7 @@ angular.module("amazonfresh").factory("FarmerService",["$window","$http","$q", f
                     def.reject(data.data.error);
                 }
             }, function (error) {
-                if(error.status === 302)
+                if(error.status=== 403 || error.status === 302)
                 {
                     $window.location.href = "http://localhost:3000/#auth/login";
                 }

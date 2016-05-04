@@ -21,7 +21,7 @@ angular.module("amazonfresh").factory("BillService",["$http","$q","$window", fun
                     def.reject(data.data.error);
                 }
             }, function (error) {
-                if(error.status=== 403)
+                if(error.status=== 403 || error.status === 302)
                 {
                     $window.location.href="http://localhost:3000/#/auth/login";
                 }
@@ -46,7 +46,7 @@ angular.module("amazonfresh").factory("BillService",["$http","$q","$window", fun
                     def.reject(data.data.error);
                 }
             }, function (error) {
-                if(error.status=== 403)
+                if(error.status=== 403 || error.status === 302)
                 {
                     $window.location.href="http://localhost:3000/#/auth/login";
                 }
@@ -69,7 +69,7 @@ angular.module("amazonfresh").factory("BillService",["$http","$q","$window", fun
                     def.reject(data.data.error);
                 }
             }, function (error) {
-                if(error.status=== 403)
+                if(error.status=== 403 || error.status === 302)
                 {
                     $window.location.href="http://localhost:3000/#/auth/login";
                 }
@@ -91,7 +91,7 @@ angular.module("amazonfresh").factory("BillService",["$http","$q","$window", fun
                     def.reject(data.data.error);
                 }
             }, function (error) {
-                if(error.status=== 403)
+                if(error.status=== 403 || error.status === 302)
                 {
                     $window.location.href="http://localhost:3000/#/auth/login";
                 }
@@ -114,7 +114,7 @@ angular.module("amazonfresh").factory("BillService",["$http","$q","$window", fun
                     def.reject(data.data.error);
                 }
             }, function (error) {
-                if(error.status=== 403)
+                if(error.status=== 403 || error.status === 302)
                 {
                     $window.location.href="http://localhost:3000/#/auth/login";
                 }
@@ -136,7 +136,7 @@ angular.module("amazonfresh").factory("BillService",["$http","$q","$window", fun
                     def.reject(data.data.error);
                 }
             }, function (error) {
-                if(error.status=== 403)
+                if(error.status=== 403 || error.status === 302)
                 {
                     $window.location.href="http://localhost:3000/#/auth/login";
                 }

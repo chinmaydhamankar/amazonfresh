@@ -50,6 +50,7 @@ router.post('/login', function (req, res, next) {
  */
 router.get('/logout', function (req, res) {
 	req.session.destroy();
+	req.session = null;
 	res.redirect('/');
 });
 
@@ -61,9 +62,10 @@ router.get('/logout', function (req, res) {
  * @param next
  */
 router.requireLogin = function (req, res, next) {
-	if (!req.session.user) {
+	if (!req.session || !req.session.user) {
 	 	res.status(403).send();
 	 } else {
+		res.header("Cache-Control","no-cache,private,no-store,must-revalidate,max-stale=0,post-check=0,pre-check=0");
 	 	next();
 	 }
 };

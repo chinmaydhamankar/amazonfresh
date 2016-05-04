@@ -154,7 +154,11 @@ angular.module("amazonfresh").controller("ProductController", ["$scope", "$windo
 				alert("Ooops! something went terribly wrong! " + error);
 			});
 		}).catch(function (error) {
-			alert("Ooops! Something went terribly wrong! No Cheesecake for you today! :P");
+			if(error.status === 403) {
+				$window.location.href = "/";
+			} else {
+				alert("Ooops! Something went terribly wrong! No Cheesecake for you today! :P");
+			}
 		});
 	}
 	init();

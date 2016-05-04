@@ -20,7 +20,7 @@ angular.module("amazonfresh").factory("ProductService", ["$window", "$http", "$q
 					def.reject(data.data.error);
 				}
 			}, function (error) {
-				if(error.status=== 302)
+				if(error.status=== 403 || error.status === 302)
 				{
 					$window.location.href="http://localhost:3000/#auth/login";
 				}
@@ -30,7 +30,7 @@ angular.module("amazonfresh").factory("ProductService", ["$window", "$http", "$q
 		},
 
 		searchProduct : function(info){
-			alert(info.productName);
+			//alert(info.productName);
 			var url = "http://localhost:3000/products/searchProduct";
 			var def = $q.defer();
 			$http({
@@ -45,7 +45,7 @@ angular.module("amazonfresh").factory("ProductService", ["$window", "$http", "$q
 					def.reject(data.data.error);
 				}
 			}, function (error) {
-				if(error.status=== 302)
+				if(error.status=== 403 || error.status === 302)
 				{
 					$window.location.href="http://localhost:3000/#auth/login";
 				}
@@ -68,11 +68,11 @@ angular.module("amazonfresh").factory("ProductService", ["$window", "$http", "$q
 					def.reject(data.data.error);
 				}
 			}, function (error) {
-				if(error.status=== 302)
+				if(error.status=== 403 || error.status === 302)
 				{
 					$window.location.href="http://localhost:3000/#auth/login";
 				}
-				def.reject(error.data.error);
+				def.reject(error);
 			});
 
 			return def.promise;
@@ -93,7 +93,7 @@ angular.module("amazonfresh").factory("ProductService", ["$window", "$http", "$q
 					def.reject(data.error);
 				}
 			}, function (error) {
-				if(error.status=== 302)
+				if(error.status=== 403 || error.status === 302)
 				{
 					$window.location.href="http://localhost:3000/#auth/login";
 				}
@@ -114,7 +114,7 @@ angular.module("amazonfresh").factory("ProductService", ["$window", "$http", "$q
 			}).then(function (result) {
 				deferred.resolve(result.data.data);
 			}).catch(function (error) {
-				if(error.status=== 302)
+				if(error.status=== 403 || error.status === 302)
 				{
 					$window.location.href="http://localhost:3000/#auth/login";
 				}
@@ -135,7 +135,7 @@ angular.module("amazonfresh").factory("ProductService", ["$window", "$http", "$q
 			}).then(function (result) {
 				deferred.resolve(result.data.data);
 			}).catch(function (error) {
-				if(error.status=== 302)
+				if(error.status=== 403 || error.status === 302)
 				{
 					$window.location.href="http://localhost:3000/#auth/login";
 				}
@@ -152,7 +152,7 @@ angular.module("amazonfresh").factory("ProductService", ["$window", "$http", "$q
 			}).then(function () {
 				deferred.resolve();
 			}).catch(function (error) {
-				if(error.status=== 302)
+				if(error.status=== 403 || error.status === 302)
 				{
 					$window.location.href="http://localhost:3000/#auth/login";
 				}
@@ -191,7 +191,7 @@ angular.module("amazonfresh").factory("ProductService", ["$window", "$http", "$q
 			}).then(function (result) {
 				deferred.resolve(result);
 			}).catch(function (error) {
-				if(error.status=== 302)
+				if(error.status=== 403 || error.status === 302)
 				{
 					$window.location.href="http://localhost:3000/#auth/login";
 				}
@@ -212,7 +212,7 @@ angular.module("amazonfresh").factory("ProductService", ["$window", "$http", "$q
 					deferred.reject(data.data.error);
 				}
 			}).catch(function (error) {
-				if(error.status=== 302)
+				if(error.status=== 403 || error.status === 302)
 				{
 					$window.location.href="http://localhost:3000/#auth/login";
 				}
