@@ -16,13 +16,20 @@ angular.module("amazonfresh").factory("TruckService",["$window","$http","$q", fu
 				if (data.data.success) {
 					def.resolve();
 				} else {
+					alert("errorororor");
+					alert(data.data.error);
 					def.reject(data.data.error);
 				}
 			}, function (error) {
 				if(error.status === 403) {
 					$window.location.href = "http://localhost:3000/#/auth/login";
 				}
-				def.reject(error.data.error);
+				else
+				{
+					alert("Hii");
+					def.reject(error.data.error);
+				}
+
 			});
 			return def.promise;
 		}

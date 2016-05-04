@@ -18,12 +18,24 @@ router.post("/", function (req, res) {
     };
     var promise = MQClient.request(QUEUE_NAME, payload);
   //  var promise = FarmerHandler.createfarmer(req.body.info);
-    promise.done(function () {
-        res.send({
-            success: true,
-            error: null,
-            data: "Farmer has been registered successfully!"
-        });
+    promise.done(function (result) {
+        if(result.statusCode == 200)
+        {
+            res.send({
+                success: true,
+                error: null,
+                data: "Farmer has been registered successfully!"
+            });
+        }
+        else
+        {
+            res.status(500)
+                .send({
+                    success: false,
+                    error: result.error
+                });
+        }
+
     }, function (error) {
         res.status(500)
             .send({

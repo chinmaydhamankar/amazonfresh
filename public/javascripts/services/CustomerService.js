@@ -4,26 +4,33 @@
 
 angular.module("amazonfresh").factory("CustomerService",["$window","$http","$q", function ($window, $http, $q) {
     var CustomerService = {
-        signup: function (info) {
+        signup: function (info)
+        {
             var url = "http://localhost:3000/customers";
             var def = $q.defer();
             $http({
                 method: 'POST',
                 url: url,
-                data: {
+                data:
+                {
                     "info": info
                 }
-            }).then(function (data) {
-                if (data.data.success) {
+            }).then(function (data)
+            {
+                if (data.data.success)
+                {
+                    alert()
                     def.resolve();
-                } else {
+                }
+                else
+                {
                     def.reject(data.data.error);
                 }
             }, function (error) {
                 if(error.status=== 403) {
                     $window.location.href = "http://localhost:3000/#/auth/login";
                 } else {
-                    def.reject(error);
+                    def.reject(error.data.error);
                 }
             });
             return def.promise;

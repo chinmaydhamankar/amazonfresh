@@ -22,7 +22,7 @@ angular.module("amazonfresh").factory("FarmerService",["$window","$http","$q", f
                 if(error.status === 302) {
                     $window.location.href = "http://localhost:3000/#auth/login";
                 }
-                def.reject(error);
+                def.reject(error.data.error);
             });
             return def.promise;
         },

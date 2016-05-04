@@ -64,7 +64,6 @@ app.controller("TrucksController", ["$window","$scope","TruckService", "US_STATE
 		} else {
 			var promise = TruckService.signup(info);
 			promise.then(function (result) {
-				//alert("Success!");
 				$window.location.href = "http://localhost:3000/";
 			}, function (error) {
 				alert("Error - " + error);

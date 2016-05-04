@@ -18,12 +18,22 @@ router.post("/",function (req, res) {
                 data: "Customer is registered successfully!"
             });
         }
+        else
+        {
+            console.log("Errrrorrr is "+result.error);
+            res.status(500)
+                .send({
+                    success: false,
+                    error: result.error
+                });
+        }
 
     }, function (error) {
+        console.log("Eoorror is"+error);
         res.status(500)
             .send({
                 success: false,
-                error: "Sign Up failed"
+                error: error
             });
     });
 });
